@@ -1,0 +1,222 @@
+:root {
+    --mainCol: #1A2B5E;
+    --mainCol2: #454b5e;
+    --AkcCol: #6b8ef8;
+    --goldCol: #F0B429;
+    --lightgold: #ffd676;
+    --redAkc: #DC143C;
+    --fon: #e1f2fd;
+    --cards: rgb(182, 194, 205);
+    --textCol: #2C2C2A;
+    --mainSize: 18px;
+    --hs: 32px;
+    --backText: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Barlow', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Animations */
+@keyframes sh02 {
+    from {
+        opacity: 0;
+        left: 0%;
+    }
+    50% {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        left: 100%;
+    }
+}
+
+/* Typography */
+a {
+    text-decoration: none;
+}
+
+h1 {
+    color: var(--goldCol);
+}
+
+h1::before {
+    content: '';
+    top: 20px;
+    left: 15px;
+    position: relative;
+    z-index: 2;
+    width: 10px;
+    height: 10px;
+    background-color: var(--redAkc);
+    border-radius: 50%;
+}
+
+/* Header */
+.Header__container {
+    display: flex;
+    justify-content: center;
+    background-color: var(--mainCol);
+    height: 50px;
+}
+
+.header__content {
+    width: 100vw;
+    margin: 0 auto;
+    max-width: 1500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Navigation */
+.nuvbar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nuvbar li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.nuvbar a {
+    color: var(--AkcCol);
+    text-shadow: 1px 1px 4px #2C2C2A;
+    transition: all 0.3s ease-out;
+    padding-left: 40px;
+}
+
+.nuvbar a:hover {
+    color: var(--goldCol);
+}
+main {
+    width: 100vw;
+    height: auto;
+    background-color: var(--fon);
+}
+
+.sec1 {
+    height: 120vh;
+    background: url('https://i.pinimg.com/1200x/c0/9c/1f/c09c1fa666fd87b502c655a7d0f132f3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100vw;
+}
+.sec1-content {
+    width: 60%;
+    padding: 60px;
+    background-color: var(--mainCol2);
+    margin: 0 auto;
+    grid-template-rows: 1fr 1fr;
+    max-width: 1000px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    color: var(--textCol);
+    height: 80vh;
+    /* Border only left and right + bottom (как у вас) */
+    border-left: 2px solid var(--lightgold);
+    border-right: 2px solid var(--lightgold);
+    border-bottom: 2px solid var(--lightgold);
+    /* Box-shadow только слева и справа */
+    box-shadow: 
+        -4px 0 8px -2px rgba(255, 214, 118, 0.5),
+        4px 0 8px -2px rgba(255, 214, 118, 0.5);
+    z-index: 1;
+}
+.sec1__content-l1 {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.sec__Title p {
+    display: flex;
+    justify-content: center;
+}
+
+.T-up {
+    font-size: 500%;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--lightgold);
+}
+
+.T-down {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--lightgold);
+}
+.sec1__content-l1-txt{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: center;
+}
+.sec1__subtitle {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    color: #fff7cc;
+}
+
+/* Buttons */
+.sec1__btns {
+    display: flex;
+    justify-content: center;
+    column-gap: 50px;
+}
+
+.sec1__btns button {
+    position: relative;
+    background-color: var(--mainCol);
+    padding: 10px 20px;
+    border-radius: 7px;
+    border: 1px solid rgb(61, 106, 255);
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--lightgold);
+    overflow: hidden;
+    box-shadow: 0 0 0 0 transparent;
+    transition: all 0.2s ease-in;
+    cursor: pointer;
+}
+
+.sec1__btns button:hover {
+    background: rgb(61, 106, 255);
+    box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+    transition: all 0.2s ease-out;
+}
+
+.sec1__btns button:hover::before {
+    animation: sh02 0.5s 0s linear;
+}
+
+.sec1__btns button::before {
+    content: '';
+    display: block;
+    width: 0px;
+    height: 86%;
+    position: absolute;
+    top: 7%;
+    left: 0%;
+    opacity: 0;
+    background: #fff;
+    box-shadow: 0 0 50px 30px #fff;
+    transform: skewX(-20deg);
+}
+
+.sec1__btns button:active {
+    box-shadow: 0 0 0 0 transparent;
+    transition: box-shadow 0.2s ease-in;
+}
