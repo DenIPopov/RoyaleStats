@@ -6,7 +6,7 @@
     --lightgold: #ffd676;
     --redAkc: #DC143C;
     --fon: #e1f2fd;
-    --cards: rgb(191, 210, 228);
+    --cards: rgb(228, 214, 191);
     --textCol: #2C2C2A;
     --mainSize: 18px;
     --hs: 32px;
@@ -71,7 +71,7 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    height: 50px;
+    height: 6vh;
 }
 
 .header__content {
@@ -112,19 +112,22 @@ main {
 
 .sec1 {
     height: 120vh;
-    background: url('https://images5.alphacoders.com/127/thumb-1920-1270387.jpg');
+    background: url('https://images.alphacoders.com/128/thumbbig-1284523.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     width: 100vw;
-}
-.sec1-content {
-    width: 100%;
     display: grid;
     grid-template-rows: 1fr 1fr;
     padding: 15px;
     gap: 30px;
+}
+.sec1-content {
+    display: grid;
+    height: 94vh;
+    align-items: center;
+    gap: 100px;
 }
 .sec1__content-l1 {
     width: 40%;
@@ -140,7 +143,7 @@ main {
     align-items: center;
     color: var(--textCol);
     min-height: 40vh;
-    height: 60vh;
+    height: 4%;
     /* Border only left and right + bottom (как у вас) */
     border-left: 2px solid var(--lightgold);
     border-right: 2px solid var(--lightgold);
@@ -174,11 +177,11 @@ main {
 .sec__Title p{
     text-shadow: 4px 3px 8px #d1a18a;
 }
-.sec1__content-l1-txt{
+/* .sec1__content-l1-txt{
     display: grid;
     grid-template-rows: 1fr 1fr;
     align-items: center;
-}
+} */
 .sec1__subtitle {
     font-family: Arial, Helvetica, sans-serif;
     padding: 10px;
@@ -190,7 +193,7 @@ main {
 .sec1__btns {
     display: flex;
     justify-content: center;
-    column-gap: 50px;
+    column-gap: 150px;
 }
 
 .btn {
@@ -242,7 +245,7 @@ main {
 .sec1__content-l2 {
     width: 100%;
     min-height: 10vh;
-    height: 50vh;
+    height: 20vh;
     background-color: var(--mainCol2);
     display: flex;
     justify-content: center;
@@ -273,11 +276,15 @@ main {
     border-radius: 20px;
 }
 .cards {
-    background-color: var(--cards);
+    /* background-color: var(--cards); */
+        background: url('https://avatars.mds.yandex.net/i?id=c92949a7523c8e90fe3e14a4be864de6_l-10348710-images-thumbs&n=13');
+        background-size: cover;
+
     width: 14vw;
     height: 14vh;
     border-radius: 20px;
     transition: all .3s ease-out;
+    border: 2px solid rgb(255, 218, 52);
     display: grid;
     justify-content: center;
     align-items: center;
@@ -301,6 +308,7 @@ main {
     align-items: center;
     display: flex;
     justify-content: center;
+    border: 2px solid rgb(255, 218, 52);
     border: 1px solid var(--mainCol);
     border-radius: 15px;
     background-color: var(--mainCol);
@@ -310,5 +318,6 @@ main {
     box-shadow: 0 0 30px 1px var(--mainCol);
 }
 .cardText{
-    font-size: 16px;
+    font-size: 18px;
+    color: var(--lightgold);
 }
