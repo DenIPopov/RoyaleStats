@@ -1,4 +1,4 @@
-# RoyaleStats
+# ✨ RoyaleStats
 
 ## Разработчики
 
