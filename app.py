@@ -20,7 +20,6 @@ def calculate_upgrade():
     total_cards = 0
     total_crystals = 0
 
-    # Суммируем стоимость с текущего уровня до целевого
     for level in range(current_level, target_level):
         upgrade = session.query(Upgrade).filter_by(level=level).first()
         if upgrade:
