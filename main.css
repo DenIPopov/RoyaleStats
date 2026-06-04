@@ -1,10 +1,13 @@
 :root {
-    --mainCol: #111c3d;
+    --mainCol: #1A2B5E;
     --mainCol2: #404e68;
     --AkcCol: #6b8ef8;
     --goldCol: #F0B429;
     --lightgold: #ffd676;
+    --cardBG: #d7d8a9;
     --redAkc: #DC143C;
+    --akcGold:#ffb60b;
+    --green: #36DA82;
     --fon: #e1f2fd;
     --cards: rgb(228, 214, 191);
     --textCol: #2C2C2A;
@@ -66,7 +69,7 @@ body{
 .Header__container {
     display: flex;
     justify-content: center;
-    background: url('https://images5.alphacoders.com/127/thumb-1920-1270387.jpg');
+    background: var(--mainCol);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -111,39 +114,34 @@ main {
 }
 
 .sec1 {
-    height: 120vh;
-    background: url('https://images.alphacoders.com/128/thumbbig-1284523.webp');
+    height: 94vh;
+    background: url('https://images.alphacoders.com/127/thumb-1920-1270388.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
     width: 100vw;
     display: grid;
     grid-template-rows: 1fr 1fr;
     padding: 15px;
     gap: 30px;
 }
-.sec1-content {
+.sec1__conteiner{
     display: grid;
     height: 94vh;
     align-items: center;
-    gap: 100px;
+    gap: 10px;
 }
-.sec1__content-l1 {
-    width: 40%;
+.sec1__content {
+    width: 680px;
     max-width: 60%;
     padding: 60px;
+    min-height: 40vh;
+    text-align: center;
+    height: 680px;
     background-color: var(--mainCol);
     border-radius: 25px;
     margin: 0 auto;
-    grid-template-rows: 1fr 1fr;
-    display: grid;
-    justify-content: center;
-    align-content: start;
-    align-items: center;
     color: var(--textCol);
-    min-height: 40vh;
-    height: 4%;
     /* Border only left and right + bottom (как у вас) */
     border-left: 2px solid var(--lightgold);
     border-right: 2px solid var(--lightgold);
@@ -151,12 +149,14 @@ main {
     box-shadow: 1px 3px 15px rgb(255, 214, 118);
     z-index: 1;
 }
-.sec1__content-l1-txt {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.sec1__block-main {
+    display: grid;
+    height: 80%;
+    grid-template-rows: repeat(2, 1fr);
+    justify-content: center;
+    align-content: start;
+    align-items: center;
 }
-
 .sec__Title p {
     display: flex;
     justify-content: center;
@@ -164,28 +164,27 @@ main {
 
 .T-up {
     font-size: 500%;
+    font-size: 48px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     color: var(--lightgold);
 }
 
 .T-down {
-    font-size: 22px;
+    font-size: 32px;
     font-weight: 600;
     color: var(--lightgold);
 }
 .sec__Title p{
     text-shadow: 4px 3px 8px #d1a18a;
 }
-/* .sec1__content-l1-txt{
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    align-items: center;
-} */
 .sec1__subtitle {
     font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    margin-top: -100px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 22px;
+    align-items: center;
     color: #fff7cc;
 }
 
@@ -194,6 +193,7 @@ main {
     display: flex;
     justify-content: center;
     column-gap: 150px;
+    align-items: end;
 }
 
 .btn {
@@ -241,83 +241,164 @@ main {
 }
 
 /* секция 2 */
-
-.sec1__content-l2 {
+.sec2{
+    /*  */
+}
+.sec2__conteiner{
+    height: 54vh;
+    background:var(--mainCol);
+    width: 100vw;
+}
+.sec2__content{
     width: 100%;
-    min-height: 10vh;
-    height: 20vh;
-    background-color: var(--mainCol2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 130px;
-    flex-wrap: wrap;
+    max-width: 1600px;
+    margin: 0 auto;
 }
-/* Карточки */
-.card{
+.sec2__block-card{
+    height: 54vh;
     display: grid;
-    row-gap: 10%;
-}
-.sec1__content-l2 .card1,
-.sec1__content-l2 .card2,
-.sec1__content-l2 .card3 {
-    padding: 10%;
-    width: 10vw;
-    color: var(--textCol);
-    font-weight: bold;
-    font-size: 18px;
-    border-radius: 20px;
-    transition: all .2s;
-}
-.sec1__content-l2 .card1:hover,
-.sec1__content-l2 .card2:hover,
-.sec1__content-l2 .card3:hover {
-    transform: scale(0.98);
-    border-radius: 20px;
-}
-.cards {
-    /* background-color: var(--cards); */
-        background: url('https://avatars.mds.yandex.net/i?id=c92949a7523c8e90fe3e14a4be864de6_l-10348710-images-thumbs&n=13');
-        background-size: cover;
-
-    width: 14vw;
-    height: 14vh;
-    border-radius: 20px;
-    transition: all .3s ease-out;
-    border: 2px solid rgb(255, 218, 52);
-    display: grid;
-    justify-content: center;
+    justify-items: center;
     align-items: center;
     text-align: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10%;
 }
-.cards:hover {
-    box-shadow: 0px 0px 30px 1px rgb(255, 238, 0);
-}
-.cards:hover .card1,
-.cards:hover .card2,
-.cards:hover .card3 {
-    transform: scale(0.98);
-}
-.cardNum{
-    font-size: 18px;
-    padding: 15px;
-    height: 50%;
-    color: var(--lightgold);
-    font-family: cursive;
-    text-shadow: 4px 3px 8px #d1a18a;
+.card {
+    width: 260px;
+    height: 370px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    padding: 30px 20px;
+    border: 3px solid var(--goldCol);
+    border-radius: 15px;
+    box-shadow: 0px 3px 14px var(--lightgold);
+    background-color: var(--mainCol2);
+}
+
+.cardNum {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background-color: var(--akcGold);
     display: flex;
     justify-content: center;
-    border: 2px solid rgb(255, 218, 52);
-    border: 1px solid var(--mainCol);
-    border-radius: 15px;
+    align-items: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--mainCol2);
+}
+
+.cardText {
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    text-align: start;
+}
+/* section 3 */
+.sec3{
+}
+.sec3__conteiner{
+    height: 84vh;
+    background: url('https://images5.alphacoders.com/127/thumb-1920-1270387.jpg');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.sec3__content{
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+.info__title{
+    font-size: 48px;
+    color: var(--mainCol2);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+.info__title p{
+    border: 1px solid var(--lightgold);
+    border-radius: 20px;
     background-color: var(--mainCol);
-    transition: all 0.3s ease-in-out;
+    width: 60%;
+    padding: 10px;
+    text-transform: uppercase;
+    color: var(--cardBG);
+    text-shadow:5px 5px 15px var(--mainCol2);
+    box-shadow: 0px 5px 15px var(--lightgold);
 }
-.cardNum:hover{
-    box-shadow: 0 0 30px 1px var(--mainCol);
+.info-cards{
+    display: grid;
+    height: 54vh;
+    padding: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--AkcCol);
+    background-color: #4462bed8;
+    box-shadow: 0px 5px 16px var(--lightgold);
+    border-radius: 20px;
 }
-.cardText{
+.unit {
+    width: 320px;
+    height: 260px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: var(--mainCol2);
+    border: 2px solid var(--goldCol);
+    box-shadow: 0px 3px 14px var(--lightgold);
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+}
+.unit__img {
+    width: 110px;
+    min-width: 110px;
+    height: 100%;
+    overflow: hidden;
+}
+.unit__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+.unit__info {
+    flex: 1;
+    min-width: 0;
+    padding: 18px;
+    background-color: var(--cardBG);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between; /* имя сверху, стоимость снизу */
+    align-items: flex-start;
+}
+.unit__name {
     font-size: 18px;
-    color: var(--lightgold);
+    font-weight: 700;
+    color: var(--mainCol2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-self: flex-start;
+}
+.unit__type {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--AkcCol);
+}
+.unit__cost {
+    display: flex;
+    align-items: end;
+    align-self: flex-start;
+    font-size: 16px;
+    color: var(--mainCol2);
+    font-weight: bold;
 }
