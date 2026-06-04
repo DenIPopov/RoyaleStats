@@ -2,7 +2,6 @@ from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
-# Подключение к БД (замени на свои параметры)
 DATABASE_URL = "postgresql://postgres:root_password@localhost:5432/royalestats"
 
 engine = create_engine(DATABASE_URL)
@@ -71,7 +70,7 @@ class Card(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     card_type = Column(String, nullable=False)
-    rarity = Column(String, nullable=False)  # common, rare, epic, legendary, champions
+    rarity = Column(String, nullable=False)  
     
     players = relationship("PlayerCard", back_populates="card")
 

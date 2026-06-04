@@ -2,7 +2,7 @@ from models import SessionLocal, Upgrade, QuantityCards, QuantityGold, Card
 
 session = SessionLocal()
 
-# Очищаем старые данные
+# Очистка старых данных
 session.query(Upgrade).delete()
 session.query(QuantityCards).delete()
 session.query(QuantityGold).delete()
@@ -32,8 +32,8 @@ upgrade_data = [
 for level, gold, cards, cristal in upgrade_data:
     session.add(Upgrade(level=level, cost_gold=gold, cost_cards=cards, cost_cristals=cristal))
 
-# 2. Таблица quantity_cards (сколько карт нужно для прокачки) - РЕАЛИСТИЧНЫЙ ВАРИАНТ
-# Уровни 1-13 соответствуют строкам 2-14 в твоём INSERT
+# 2. Таблица об количестве карт (сколько карт нужно для прокачки)
+# Уровни 1-16
 cards_quantity_data = [
     (1, 1, 0, 0, 0, 0),
     (2, 2, 0, 0, 0, 0),
@@ -59,7 +59,7 @@ for level, common, rare, epic, legendary, champions in cards_quantity_data:
         legendary=legendary, champions=champions
     ))
 
-# 3. Таблица quantity_gold (сколько золота нужно для прокачки) - РЕАЛИСТИЧНЫЙ ВАРИАНТ
+# 3. Таблица об количестве золота (сколько золота нужно для прокачки)
 gold_quantity_data = [
     (1, 0, 0, 0, 0, 0),
     (2, 5, 0, 0, 0, 0),
@@ -85,9 +85,9 @@ for level, common, rare, epic, legendary, champions in gold_quantity_data:
         legendary=legendary, champions=champions
     ))
 
-# 4. Добавляем карты (твой большой список из 125 карт)
+# 4. Информация о картах (список из 125 карт)
 cards_data = [
-    # Обычные (common)
+    # Обычные
     (1, "Принцесса из башни", "Воин для башни", "common"),
     (2, "Скелеты", "Воин", "common"),
     (3, "Огненный дух", "Воин", "common"),
@@ -120,7 +120,7 @@ cards_data = [
     (30, "Королевские рекруты", "Воин", "common"),
     (31, "Валькирия", "Воин", "common"),
 
-    # Редкие (rare)
+    # Редкие
     (32, "Дух исцеления", "Воин", "rare"),
     (33, "Ледяной голем", "Воин", "rare"),
     (34, "Подозрительный куст", "Воин", "rare"),
@@ -151,7 +151,7 @@ cards_data = [
     (59, "Сборщик эликсира", "Здание", "rare"),
     (60, "Три мушкетера", "Воин", "rare"),
 
-    # Эпические (epic)
+    # Эпические
     (61, "Канонир", "Воин для башни", "epic"),
     (62, "Зеркало", "Заклинание", "epic"),
     (63, "Варварская бочка", "Заклинание", "epic"),
@@ -187,7 +187,7 @@ cards_data = [
     (93, "Электрогрант", "Воин", "epic"),
     (94, "Голем", "Воин", "epic"),
 
-    # Легендарные (legendary)
+    # Легендарные
     (95, "Графиня с кинжалами", "Воин для башни", "legendary"),
     (96, "Королевский повар", "Воин для башни", "legendary"),
     (97, "Бревно", "Заклинание", "legendary"),
@@ -212,7 +212,7 @@ cards_data = [
     (116, "Мегарыцарь", "Воин", "legendary"),
     (117, "Адская гончая", "Воин", "legendary"),
 
-    # Чемпионы (champions)
+    # Чемпионы
     (118, "Маленький принц", "Воин", "champions"),
     (119, "Король скелетов", "Воин", "champions"),
     (120, "Золотой рыцарь", "Воин", "champions"),
