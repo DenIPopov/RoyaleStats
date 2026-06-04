@@ -17,7 +17,6 @@ def calculate_upgrade():
 
     session = SessionLocal()
 
-    # Получаем карту
     card = session.query(Card).filter_by(id=card_id).first()
     if not card:
         session.close()
@@ -27,14 +26,11 @@ def calculate_upgrade():
     total_gold = 0
     total_cards = 0
 
-    # Суммируем стоимость с текущего уровня до целевого
     for level in range(current_level, target_level):
-        # Получаем количество карт для этого уровня
         cards_q = session.query(QuantityCards).filter_by(level=level).first()
         if cards_q:
             total_cards += getattr(cards_q, rarity)
         
-        # Получаем количество золота для этого уровня
         gold_q = session.query(QuantityGold).filter_by(level=level).first()
         if gold_q:
             total_gold += getattr(gold_q, rarity)
@@ -48,6 +44,13 @@ def calculate_upgrade():
         "cards_needed": total_cards,
         "levels_needed": target_level - current_level
     })
+
+@app.route('/api/cards', methods=['GET'])
+def get_cards():
+    session = SessionLocal()
+    cards = session.query(Card).all()
+    session.close()
+    return jsonify([{"id": c.id, "name": c.name, "rarity": c.rarity} for c in cards])
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
