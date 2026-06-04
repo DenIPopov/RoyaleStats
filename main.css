@@ -8,6 +8,7 @@
     --redAkc: #DC143C;
     --akcGold:#ffb60b;
     --green: #36DA82;
+    --lightGreen:#9eeac1;
     --fon: #e1f2fd;
     --cards: rgb(228, 214, 191);
     --textCol: #2C2C2A;
@@ -401,4 +402,118 @@ main {
     font-size: 16px;
     color: var(--mainCol2);
     font-weight: bold;
+}
+
+/* сек 4 */
+.sec4__container{
+    background: linear-gradient(
+        90deg,
+        var(--lightGreen),
+        var(--mainCol)
+    );
+    padding: 60px 0;
+}
+.sec4__content{
+    max-width: 1600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    gap: 40px;
+    align-items: center;
+}
+.sec4__left{
+    height: 700px;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 2px solid var(--goldCol);
+    box-shadow: 0px 5px 16px var(--lightgold);
+}
+.sec4__left img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.sec4__right{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.sec4__title{
+    background: var(--mainCol);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    border: 2px solid var(--lightgold);
+    box-shadow: 0px 3px 14px var(--lightgold);
+}
+.sec4__title h2{
+    color: var(--lightgold);
+    font-size: 32px;
+}
+.deck-card{
+    background: var(--cards);
+    border-radius: 15px;
+    padding: 25px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid var(--goldCol);
+    box-shadow: 0px 3px 12px rgba(0,0,0,.2);
+    transition: .3s;
+}
+.deck-card:hover{
+    transform: translateY(-4px);
+}
+.deck-info p{
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--mainCol);
+}
+.deck-info span{
+    color: var(--mainCol2);
+    font-weight: 600;
+}
+.deck-winrate{
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--green);
+}
+.footer{
+    background-color: var(--mainCol);
+    border-top: 2px solid var(--goldCol);
+}
+.footer__content{
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 50px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 80px;
+}
+.footer h2,
+.footer h3{
+    color: var(--lightgold);
+    margin-bottom: 20px;
+}
+.footer p{
+    color: var(--cardBG);
+    line-height: 1.7;
+}
+.footer a{
+    display: block;
+    margin-bottom: 12px;
+    color: var(--AkcCol);
+    transition: .3s;
+}
+.footer a:hover{
+    color: var(--goldCol);
+}
+.footer__bottom{
+    text-align: center;
+    padding: 20px;
+
+    color: var(--cardBG);
+
+    border-top: 1px solid rgba(255,255,255,.15);
 }
