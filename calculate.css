@@ -202,7 +202,7 @@ html, body {
 /* ========== ВТОРОЙ БЛОК КНОПОК + И - (справа от square-bottom-right) ========== */
 .level-control-right {
     position: absolute;
-    top: calc(12% + 10% + 15px);
+    top: calc(10% + 12% + 15px);
     left: calc(33% + 10% + var(--gap-between-squares) + -3% + 20px + 10% + 60px);
     display: flex;
     gap: 15px;
@@ -461,7 +461,7 @@ html, body {
 .result-title {
     color: #F0B429;
     font-family: 'Barlow', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     text-align: center;
     margin-bottom: 15px;
@@ -471,18 +471,21 @@ html, body {
 
 .result-stats {
     display: flex;
-    justify-content: space-around;
-    gap: 20px;
+    justify-content: space-between;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .result-item {
     flex: 1;
     text-align: center;
-    padding: 12px;
+    padding: 15px 10px;
     background: rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .result-item:hover {
@@ -493,15 +496,15 @@ html, body {
 .result-label {
     color: #F0B429;
     font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .result-value {
     color: #fff;
     font-family: 'Barlow', sans-serif;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 800;
     letter-spacing: 1px;
 }
@@ -516,6 +519,150 @@ html, body {
 
 .result-value.gems {
     color: #9b59b6;
+}
+
+.result-sub {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Barlow', sans-serif;
+    margin-top: 5px;
+}
+
+/* ========== ПОЛОСКИ ПРОГРЕССА ========== */
+.progress-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(240, 180, 41, 0.3);
+}
+
+.progress-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    color: #F0B429;
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.progress-bar-fill.cards-fill {
+    background: linear-gradient(90deg, #52b9ff, #2980b9);
+}
+
+.progress-bar-fill.gold-fill {
+    background: linear-gradient(90deg, #ffd700, #f39c12);
+}
+
+.progress-percent {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px;
+}
+
+/* ========== СТИЛИ ДЛЯ HEADER И FOOTER ========== */
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    background: rgba(26, 43, 94, 0.95);
+}
+
+.Header__container {
+    display: flex;
+    justify-content: center;
+    background: rgba(26, 43, 94, 0.95);
+    height: 6vh;
+    min-height: 50px;
+}
+
+.header__content {
+    width: 100vw;
+    margin: 0 auto;
+    max-width: 1500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo h1 {
+    color: #F0B429;
+    font-size: 28px;
+    margin: 0;
+}
+
+.nuvbar ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nuvbar a {
+    color: #6b8ef8;
+    font-family: 'Barlow', sans-serif;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    text-shadow: 1px 1px 2px #2C2C2A;
+}
+
+.nuvbar a:hover {
+    color: #F0B429;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    background: rgba(26, 43, 94, 0.95);
+    padding: 10px 20px;
+    text-align: center;
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+}
+
+.footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer__content p {
+    margin: 5px 0;
+    color: #6b8ef8;
+}
+
+/* Убираем старый navbar-overlay */
+.navbar-overlay {
+    display: none;
 }
 
 /* Адаптив */
@@ -584,27 +731,27 @@ html, body {
     }
     
     .result-value {
-        font-size: 18px;
+        font-size: 22px;
     }
     
     .result-label {
-        font-size: 12px;
+        font-size: 11px;
     }
     
-    .navbar-overlay {
-        padding: 12px 20px;
+    .result-sub {
+        font-size: 9px;
+    }
+
+    .nuvbar a {
+        font-size: 14px;
     }
     
     .logo h1 {
         font-size: 22px;
     }
     
-    .nav-links {
+    .nuvbar ul {
         gap: 20px;
-    }
-    
-    .nav-links li a {
-        font-size: 14px;
     }
 }
 
@@ -665,33 +812,35 @@ html, body {
     }
     
     .result-item {
-        padding: 8px;
+        padding: 10px;
     }
     
     .result-value {
-        font-size: 16px;
+        font-size: 20px;
     }
     
     .result-title {
         font-size: 14px;
     }
     
-    .navbar-overlay {
-        padding: 10px 15px;
-        flex-wrap: wrap;
-        gap: 10px;
+    .result-label {
+        font-size: 12px;
+    }
+
+    .nuvbar a {
+        font-size: 11px;
     }
     
     .logo h1 {
         font-size: 18px;
     }
     
-    .nav-links {
+    .nuvbar ul {
         gap: 12px;
     }
     
-    .nav-links li a {
-        font-size: 11px;
+    .header__content {
+        padding: 0 15px;
     }
 }
 
@@ -751,20 +900,28 @@ html, body {
         font-size: 10px;
     }
     
-    .navbar-overlay {
-        padding: 8px 10px;
+    .result-value {
+        font-size: 16px;
+    }
+    
+    .result-label {
+        font-size: 10px;
+    }
+    
+    .result-sub {
+        font-size: 8px;
+    }
+
+    .nuvbar a {
+        font-size: 9px;
     }
     
     .logo h1 {
         font-size: 14px;
     }
     
-    .nav-links {
+    .nuvbar ul {
         gap: 8px;
-    }
-    
-    .nav-links li a {
-        font-size: 9px;
     }
 }
 
@@ -801,47 +958,4 @@ html, body {
     object-position: center;
     display: block;
     opacity: 0.85;
-}
-
-.navbar-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 70px;
-    background: rgba(26, 43, 94, 0.85);
-    backdrop-filter: blur(8px);
-    z-index: 10;
-    box-sizing: border-box;
-}
-
-.logo h1 {
-    color: #F0B429;
-    font-family: 'Barlow', sans-serif;
-    font-size: 28px;
-    margin: 0;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-links li a {
-    color: #6b8ef8;
-    font-family: 'Barlow', sans-serif;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-    text-shadow: 1px 1px 2px #2C2C2A;
-}
-
-.nav-links li a:hover {
-    color: #F0B429;
 }

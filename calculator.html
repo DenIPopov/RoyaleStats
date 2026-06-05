@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>RoyalStats</title>
+    <title>RoyalStats - Калькулятор прокачки</title>
     <link rel="stylesheet" href="calculate.css">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -14,39 +14,51 @@
         <img src="https://i.pinimg.com/736x/ab/20/38/ab203829c25f2c83c5b1f70fa3a30618.jpg" alt="фото">
     </div>
 
-    <div class="navbar-overlay">
-        <div class="logo"><h1>RoyalStats</h1></div>
-        <ul class="nav-links">
-            <li><a href="#">База знаний</a></li>
-            <li><a href="#">калькулятор прокачки</a></li>
-            <li><a href="#">метовые колоды</a></li>
-            <li><a href="#">Нововведения</a></li>
-        </ul>
-    </div>
+    <!-- HEADER -->
+    <header>
+        <div class="Header__container">
+            <div class="header__content">
+                <div class="logo"><h1>RoyalStats</h1></div>
+                <div class="nuvbar">
+                    <ul class="link">
+                        <li class="list">
+                            <a href="#" class="item">База знаний</a>
+                        </li>
+                        <li class="list">
+                            <a href="#" class="item">калькулятор прокачки</a>
+                        </li>
+                        <li class="list">
+                            <a href="#" class="item" id="meta">метовые колоды</a>
+                        </li>
+                        <li class="list">
+                            <a href="#" class="item">Нововведения</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
 
+    <!-- ОСНОВНОЙ КОНТЕНТ КАЛЬКУЛЯТОРА -->
     <div class="square">
         <div class="square-text">выберите редкость карты:</div>
     </div>
 
-    <!-- КВАДРАТ ТЕКУЩИЙ УРОВЕНЬ -->
     <div class="square-bottom">
         <div class="square-bottom-text">текущий уровень: 1</div>
     </div>
 
-    <!-- ПЕРВЫЙ БЛОК КНОПОК + И - (справа от square-bottom) -->
     <div class="level-control-left">
         <button class="level-control-btn" id="btnMinus">-</button>
         <div class="level-display" id="levelDisplay">1</div>
         <button class="level-control-btn" id="btnPlus">+</button>
     </div>
 
-    <!-- КВАДРАТ ЦЕЛЕВОЙ УРОВЕНЬ -->
     <div class="square-bottom-right">
         <div class="square-bottom-right-text">целевой уровень</div>
         <div class="square-bottom-right-value" id="targetLevelValue">1</div>
     </div>
 
-    <!-- ВТОРОЙ БЛОК КНОПОК + И - (справа от square-bottom-right) -->
     <div class="level-control-right">
         <button class="level-control-btn" id="targetMinus">-</button>
         <div class="level-display" id="targetDisplay">1</div>
@@ -81,23 +93,59 @@
         <input type="number" id="goldInput" class="number-input-right" placeholder="введите количество золота" value="0">
     </div>
 
+    <!-- КОНТЕЙНЕР ДЛЯ ИТОГОВ -->
     <div class="result-container">
-        <div class="result-title">📊 итого для прокачки нужно</div>
+        <div class="result-title">📊 итого для прокачки необходимо</div>
         <div class="result-stats">
             <div class="result-item">
-                <div class="result-label">🎴 количество карт</div>
+                <div class="result-label">количество карт</div>
                 <div class="result-value cards" id="resultCards">0</div>
+                <div class="result-sub">портерес по картам</div>
             </div>
             <div class="result-item">
-                <div class="result-label">💰 количество золота</div>
+                <div class="result-label">количество золота</div>
                 <div class="result-value gold" id="resultGold">0</div>
+                <div class="result-sub">портерес по золоту</div>
             </div>
             <div class="result-item">
-                <div class="result-label">💎 количество гемов</div>
+                <div class="result-label">количество гемов</div>
                 <div class="result-value gems" id="resultGems">0</div>
+                <div class="result-sub">портерес по гемам</div>
+            </div>
+        </div>
+
+        <!-- ПОЛОСКИ ПРОГРЕССА -->
+        <div class="progress-bars">
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>📊 Прогресс по картам</span>
+                    <span class="progress-percent" id="cardsPercent">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill cards-fill" id="cardsProgressFill"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>💰 Прогресс по золоту</span>
+                    <span class="progress-percent" id="goldPercent">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill gold-fill" id="goldProgressFill"></div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer__container">
+            <div class="footer__content">
+                <p>© 2024 RoyalStats. Все права защищены.</p>
+                <p>Clash Royale и все связанные материалы являются товарными знаками Supercell.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const levelsContainer = document.getElementById('levelsContainer');
@@ -109,13 +157,17 @@
         const resultGold = document.getElementById('resultGold');
         const resultGems = document.getElementById('resultGems');
         
-        // Элементы для первого блока (текущий уровень)
+        // Элементы для полосок прогресса
+        const cardsProgressFill = document.getElementById('cardsProgressFill');
+        const goldProgressFill = document.getElementById('goldProgressFill');
+        const cardsPercent = document.getElementById('cardsPercent');
+        const goldPercent = document.getElementById('goldPercent');
+        
         const targetLevelValue = document.getElementById('targetLevelValue');
         const levelDisplay = document.getElementById('levelDisplay');
         const btnMinus = document.getElementById('btnMinus');
         const btnPlus = document.getElementById('btnPlus');
         
-        // Элементы для второго блока (целевой уровень)
         const targetDisplay = document.getElementById('targetDisplay');
         const targetMinus = document.getElementById('targetMinus');
         const targetPlus = document.getElementById('targetPlus');
@@ -124,6 +176,8 @@
         let targetLevel = 1;
         let currentRarity = 'common';
         let levelButtons = [];
+        let currentCards = 0;
+        let currentGold = 0;
         
         const upgradeCosts = {
             common: {
@@ -153,64 +207,85 @@
             }
         };
         
-        // Функция обновления цветов кнопок уровней
         function updateLevelColors() {
             levelButtons.forEach((btn, index) => {
                 const level = index + 1;
                 btn.classList.remove('current', 'range', 'target', 'future');
                 
                 if (level === currentLevel) {
-                    // Текущий уровень - желтый
                     btn.classList.add('current');
                 } 
                 else if (level === targetLevel) {
-                    // Целевой уровень - синий
                     btn.classList.add('target');
                 }
                 else if ((level > currentLevel && level < targetLevel) || (level < currentLevel && level > targetLevel)) {
-                    // Уровни между текущим и целевым - зеленые
                     btn.classList.add('range');
                 }
                 else {
-                    // Остальные уровни - серые
                     btn.classList.add('future');
                 }
             });
         }
         
-        function calculateUpgradeCost() {
+        function calculateNeededResources() {
             const costs = upgradeCosts[currentRarity];
-            let totalCards = 0;
-            let totalGold = 0;
-            let totalGems = 0;
+            let neededCards = 0;
+            let neededGold = 0;
+            let neededGems = 0;
             
             let start = Math.min(currentLevel, targetLevel);
             let end = Math.max(currentLevel, targetLevel);
             
             for (let i = start + 1; i <= end; i++) {
                 if (i < costs.cards.length) {
-                    totalCards += costs.cards[i] || 0;
-                    totalGold += costs.gold[i] || 0;
-                    totalGems += costs.gems[i] || 0;
+                    neededCards += costs.cards[i] || 0;
+                    neededGold += costs.gold[i] || 0;
+                    neededGems += costs.gems[i] || 0;
                 }
             }
-            return { cards: totalCards, gold: totalGold, gems: totalGems };
+            return { neededCards, neededGold, neededGems };
+        }
+        
+        function updateProgressBars() {
+            const { neededCards, neededGold } = calculateNeededResources();
+            
+            let cardsPercentValue = 0;
+            if (neededCards > 0) {
+                cardsPercentValue = Math.min(100, Math.max(0, (currentCards / neededCards) * 100));
+            } else {
+                cardsPercentValue = 100;
+            }
+            
+            let goldPercentValue = 0;
+            if (neededGold > 0) {
+                goldPercentValue = Math.min(100, Math.max(0, (currentGold / neededGold) * 100));
+            } else {
+                goldPercentValue = 100;
+            }
+            
+            cardsProgressFill.style.width = `${cardsPercentValue}%`;
+            goldProgressFill.style.width = `${goldPercentValue}%`;
+            
+            cardsPercent.textContent = `${Math.round(cardsPercentValue)}%`;
+            goldPercent.textContent = `${Math.round(goldPercentValue)}%`;
         }
         
         function updateSquares() {
-            let cards = parseInt(cardsInput.value, 10);
-            let gold = parseInt(goldInput.value, 10);
-            if (isNaN(cards)) { cards = 0; cardsInput.value = 0; }
-            if (isNaN(gold)) { gold = 0; goldInput.value = 0; }
-            cardsValue.textContent = cards;
-            goldValue.textContent = gold;
+            currentCards = parseInt(cardsInput.value, 10);
+            currentGold = parseInt(goldInput.value, 10);
+            if (isNaN(currentCards)) { currentCards = 0; cardsInput.value = 0; }
+            if (isNaN(currentGold)) { currentGold = 0; goldInput.value = 0; }
+            cardsValue.textContent = currentCards;
+            goldValue.textContent = currentGold;
+            updateProgressBars();
         }
         
         function updateResults() {
-            const costs = calculateUpgradeCost();
-            resultCards.textContent = costs.cards;
-            resultGold.textContent = costs.gold;
-            resultGems.textContent = costs.gems;
+            const { neededCards, neededGold, neededGems } = calculateNeededResources();
+            resultCards.textContent = neededCards;
+            resultGold.textContent = neededGold;
+            resultGems.textContent = neededGems;
+            updateProgressBars();
         }
         
         function setCurrentLevel(level) {
@@ -234,15 +309,11 @@
             updateResults();
         }
         
-        // Обработчики для первого блока (текущий уровень)
         btnPlus.addEventListener('click', () => setCurrentLevel(currentLevel + 1));
         btnMinus.addEventListener('click', () => setCurrentLevel(currentLevel - 1));
-        
-        // Обработчики для второго блока (целевой уровень)
         targetPlus.addEventListener('click', () => setTargetLevel(targetLevel + 1));
         targetMinus.addEventListener('click', () => setTargetLevel(targetLevel - 1));
         
-        // Генерация кнопок уровней (1-16)
         for (let i = 1; i <= 16; i++) {
             const button = document.createElement('button');
             button.className = 'level-btn';
@@ -258,15 +329,19 @@
         cardsInput.addEventListener('input', function(e) {
             let value = parseInt(this.value, 10);
             if (isNaN(value)) value = 0;
+            currentCards = value;
             cardsValue.textContent = value;
             cardsInput.value = value;
+            updateProgressBars();
         });
         
         goldInput.addEventListener('input', function(e) {
             let value = parseInt(this.value, 10);
             if (isNaN(value)) value = 0;
+            currentGold = value;
             goldValue.textContent = value;
             goldInput.value = value;
+            updateProgressBars();
         });
         
         document.querySelectorAll('.rarity-btn').forEach(btn => {
