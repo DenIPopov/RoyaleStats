@@ -8,15 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Синий фон -->
     <div class="background-blue"></div>
 
-    <!-- Фото -->
     <div class="fullscreen-photo">
-        <img src="calc.jpg" alt="фото">
+        <img src="https://i.pinimg.com/736x/ab/20/38/ab203829c25f2c83c5b1f70fa3a30618.jpg" alt="фото">
     </div>
 
-    <!-- Nav-bar -->
     <div class="navbar-overlay">
         <div class="logo"><h1>RoyalStats</h1></div>
         <ul class="nav-links">
@@ -27,7 +24,6 @@
         </ul>
     </div>
 
-    <!-- Квадрат (НЕ ИЗМЕНЁН) -->
     <div class="square">
         <div class="square-text">выберите редкость карты:</div>
     </div>
@@ -36,7 +32,6 @@
         <div class="square-bottom-text">текущий уровень:</div>
     </div>
 
-    <!-- Кнопки справа от квадрата (горизонтально) -->
     <div class="buttons-right">
         <button class="rarity-btn btn-common">обычная</button>
         <button class="rarity-btn btn-rare">редкая</button>
@@ -44,5 +39,205 @@
         <button class="rarity-btn btn-legendary">легендарная</button>
         <button class="rarity-btn btn-champion">чемпион</button>
     </div>
+
+    <div class="levels-container" id="levelsContainer"></div>
+
+    <!-- ЛЕВЫЙ КВАДРАТ - КАРТЫ НА РУКАХ -->
+    <div class="square-under-levels">
+        <div class="square-under-levels-text">карт на руках</div>
+        <div class="square-under-levels-value" id="cardsValue">0</div>
+    </div>
+
+    <!-- ПРАВЫЙ КВАДРАТ - ЗОЛОТО НА РУКАХ -->
+    <div class="square-right">
+        <div class="square-right-text">золота на руках</div>
+        <div class="square-right-value" id="goldValue">0</div>
+    </div>
+
+    <!-- ПОЛЕ ВВОДА ПОД ЛЕВЫМ КВАДРАТОМ (карты) -->
+    <div class="input-under-left">
+        <input type="number" id="cardsInput" class="number-input-left" placeholder="введите количество карт" value="0">
+    </div>
+
+    <!-- ПОЛЕ ВВОДА ПОД ПРАВЫМ КВАДРАТОМ (золото) -->
+    <div class="input-under-right">
+        <input type="number" id="goldInput" class="number-input-right" placeholder="введите количество золота" value="0">
+    </div>
+
+    <!-- НОВЫЙ КОНТЕЙНЕР ДЛЯ ИТОГОВ ПРОКАЧКИ -->
+    <div class="result-container">
+        <div class="result-title">📊 итого для прокачки нужно</div>
+        <div class="result-stats">
+            <div class="result-item">
+                <div class="result-label">🎴 количество карт</div>
+                <div class="result-value cards" id="resultCards">0</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">💰 количество золота</div>
+                <div class="result-value gold" id="resultGold">0</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">💎 количество гемов</div>
+                <div class="result-value gems" id="resultGems">0</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const levelsContainer = document.getElementById('levelsContainer');
+        const cardsInput = document.getElementById('cardsInput');
+        const goldInput = document.getElementById('goldInput');
+        const cardsValue = document.getElementById('cardsValue');
+        const goldValue = document.getElementById('goldValue');
+        const resultCards = document.getElementById('resultCards');
+        const resultGold = document.getElementById('resultGold');
+        const resultGems = document.getElementById('resultGems');
+        
+        let currentLevel = 1;
+        let currentRarity = 'common';
+        
+        // Данные для прокачки (примерные значения)
+        const upgradeCosts = {
+            common: {
+                cards: [0, 2, 4, 10, 20, 50, 100, 200, 400, 800, 1200, 1600, 2000, 2500, 3000, 3500],
+                gold: [0, 50, 100, 250, 500, 1000, 2000, 4000, 8000, 16000, 24000, 32000, 40000, 50000, 60000, 70000],
+                gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 100, 150, 200, 250, 300]
+            },
+            rare: {
+                cards: [0, 2, 6, 15, 30, 75, 150, 300, 600, 1200, 1800, 2400, 3000, 3600, 4200, 4800],
+                gold: [0, 100, 200, 500, 1000, 2000, 4000, 8000, 16000, 32000, 48000, 64000, 80000, 96000, 112000, 128000],
+                gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 75, 150, 225, 300, 375, 450]
+            },
+            epic: {
+                cards: [0, 3, 8, 20, 50, 100, 200, 400, 800, 1600, 2400, 3200, 4000, 4800, 5600, 6400],
+                gold: [0, 200, 400, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 96000, 128000, 160000, 192000, 224000, 256000],
+                gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 200, 300, 400, 500, 600]
+            },
+            legendary: {
+                cards: [0, 1, 2, 4, 6, 10, 14, 20, 26, 32, 38, 44, 50, 56, 62, 68],
+                gold: [0, 500, 1000, 2500, 5000, 10000, 20000, 40000, 80000, 160000, 240000, 320000, 400000, 480000, 560000, 640000],
+                gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 300, 450, 600, 750, 900]
+            },
+            champion: {
+                cards: [0, 1, 2, 4, 6, 10, 14, 20, 26, 32, 38, 44, 50, 56, 62, 68],
+                gold: [0, 1000, 2000, 5000, 10000, 20000, 40000, 80000, 160000, 320000, 480000, 640000, 800000, 960000, 1120000, 1280000],
+                gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 400, 600, 800, 1000, 1200]
+            }
+        };
+        
+        // Функция расчета необходимых ресурсов
+        function calculateUpgradeCost(targetLevel) {
+            const costs = upgradeCosts[currentRarity];
+            let totalCards = 0;
+            let totalGold = 0;
+            let totalGems = 0;
+            
+            for (let i = currentLevel + 1; i <= targetLevel; i++) {
+                totalCards += costs.cards[i] || 0;
+                totalGold += costs.gold[i] || 0;
+                totalGems += costs.gems[i] || 0;
+            }
+            
+            return { cards: totalCards, gold: totalGems, gems: totalGems };
+        }
+        
+        // Функция обновления всех значений
+        function updateSquares() {
+            // Получаем значения как ЧИСЛА
+            let cards = parseInt(cardsInput.value, 10);
+            let gold = parseInt(goldInput.value, 10);
+            
+            if (isNaN(cards)) {
+                cards = 0;
+                cardsInput.value = 0;
+            }
+            if (isNaN(gold)) {
+                gold = 0;
+                goldInput.value = 0;
+            }
+            
+            // Обновляем отображение в квадратах
+            cardsValue.textContent = cards;
+            goldValue.textContent = gold;
+        }
+        
+        // Функция обновления итогов прокачки
+        function updateResults() {
+            // Находим активную кнопку уровня (целевой уровень)
+            const activeBtn = document.querySelector('.level-btn.active');
+            let targetLevel = currentLevel;
+            if (activeBtn) {
+                targetLevel = parseInt(activeBtn.textContent, 10);
+            }
+            
+            // Рассчитываем стоимость прокачки
+            const costs = calculateUpgradeCost(targetLevel);
+            
+            // Обновляем отображение
+            resultCards.textContent = costs.cards;
+            resultGold.textContent = costs.gold;
+            resultGems.textContent = costs.gems;
+        }
+        
+        // Генерация кнопок уровней (1-16)
+        for (let i = 1; i <= 16; i++) {
+            const button = document.createElement('button');
+            button.className = 'level-btn';
+            if (i === 1) button.classList.add('active');
+            button.textContent = i;
+            button.dataset.level = i;
+            
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.level-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                currentLevel = i;
+                
+                const bottomText = document.querySelector('.square-bottom-text');
+                bottomText.textContent = `текущий уровень: ${i}`;
+                
+                updateResults();
+            });
+            
+            levelsContainer.appendChild(button);
+        }
+        
+        // Обработчики ввода для полей
+        cardsInput.addEventListener('input', function(e) {
+            let value = parseInt(this.value, 10);
+            if (isNaN(value)) {
+                this.value = 0;
+                value = 0;
+            }
+            updateSquares();
+        });
+        
+        goldInput.addEventListener('input', function(e) {
+            let value = parseInt(this.value, 10);
+            if (isNaN(value)) {
+                this.value = 0;
+                value = 0;
+            }
+            updateSquares();
+        });
+        
+        document.querySelectorAll('.rarity-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.classList.contains('btn-common')) currentRarity = 'common';
+                else if (this.classList.contains('btn-rare')) currentRarity = 'rare';
+                else if (this.classList.contains('btn-epic')) currentRarity = 'epic';
+                else if (this.classList.contains('btn-legendary')) currentRarity = 'legendary';
+                else if (this.classList.contains('btn-champion')) currentRarity = 'champion';
+                
+                updateResults();
+            });
+        });
+        
+        // Инициализация
+        updateSquares();
+        updateResults();
+    </script>
 </body>
 </html>

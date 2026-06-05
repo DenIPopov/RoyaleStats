@@ -11,6 +11,23 @@ html, body {
     padding: 0;
     overflow: hidden;
 }
+
+/* ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ДЛЯ РАЗМЕРОВ КВАДРАТОВ ========== */
+:root {
+    /* Размеры для нижних квадратов */
+    --square-under-levels-width: 15%;     /* ← МЕНЯЙ ШИРИНУ square-under-levels */
+    --square-under-levels-height: 5%;     /* ← МЕНЯЙ ВЫСОТУ square-under-levels */
+    
+    --square-right-width: 15%;            /* ← МЕНЯЙ ШИРИНУ square-right */
+    --square-right-height: 5%;            /* ← МЕНЯЙ ВЫСОТУ square-right */
+    
+    /* Отступ между квадратами (горизонтальный) */
+    --gap-between-squares: 410px;         /* ← МЕНЯЙ ОТСТУП МЕЖДУ КВАДРАТАМИ */
+    
+    /* Отступ между кнопками уровней и квадратами */
+    --gap-between-levels-and-squares: 30px;
+}
+
 .square {
     position: absolute;
     top: 10%;
@@ -37,28 +54,6 @@ html, body {
     margin-bottom: 5px;
 }
 
-.square-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.square-list div {
-    color: #1A2B5E;
-    font-family: 'Barlow', sans-serif;
-    font-size: clamp(7px, 0.9vw, 12px);
-    padding: 2px 0;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.square-list div:hover {
-    color: #F0B429;
-    background: rgba(26, 43, 94, 0.3);
-    border-radius: 10px;
-    padding: 2px 5px;
-}
-
 .buttons-right {
     position: absolute;
     top: 10%;
@@ -66,7 +61,7 @@ html, body {
     z-index: 10;
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 50px;
 }
 
 .rarity-btn {
@@ -81,28 +76,24 @@ html, body {
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
-    
-    /* ДОБАВЬ ЭТИ СТРОКИ И МЕНЯЙ ЦИФРЫ */
-    width: 140px;        /* ширина */
-    height: 100px;        /* высота */
-    text-align: center;  /* центрирует текст */
+    width: 120px;
+    height: 80px;
+    text-align: center;
 }
 
-
-.btn-common { background: rgba(52, 152, 219, 0.85); color: white; }    /* синий */
-.btn-rare { background: rgba(46, 204, 113, 0.85); color: white; }       /* зелёный */
-.btn-epic { background: rgba(155, 89, 182, 0.85); color: white; }       /* фиолетовый */
-.btn-legendary { background: rgba(241, 196, 15, 0.85); color: #1A2B5E; } /* золотой */
-.btn-champion { background: rgba(230, 126, 34, 0.85); color: white; }    /* оранжевый */
-
+.btn-common { background: rgba(52, 152, 219, 0.85); color: white; }
+.btn-rare { background: rgba(46, 204, 113, 0.85); color: white; }
+.btn-epic { background: rgba(155, 89, 182, 0.85); color: white; }
+.btn-legendary { background: rgba(241, 196, 15, 0.85); color: #1A2B5E; }
+.btn-champion { background: rgba(230, 126, 34, 0.85); color: white; }
 
 .square-bottom {
     position: absolute;
     top: calc(10% + 10% + 15px);
     left: 33%;
-    width: 15%;
+    width: 10%;
     height: 10%;
-    background: rgba(12, 26, 43, 0.9);
+    background: rgba(251, 255, 0, 0.9);
     border: 2px solid #F0B429;
     border-radius: 30px;
     z-index: 10;
@@ -113,13 +104,256 @@ html, body {
 }
 
 .square-bottom-text {
-    color: white;
+    color: #1A2B5E;
     font-family: 'Barlow', sans-serif;
     font-size: 14px;
     font-weight: 600;
 }
 
+/* КНОПКИ УРОВНЕЙ - В ОДНУ СТРОКУ */
+.levels-container {
+    position: absolute;
+    top: calc(10% + 10% + 15px + 10% + 15px);
+    left: 65%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 10;
+    flex-wrap: nowrap;
+}
 
+.level-btn {
+    width: 65px;
+    height: 65px;
+    border-radius: 12px;
+    background: rgba(26, 43, 94, 0.85);
+    backdrop-filter: blur(5px);
+    border: 2px solid #F0B429;
+    color: #F0B429;
+    font-family: 'Barlow', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.level-btn:hover {
+    background: rgba(240, 180, 41, 0.85);
+    color: #1A2B5E;
+    transform: scale(1.05);
+    border-color: #fff;
+}
+
+.level-btn.active {
+    background: #F0B429;
+    color: #1A2B5E;
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(240, 180, 41, 0.5);
+}
+
+/* ========== КВАДРАТ ПОД КНОПКАМИ УРОВНЕЙ (ЛЕВЫЙ) ========== */
+.square-under-levels {
+    position: absolute;
+    top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares));
+    left: 33%;
+    width: var(--square-under-levels-width);
+    height: var(--square-under-levels-height);
+    background: rgba(251, 255, 0, 0.9);
+    border: 2px solid #F0B429;
+    border-radius: 30px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.square-under-levels-text {
+    color: #1A2B5E;
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.square-under-levels-value {
+    color: #1A2B5E;
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+/* ========== КВАДРАТ СПРАВА ========== */
+.square-right {
+    position: absolute;
+    top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares));
+    left: calc(33% + var(--square-under-levels-width) + var(--gap-between-squares));
+    width: var(--square-right-width);
+    height: var(--square-right-height);
+    background: rgba(251, 255, 0, 0.9);
+    border: 2px solid #F0B429;
+    border-radius: 30px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.square-right-text {
+    color: #1A2B5E;
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.square-right-value {
+    color: #1A2B5E;
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+/* ========== ПОЛЯ ВВОДА ПОД КАЖДЫМ КВАДРАТОМ ========== */
+.input-under-left {
+    position: absolute;
+    top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 15px);
+    left: 33%;
+    width: var(--square-under-levels-width);
+    z-index: 10;
+}
+
+.input-under-left input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(26, 43, 94, 0.9);
+    backdrop-filter: blur(5px);
+    border: 2px solid #F0B429;
+    border-radius: 15px;
+    color: #F0B429;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-under-left input:focus {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(240, 180, 41, 0.5);
+}
+
+.input-under-right {
+    position: absolute;
+    top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 15px);
+    left: calc(33% + var(--square-under-levels-width) + var(--gap-between-squares));
+    width: var(--square-right-width);
+    z-index: 10;
+}
+
+.input-under-right input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(26, 43, 94, 0.9);
+    backdrop-filter: blur(5px);
+    border: 2px solid #F0B429;
+    border-radius: 15px;
+    color: #F0B429;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-under-right input:focus {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(240, 180, 41, 0.5);
+}
+
+/* ========== НОВЫЙ КОНТЕЙНЕР ДЛЯ ИТОГОВ ПРОКАЧКИ ========== */
+.result-container {
+    position: absolute;
+    bottom: 5%;
+    left: 33%;
+    width: calc(var(--square-under-levels-width) + var(--gap-between-squares) + var(--square-right-width));
+    background: rgba(26, 43, 94, 0.85);
+    backdrop-filter: blur(10px);
+    border: 2px solid #F0B429;
+    border-radius: 25px;
+    z-index: 10;
+    padding: 20px;
+}
+
+.result-title {
+    color: #F0B429;
+    font-family: 'Barlow', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(240, 180, 41, 0.3);
+}
+
+.result-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.result-item {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.result-item:hover {
+    background: rgba(240, 180, 41, 0.2);
+    transform: translateY(-2px);
+}
+
+.result-label {
+    color: #F0B429;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.result-value {
+    color: #fff;
+    font-family: 'Barlow', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.result-value.cards {
+    color: #52b9ff;
+}
+
+.result-value.gold {
+    color: #ffd700;
+}
+
+.result-value.gems {
+    color: #9b59b6;
+}
 
 /* Адаптив */
 @media (max-width: 1000px) {
@@ -129,7 +363,121 @@ html, body {
     }
     
     .rarity-btn {
-        padding: 5px 10px;
+        width: 90px;
+        height: 60px;
+        font-size: 10px;
+    }
+
+    .level-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 14px;
+    }
+    .levels-container {
+        gap: 4px;
+    }
+    
+    .square-under-levels {
+        top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares));
+    }
+    
+    .square-right {
+        top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares));
+    }
+    
+    .input-under-left {
+        top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 10px);
+    }
+    
+    .input-under-right {
+        top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 10px);
+    }
+    
+    .result-container {
+        width: calc(var(--square-under-levels-width) + var(--gap-between-squares) + var(--square-right-width) - 100px);
+    }
+    
+    .result-value {
+        font-size: 18px;
+    }
+    
+    .result-label {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 700px) {
+    .level-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+    .levels-container {
+        gap: 3px;
+    }
+    
+    .square-under-levels {
+        top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares));
+    }
+    
+    .square-right {
+        top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares));
+    }
+    
+    .input-under-left {
+        top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 10px);
+    }
+    
+    .input-under-right {
+        top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 10px);
+    }
+    
+    .result-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .result-item {
+        padding: 8px;
+    }
+    
+    .result-value {
+        font-size: 16px;
+    }
+    
+    .result-title {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 580px) {
+    .level-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+    }
+    .levels-container {
+        gap: 2px;
+    }
+    
+    .square-under-levels {
+        top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares));
+    }
+    
+    .square-right {
+        top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares));
+    }
+    
+    .input-under-left {
+        top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 8px);
+    }
+    
+    .input-under-right {
+        top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 8px);
+    }
+    
+    .input-under-left input, .input-under-right input {
+        padding: 6px;
         font-size: 10px;
     }
 }
@@ -142,8 +490,6 @@ html, body {
     }
 }
 
-
-/* Синий фон на всю страницу */
 .background-blue {
     position: fixed;
     top: 0;
@@ -154,7 +500,6 @@ html, body {
     z-index: 0;
 }
 
-/* Фото */
 .fullscreen-photo {
     position: relative;
     width: 100%;
@@ -172,7 +517,6 @@ html, body {
     opacity: 0.85;
 }
 
-/* Nav-bar поверх фото */
 .navbar-overlay {
     position: absolute;
     top: 0;
