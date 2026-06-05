@@ -1,6 +1,3 @@
-/* ============ NEWS PAGE ============ */
-
-/* Hero */
 *{
        scroll-behavior: smooth;
 }
@@ -100,7 +97,6 @@
     background: var(--AkcCol); 
 }
 
-/* Tags */
 .news-tag {
     display: inline-block;
     font-size: 16px;
@@ -219,8 +215,6 @@
     align-self: flex-start;
     margin-top: 8px;
 }
-
-/* Cards section */
 .news-cards {
     background: url('https://c4.wallpaperflare.com/wallpaper/363/495/820/clash-of-clans-supercell-games-2017-games-wallpaper-preview.jpg');
     background-size: cover;
@@ -283,9 +277,6 @@
     color: var(--cardBG);
     line-height: 1.6;
 }
-
-/* ============ MODAL ============ */
-
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -299,7 +290,6 @@
     pointer-events: none;
     transition: opacity 0.25s ease;
 }
-
 .modal-overlay.active {
     opacity: 1;
     pointer-events: all;
