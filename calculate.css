@@ -15,14 +15,14 @@ html, body {
 /* ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ДЛЯ РАЗМЕРОВ КВАДРАТОВ ========== */
 :root {
     /* Размеры для нижних квадратов */
-    --square-under-levels-width: 15%;     /* ← МЕНЯЙ ШИРИНУ square-under-levels */
-    --square-under-levels-height: 5%;     /* ← МЕНЯЙ ВЫСОТУ square-under-levels */
+    --square-under-levels-width: 15%;
+    --square-under-levels-height: 5%;
     
-    --square-right-width: 15%;            /* ← МЕНЯЙ ШИРИНУ square-right */
-    --square-right-height: 5%;            /* ← МЕНЯЙ ВЫСОТУ square-right */
+    --square-right-width: 15%;
+    --square-right-height: 5%;
     
     /* Отступ между квадратами (горизонтальный) */
-    --gap-between-squares: 410px;         /* ← МЕНЯЙ ОТСТУП МЕЖДУ КВАДРАТАМИ */
+    --gap-between-squares: 410px;
     
     /* Отступ между кнопками уровней и квадратами */
     --gap-between-levels-and-squares: 30px;
@@ -64,6 +64,7 @@ html, body {
     gap: 50px;
 }
 
+/* ========== КНОПКИ РЕДКОСТИ С box-shadow ========== */
 .rarity-btn {
     background: rgba(26, 43, 94, 0.8);
     backdrop-filter: blur(5px);
@@ -81,11 +82,55 @@ html, body {
     text-align: center;
 }
 
-.btn-common { background: rgba(52, 152, 219, 0.85); color: white; }
-.btn-rare { background: rgba(46, 204, 113, 0.85); color: white; }
-.btn-epic { background: rgba(155, 89, 182, 0.85); color: white; }
-.btn-legendary { background: rgba(241, 196, 15, 0.85); color: #1A2B5E; }
-.btn-champion { background: rgba(230, 126, 34, 0.85); color: white; }
+.btn-common { 
+    background: rgba(52, 152, 219, 0.85); 
+    color: white;
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-common:hover {
+    box-shadow: 0 0 25px rgba(52, 152, 219, 0.9), inset 0 1px 0 rgba(255,255,255,0.3);
+    transform: scale(1.02);
+}
+
+.btn-rare { 
+    background: rgba(46, 204, 113, 0.85); 
+    color: white;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-rare:hover {
+    box-shadow: 0 0 25px rgba(46, 204, 113, 0.9), inset 0 1px 0 rgba(255,255,255,0.3);
+    transform: scale(1.02);
+}
+
+.btn-epic { 
+    background: rgba(155, 89, 182, 0.85); 
+    color: white;
+    box-shadow: 0 0 15px rgba(155, 89, 182, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-epic:hover {
+    box-shadow: 0 0 25px rgba(155, 89, 182, 0.9), inset 0 1px 0 rgba(255,255,255,0.3);
+    transform: scale(1.02);
+}
+
+.btn-legendary { 
+    background: rgba(241, 196, 15, 0.85); 
+    color: #1A2B5E;
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.7), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.btn-legendary:hover {
+    box-shadow: 0 0 30px rgba(241, 196, 15, 1), inset 0 1px 0 rgba(255,255,255,0.4);
+    transform: scale(1.02);
+}
+
+.btn-champion { 
+    background: rgba(230, 126, 34, 0.85); 
+    color: white;
+    box-shadow: 0 0 15px rgba(230, 126, 34, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-champion:hover {
+    box-shadow: 0 0 25px rgba(230, 126, 34, 0.9), inset 0 1px 0 rgba(255,255,255,0.3);
+    transform: scale(1.02);
+}
 
 .square-bottom {
     position: absolute;
@@ -110,7 +155,101 @@ html, body {
     font-weight: 600;
 }
 
-/* КНОПКИ УРОВНЕЙ - В ОДНУ СТРОКУ */
+/* ========== КВАДРАТ СПРАВА ОТ square-bottom ========== */
+.square-bottom-right {
+    position: absolute;
+    top: calc(10% + 10% + 15px);
+    left: calc(33% + 10% + var(--gap-between-squares));
+    width: 10%;
+    height: 10%;
+    background: rgba(251, 255, 0, 0.9);
+    border: 2px solid #F0B429;
+    border-radius: 30px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.square-bottom-right-text {
+    color: #1A2B5E;
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.square-bottom-right-value {
+    color: #1A2B5E;
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+/* ========== ПЕРВЫЙ БЛОК КНОПОК + И - (справа от square-bottom) ========== */
+.level-control-left {
+    position: absolute;
+    top: calc(10% + 12% + 15px);
+    left: calc(33% + 10% + var(--gap-between-squares) + -21% + 20px);
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+    align-items: center;
+}
+
+/* ========== ВТОРОЙ БЛОК КНОПОК + И - (справа от square-bottom-right) ========== */
+.level-control-right {
+    position: absolute;
+    top: calc(12% + 10% + 15px);
+    left: calc(33% + 10% + var(--gap-between-squares) + -3% + 20px + 10% + 60px);
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+    align-items: center;
+}
+
+.level-control-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background: rgba(26, 43, 94, 0.9);
+    backdrop-filter: blur(5px);
+    border: 2px solid #F0B429;
+    color: #F0B429;
+    font-family: 'Barlow', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.level-control-btn:hover {
+    background: rgba(240, 180, 41, 0.85);
+    color: #1A2B5E;
+    transform: scale(1.05);
+    border-color: #fff;
+}
+
+.level-control-btn:active {
+    transform: scale(0.95);
+}
+
+.level-display {
+    min-width: 60px;
+    text-align: center;
+    font-family: 'Barlow', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #F0B429;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* КНОПКИ УРОВНЕЙ */
 .levels-container {
     position: absolute;
     top: calc(10% + 10% + 15px + 10% + 15px);
@@ -149,14 +288,38 @@ html, body {
     border-color: #fff;
 }
 
-.level-btn.active {
-    background: #F0B429;
+/* Желтый цвет для текущего уровня */
+.level-btn.current {
+    background: rgba(240, 180, 41, 0.85);
     color: #1A2B5E;
-    border-color: #fff;
-    box-shadow: 0 0 10px rgba(240, 180, 41, 0.5);
+    border-color: #F0B429;
 }
 
-/* ========== КВАДРАТ ПОД КНОПКАМИ УРОВНЕЙ (ЛЕВЫЙ) ========== */
+/* Зеленый цвет для уровней между текущим и целевым */
+.level-btn.range {
+    background: rgba(46, 204, 113, 0.85);
+    color: white;
+    border-color: #2ecc71;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+}
+
+/* Синий для целевого уровня */
+.level-btn.target {
+    background: rgba(52, 152, 219, 0.85);
+    color: white;
+    border-color: #3498db;
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
+}
+
+/* Серый для будущих уровней (после целевого) */
+.level-btn.future {
+    background: rgba(26, 43, 94, 0.85);
+    color: #6b8ef8;
+    border-color: #F0B429;
+    opacity: 0.7;
+}
+
+/* ========== КВАДРАТ ПОД КНОПКАМИ УРОВНЕЙ ========== */
 .square-under-levels {
     position: absolute;
     top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares));
@@ -222,7 +385,7 @@ html, body {
     font-weight: 800;
 }
 
-/* ========== ПОЛЯ ВВОДА ПОД КАЖДЫМ КВАДРАТОМ ========== */
+/* ========== ПОЛЯ ВВОДА ========== */
 .input-under-left {
     position: absolute;
     top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 15px);
@@ -281,7 +444,7 @@ html, body {
     box-shadow: 0 0 10px rgba(240, 180, 41, 0.5);
 }
 
-/* ========== НОВЫЙ КОНТЕЙНЕР ДЛЯ ИТОГОВ ПРОКАЧКИ ========== */
+/* ========== КОНТЕЙНЕР ДЛЯ ИТОГОВ ========== */
 .result-container {
     position: absolute;
     bottom: 5%;
@@ -385,6 +548,29 @@ html, body {
         top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares));
     }
     
+    .square-bottom-right {
+        left: calc(33% + 10% + var(--gap-between-squares) - 100px);
+    }
+    
+    .level-control-left {
+        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 10px);
+    }
+    
+    .level-control-right {
+        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 20px + 10% + 40px);
+    }
+    
+    .level-control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+    
+    .level-display {
+        font-size: 20px;
+        min-width: 50px;
+    }
+    
     .input-under-left {
         top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 10px);
     }
@@ -404,6 +590,22 @@ html, body {
     .result-label {
         font-size: 12px;
     }
+    
+    .navbar-overlay {
+        padding: 12px 20px;
+    }
+    
+    .logo h1 {
+        font-size: 22px;
+    }
+    
+    .nav-links {
+        gap: 20px;
+    }
+    
+    .nav-links li a {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 700px) {
@@ -422,6 +624,31 @@ html, body {
     
     .square-right {
         top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares));
+    }
+    
+    .square-bottom-right {
+        left: calc(33% + 10% + var(--gap-between-squares) - 200px);
+    }
+    
+    .level-control-left {
+        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 5px);
+        gap: 8px;
+    }
+    
+    .level-control-right {
+        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 15px + 10% + 30px);
+        gap: 8px;
+    }
+    
+    .level-control-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+    
+    .level-display {
+        font-size: 18px;
+        min-width: 40px;
     }
     
     .input-under-left {
@@ -448,6 +675,24 @@ html, body {
     .result-title {
         font-size: 14px;
     }
+    
+    .navbar-overlay {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .logo h1 {
+        font-size: 18px;
+    }
+    
+    .nav-links {
+        gap: 12px;
+    }
+    
+    .nav-links li a {
+        font-size: 11px;
+    }
 }
 
 @media (max-width: 580px) {
@@ -468,6 +713,31 @@ html, body {
         top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares));
     }
     
+    .square-bottom-right {
+        left: calc(33% + 10% + var(--gap-between-squares) - 250px);
+    }
+    
+    .level-control-left {
+        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 2px);
+        gap: 5px;
+    }
+    
+    .level-control-right {
+        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 12px + 10% + 20px);
+        gap: 5px;
+    }
+    
+    .level-control-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+    }
+    
+    .level-display {
+        font-size: 16px;
+        min-width: 35px;
+    }
+    
     .input-under-left {
         top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 8px);
     }
@@ -479,6 +749,22 @@ html, body {
     .input-under-left input, .input-under-right input {
         padding: 6px;
         font-size: 10px;
+    }
+    
+    .navbar-overlay {
+        padding: 8px 10px;
+    }
+    
+    .logo h1 {
+        font-size: 14px;
+    }
+    
+    .nav-links {
+        gap: 8px;
+    }
+    
+    .nav-links li a {
+        font-size: 9px;
     }
 }
 
@@ -525,10 +811,11 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
+    padding: 15px 70px;
     background: rgba(26, 43, 94, 0.85);
     backdrop-filter: blur(8px);
     z-index: 10;
+    box-sizing: border-box;
 }
 
 .logo h1 {
