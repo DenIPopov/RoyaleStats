@@ -447,7 +447,7 @@ html, body {
 /* ========== КОНТЕЙНЕР ДЛЯ ИТОГОВ ========== */
 .result-container {
     position: absolute;
-    bottom: 5%;
+    bottom: 10%;
     left: 33%;
     width: calc(var(--square-under-levels-width) + var(--gap-between-squares) + var(--square-right-width));
     background: rgba(26, 43, 94, 0.85);

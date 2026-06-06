@@ -29,15 +29,19 @@ let levelButtons = [];
 let currentCards = 0;
 let currentGold = 0;
 
+// Максимальные значения для полей ввода
+const MAX_CARDS = 9999999;
+const MAX_GOLD = 999999999;
+
 const upgradeCosts = {
     common: {
-        cards: [0, 2, 4, 10, 20, 50, 100, 200, 400, 800, 1200, 1600, 2000, 2500, 3000, 3500],
-        gold: [0, 50, 100, 250, 500, 1000, 2000, 4000, 8000, 16000, 24000, 32000, 40000, 50000, 60000, 70000],
+        cards: [0, 2, 4, 10, 20, 50, 100, 200, 400, 400, 800, 1000, 1500, 2500, 3500, 5500],
+        gold: [0, 50, 100, 250, 500, 1000, 2000, 4000, 8000, 4000, 8000, 15000, 25000, 40000, 60000, 90000],
         gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 100, 150, 200, 250, 300]
     },
     rare: {
-        cards: [0, 2, 6, 15, 30, 75, 150, 300, 600, 1200, 1800, 2400, 3000, 3600, 4200, 4800],
-        gold: [0, 100, 200, 500, 1000, 2000, 4000, 8000, 16000, 32000, 48000, 64000, 80000, 96000, 112000, 128000],
+        cards: [0, 2, 6, 15, 30, 75, 150, 300, 50, 100, 200, 300, 400, 3600, 4200, 4800],
+        gold: [0, 100, 200, 500, 1000, 2000, 4000, 8000, 2000, 4000, 8000, 15000, 25000, 96000, 112000, 128000],
         gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 75, 150, 225, 300, 375, 450]
     },
     epic: {
@@ -46,8 +50,8 @@ const upgradeCosts = {
         gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 200, 300, 400, 500, 600]
     },
     legendary: {
-        cards: [0, 1, 2, 4, 6, 10, 14, 20, 26, 32, 38, 44, 50, 56, 62, 68],
-        gold: [0, 500, 1000, 2500, 5000, 10000, 20000, 40000, 80000, 160000, 240000, 320000, 400000, 480000, 560000, 640000],
+        cards: [0, 1, 2, 4, 6, 10, 14, 20, 26, 32, 2, 4, 6, 9, 62, 68],
+        gold: [0, 500, 1000, 2500, 5000, 10000, 20000, 40000, 80000, 160000, 5000, 15000, 25000, 40000, 560000, 640000],
         gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 300, 450, 600, 750, 900]
     },
     champion: {
@@ -125,6 +129,27 @@ function updateSquares() {
     currentGold = parseInt(goldInput.value, 10);
     if (isNaN(currentCards)) { currentCards = 0; cardsInput.value = 0; }
     if (isNaN(currentGold)) { currentGold = 0; goldInput.value = 0; }
+    
+    // Ограничения для карт (не меньше 0)
+    if (currentCards < 0) {
+        currentCards = 0;
+        cardsInput.value = 0;
+    }
+    if (currentCards > MAX_CARDS) {
+        currentCards = MAX_CARDS;
+        cardsInput.value = MAX_CARDS;
+    }
+    
+    // Ограничения для золота (не меньше 0)
+    if (currentGold < 0) {
+        currentGold = 0;
+        goldInput.value = 0;
+    }
+    if (currentGold > MAX_GOLD) {
+        currentGold = MAX_GOLD;
+        goldInput.value = MAX_GOLD;
+    }
+    
     cardsValue.textContent = currentCards;
     goldValue.textContent = currentGold;
     updateProgressBars();
@@ -145,11 +170,21 @@ function setCurrentLevel(level) {
     levelDisplay.textContent = level;
     const bottomText = document.querySelector('.square-bottom-text');
     bottomText.textContent = `текущий уровень: ${level}`;
-    updateLevelColors();
-    updateResults();
+    
+    // Если текущий уровень стал больше целевого, поднимаем целевой до текущего
+    if (targetLevel < currentLevel) {
+        setTargetLevel(currentLevel);
+    } else {
+        updateLevelColors();
+        updateResults();
+    }
 }
 
 function setTargetLevel(level) {
+    // Целевой уровень не может быть меньше текущего
+    if (level < currentLevel) {
+        level = currentLevel;
+    }
     if (level < 1) level = 1;
     if (level > 16) level = 16;
     targetLevel = level;
@@ -179,18 +214,40 @@ for (let i = 1; i <= 16; i++) {
 cardsInput.addEventListener('input', function (e) {
     let value = parseInt(this.value, 10);
     if (isNaN(value)) value = 0;
+    
+    // Ограничение: не меньше 0
+    if (value < 0) {
+        value = 0;
+        this.value = 0;
+    }
+    // Ограничение: не больше MAX_CARDS
+    if (value > MAX_CARDS) {
+        value = MAX_CARDS;
+        this.value = MAX_CARDS;
+    }
+    
     currentCards = value;
     cardsValue.textContent = value;
-    cardsInput.value = value;
     updateProgressBars();
 });
 
 goldInput.addEventListener('input', function (e) {
     let value = parseInt(this.value, 10);
     if (isNaN(value)) value = 0;
+    
+    // Ограничение: не меньше 0
+    if (value < 0) {
+        value = 0;
+        this.value = 0;
+    }
+    // Ограничение: не больше MAX_GOLD
+    if (value > MAX_GOLD) {
+        value = MAX_GOLD;
+        this.value = MAX_GOLD;
+    }
+    
     currentGold = value;
     goldValue.textContent = value;
-    goldInput.value = value;
     updateProgressBars();
 });
 
