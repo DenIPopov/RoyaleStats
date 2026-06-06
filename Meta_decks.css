@@ -135,7 +135,7 @@ body {
 
 .meta_decks-row {
   display: flex;
-  gap: 500px;
+  gap: 200px;
   margin-bottom: 24px;
 }
 
@@ -208,7 +208,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 240px;
+  gap: 100px;
   margin-top: 8px;
 }
 
