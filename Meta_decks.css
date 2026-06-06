@@ -18,20 +18,25 @@ body {
 .meta_yellow-bar {
   height: 4px;
   width: 100%;
-  background: linear-gradient(90deg, #fbbf24, #f59e0b, #eab308, #f59e0b, #fbbf24);
-  background-size: 300% auto;
-  animation: shimmer 3s linear infinite;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #00F2FE, #4FACFE, #736EFE, #4FACFE, #00F2FE);
+  background-size: 400% auto; 
+  animation: meta_shimmer 3s linear infinite;
 }
 
-@keyframes shimmer {
-  0% { background-position: 0% 0; }
-  100% { background-position: 100% 0; }
+@keyframes meta_shimmer {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 .meta_yellow-bar:hover {
   animation-duration: 1s;
-  height: 6px;
-  filter: brightness(1.2);
+  height: 5px; 
+  cursor: pointer;
 }
 
 .meta_main {
@@ -42,10 +47,10 @@ body {
   /* картинка слева в упор */
 }
 
-/* ЛЕВАЯ ИЗОБРАЖЕНИЕ */
+/* ЛЕВОЕ ИЗОБРАЖЕНИЕ */
 .meta_image-block {
   flex-shrink: 0;
-  width: 564px;
+  width: 579px;
   height: 100%;          
   overflow: hidden;
 }
@@ -57,7 +62,7 @@ body {
   display: block;
 }
 
-/* ПРАВЫЙ КОНТЕНТ */
+/* ПРАВЫЙ БЛОК */
 .meta_content-block {
   flex: 1;
   padding: 40px 60px;

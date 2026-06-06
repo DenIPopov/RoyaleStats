@@ -480,7 +480,7 @@ main {
 }
 .footer{
     background-color: var(--mainCol);
-    border-top: 2px solid var(--goldCol);
+    /*border-top: 2px solid var(--goldCol);*/
 }
 .footer__content{
     max-width: 1600px;
