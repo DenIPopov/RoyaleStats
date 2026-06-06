@@ -10,9 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
-
-
-
 <body>
 <header>
     <div class="Header__container">
@@ -22,152 +19,101 @@
                 <ul class="link">
                     <li class="list"><a href="#" class="item">База знаний</a></li>
                     <li class="list"><a href="calculator.html" class="item">Калькулятор прокачки</a></li>
-                    <li class="list"><a href="Meta_decks.html" class="item" id="meta">Метовые колоды</a></li>
-                    <li class="list"><a href="news.html" class="item active">Нововведения</a></li>
+                    <li class="list"><a href="Meta_decks.html" class="item active" id="meta">Метовые колоды</a></li>
+                    <li class="list"><a href="news.html" class="item">Нововведения</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </header>
-<!--
-<main>
-    <section class="news-hero">
-        <div class="news-hero__container">
-            <div class="news-hero__content">
-                <div class="news-hero__tag">Сезон 84  Stone Cold</div>
-                <h2 class="news-hero__title">Stone Cold</h2>
-                <p class="news-hero__sub">Новый герой, ледяная эволюция и масштабный баланс заклинаний — всё о сезоне 84</p>
-            </div>
-        </div>
-    </section>
-    -->
-    <!-- ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ -->
-     <!--
-    <section class="news-latest">
-        <div class="news-latest__container">
-            <div class="news-section-title">
-                <span class="news-dot news-dot--green"></span>
-                Последнее обновление - Сезон 84 «Stone Cold»
-            </div>
-            <div class="news-featured">
-                <div class="news-featured__left">
-                    <img src="https://images.alphacoders.com/127/thumb-1920-1270388.jpg" alt="Сезон 84 Stone Cold">
-                    <div class="news-featured__overlay">
-                        <span class="news-tag news-tag--season">Сезон 84</span>
-                    </div>
-                </div>
-                <div class="news-featured__right">
-                    <span class="news-tag news-tag--season">Главное обновление</span>
-                    <h3 class="news-featured__title">«Stone Cold» — Сезон 84</h3>
-                    <p class="news-featured__desc">
-                        Сезон «Каменная стужа» принёс первого героя-здание, новую эволюцию Принцессы и самое масштабное изменение заклинаний за последние годы.
-                    </p>
-                    <div class="news-featured__list">
-                        <div class="news-featured__item">
-                            <span class="news-featured__item-dot news-dot--green"></span>
-                            <span>Новая эволюция: <strong>Эволюция Принцессы (Ледяные стрелы)</strong> — цикл 2, замедление при атаке и смерти</span>
-                        </div>
-                        <div class="news-featured__item">
-                            <span class="news-featured__item-dot news-dot--purple"></span>
-                            <span>Новый герой: <strong>Геройское Надгробие</strong> — редкий герой с активной способностью «Королевское возрождение»</span>
-                        </div>
-                        <div class="news-featured__item">
-                            <span class="news-featured__item-dot news-dot--gold"></span>
-                            <span>Баланс: массовый нерф заклинаний по башням (Огненный шар, Молния, Ракета и другие)</span>
-                        </div>
-                        <div class="news-featured__item">
-                            <span class="news-featured__item-dot news-dot--blue"></span>
-                            <span>Ивент «Undead Bazaar» — бесплатный Геройское Надгробие и магазин за жетоны</span>
-                        </div>
-                    </div>
-                    <a href="#infobtn" class="btn news-btn">Подробнее об обновлении</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
-    <!-- КАРТОЧКИ ИЗМЕНЕНИЙ -->
-     <!--
-    <section class="news-cards" id="infobtn">
-        <div class="news-cards__container">
-            <div class="news-section-title">
-                <span class="news-dot news-dot--gold"></span>
-                Что изменилось в патче 84.1 (Stone Cold)
-            </div>
-            <div class="news-cards__grid">
-                <div class="news-card" onclick="openModal('hero')">
-                    <div class="news-card__icon" style="background:#d0ac40;">👑</div>
-                    <div class="news-card__body">
-                        <span class="news-tag news-tag--new">Новый герой</span>
-                        <p class="news-card__title">Геройское Надгробие</p>
-                        <p class="news-card__desc">Редкий герой-здание с призывом Королевы гробниц. Нажми для подробностей.</p>
-                    </div>
-                </div>
-                <div class="news-card" onclick="openModal('evo')">
-                    <div class="news-card__icon" style="background:#4013AF;">❄️</div>
-                    <div class="news-card__body">
-                        <span class="news-tag news-tag--new">Эволюция</span>
-                        <p class="news-card__title">Эволюция Принцессы</p>
-                        <p class="news-card__desc">Ледяные стрелы с замедлением на 7 секунд. Нажми для подробностей.</p>
-                    </div>
-                </div>
-                <div class="news-card" onclick="openModal('nerf')">
-                    <div class="news-card__icon" style="background:#cbe14c;">⚖️</div>
-                    <div class="news-card__body">
-                        <span class="news-tag news-tag--balance">Нёрфы</span>
-                        <p class="news-card__title">Ослабления заклинаний</p>
-                        <p class="news-card__desc">Огненный шар, Молния, Ракета, Кладбище и другие. Нажми для списка.</p>
-                    </div>
-                </div>
-                <div class="news-card" onclick="openModal('buff')">
-                    <div class="news-card__icon" style="background:#cbe14c;">⚖️</div>
-                    <div class="news-card__body">
-                        <span class="news-tag news-tag--balance">Баффы</span>
-                        <p class="news-card__title">Усиленные карты</p>
-                        <p class="news-card__desc">Эво Дротиковый Гоблин, Электро-Дракон, Гоблин-Гигант. Нажми для подробностей.</p>
-                    </div>
-                </div>
-                <div class="news-card" onclick="openModal('event')">
-                    <div class="news-card__icon" style="background:#3901bc;">⚡</div>
-                    <div class="news-card__body">
-                        <span class="news-tag news-tag--event">События сезона</span>
-                        <p class="news-card__title">Restless Undead & Драфты</p>
-                        <p class="news-card__desc">Undead Bazaar, Princess Gambit, 3x Elixir турнир. Нажми для календаря.</p>
-                    </div>
-                </div>
-                <div class="news-card" onclick="openModal('fix')">
-                    <div class="news-card__icon" style="background:#b0f5f1;">🔧</div>
-                    <div class="news-card__body">
-                        <span class="news-tag news-tag--balance">Исправления</span>
-                        <p class="news-card__title">Фиксы багов</p>
-                        <p class="news-card__desc">Исправления анимаций и стабильности. Нажми для подробностей.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
--->
-<!-- МОДАЛЬНОЕ ОКНО -->
- <!--
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-    <div class="modal" id="modal">
-        <button class="modal__close" onclick="closeModalBtn()">✕</button>
-        <div class="modal__header">
-            <div class="modal__icon" id="modalIcon"></div>
-            <div>
-                <span class="modal__tag" id="modalTag"></span>
-                <h3 class="modal__title" id="modalTitle"></h3>
-                <p class="modal__date" id="modalDate"></p>
-            </div>
-        </div>
-        <p class="modal__desc" id="modalDesc"></p>
-        <div class="modal__list" id="modalList"></div>
+
+<div class="meta_yellow-bar"></div>
+
+<main class="meta_main">
+  <div class="meta_image-block">
+    <img src="1.jpg" alt="image" class="meta_arena-image">
+  </div>
+
+  <div class="meta_content-block">
+    <div class="meta_info-block">
+      <h2 class="meta_info-title">Лучшие колоды по аренам</h2>
+      <p class="meta_info-subtitle">Топ-3 колоды для каждой арены</p>
     </div>
-</div> 
--->
 
+    <div class="meta_arena-section">
+      <label class="meta_arena-label">выбери свою арену =</label>
+      <select class="meta_arena-select">
+          <option value="arena1">Арена 1: Тренировочный лагерь</option>
+          <option value="arena2">Арена 2: Стадион гоблинов</option>
+          <option value="arena3">Арена 3: Костяная яма</option>
+          <option value="arena4">Арена 4: Варварская арена</option>
+          <option value="arena5">Арена 5: Долина заклинаний</option>
+          <option value="arena6">Арена 6: Мастерская строителя</option>
+          <option value="arena7">Арена 7: Игровой домик П.Е.К.К.А</option>
+          <option value="arena8">Арена 8: Королевская арена</option>
+          <option value="arena9">Арена 9: Ледяной пик</option>
+          <option value="arena10">Арена 10: Арена джунглей</option>
+          <option value="arena11">Арена 11: Кабанья гора</option>
+          <option value="arena12">Арена 12: Электродолина</option>
+          <option value="arena13">Арена 13: Жуткий город</option>
+          <option value="arena14">Арена 14: Укрытие разбойников</option>
+          <option value="arena15">Арена 15: Пик безмятежности</option>
+          <option value="arena16">Арена 16: Шахта шахтёра</option>
+          <option value="arena17">Арена 17: Кухня палача</option>
+          <option value="arena18">Арена 18: Королевский склеп</option>
+          <option value="arena19">Арена 19: Тихое святилище</option>
+          <option value="arena20">Арена 20: Драконий курорт</option>
+          <option value="arena21">Арена 21: Военный лагерь</option>
+          <option value="arena22">Арена 22: Clash Fest</option>
+          <option value="arena23">Арена 23: Блинчики!</option>
+          <option value="arena24">Арена 24: Валгалла</option>
+          <option value="arena25">Арена 25: Легендарная арена</option>
+          <option value="arena26">Арена 26: Дворец королевы</option>
+          <option value="arena27">Арена 27: Путь чемпионов</option>
+          <option value="arena28">Арена 28: Арена путешествий во времени</option>
+          <option value="arena29">Арена 29: Астральный узел</option>
+          <option value="arena30">Арена 30: Академия магии</option>
+          <option value="arena31">Арена 31: Яма абсолютной битвы</option>
+          <option value="arena32">Арена 32: Таверна Маленького принца</option>
+          <option value="arena32">Арена 33: Площадь духов</option>
+      </select>
+    </div>
 
+    <div class="meta_decks-row">
+      <div class="meta_deck-item">
+        <div class="meta_deck-label">Колода 1</div>
+        <div class="meta_deck-card">
+          <div class="meta_deck-card-title">Колода 1</div>
+          <div class="meta_cards-icons">🃏 🃏 🃏 🃏</div>
+          <div class="meta_elixir">Сред. стоимость: 3.5</div>
+        </div>
+      </div>
+      <div class="meta_deck-item">
+        <div class="meta_deck-label">Колода 2</div>
+        <div class="meta_deck-card">
+          <div class="meta_deck-card-title">Колода 2</div>
+          <div class="meta_cards-icons">🃏 🃏 🃏 🃏</div>
+          <div class="meta_elixir">Сред. стоимость: 3.8</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta_deck3-wrapper">
+      <button class="meta_circle-btn meta_btn-minus">−</button>
+      <div class="meta_deck-item meta_deck3-item">
+        <div class="meta_deck-label">Колода 3</div>
+        <div class="meta_deck-card meta_deck3-card">
+          <div class="meta_deck-card-title meta_deck3-title">Колода 3</div>
+          <div class="meta_cards-icons">🃏 🃏 🃏 🃏</div>
+          <div class="meta_elixir">Сред. стоимость: 4.0</div>
+        </div>
+      </div>
+      <button class="meta_circle-btn meta_btn-plus">+</button>
+    </div>
+  </div>
+</main>
+
+<div class="meta_yellow-bar"></div>
 
 <footer class="footer">
     <div class="footer__content">
@@ -189,7 +135,7 @@
             <a href="#">Политика конфиденциальности</a>
         </div>
     </div>
-    <div class="footer__bottom">© 2025 RoyalStats | Не связан с Supercell</div>
+    <div class="footer__bottom">© 2026 RoyalStats | Не связан с Supercell</div>
 </footer>
 <script src="Meta_decks.js"></script>
 </body>

@@ -1,409 +1,287 @@
-*{
-       scroll-behavior: smooth;
-}
-.news-hero {
-    height: 40vh;
-    background: url('https://images.alphacoders.com/127/thumb-1920-1270388.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.news-hero__container {
+body {
+  width: 1920px;
+  min-height: 1481px; 
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Barlow', sans-serif;
+  background: #1a1a2e;
+}
+
+/*градиент полоса*/
+.meta_yellow-bar {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b, #eab308, #f59e0b, #fbbf24);
+  background-size: 300% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+
+.meta_yellow-bar:hover {
+  animation-duration: 1s;
+  height: 6px;
+  filter: brightness(1.2);
+}
+
+.meta_main {
+  background: #1A2B5E;
+  flex: 1;
+  display: flex;
+  padding: 0;
+  /* картинка слева в упор */
+}
+
+/* ЛЕВАЯ ИЗОБРАЖЕНИЕ */
+.meta_image-block {
+  flex-shrink: 0;
+  width: 564px;
+  height: 100%;          
+  overflow: hidden;
+}
+
+.meta_arena-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ПРАВЫЙ КОНТЕНТ */
+.meta_content-block {
+  flex: 1;
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* БЛОК ИНФОРМАЦИИ 903x216 */
+.meta_info-block {
+  width: 903px;
+  height: 216px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 40px;
+  margin-bottom: 8px;
+}
+
+.meta_info-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.meta_info-subtitle {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ВЫБОР АРЕНЫ */
+.meta_arena-section {
+  margin-bottom: 8px;
+}
+
+.meta_arena-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  width: 182px;
+  height: 18px;
+  line-height: 18px;
+}
+
+.meta_arena-select {
+  width: 234px;
+  height: 61px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 16px;
+  color: #1a1a2e;
+  cursor: pointer;
+  font-family: 'Barlow', sans-serif;
+  transition: 0.3s;
+}
+
+.meta_arena-select:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* РЯД КОЛОД 1 И 2 */
+.meta_decks-row {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 24px;
+}
+
+.meta_deck-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta_deck-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  height: 24px;
+  line-height: 24px;
+}
+
+/* КАРТОЧКА КОЛОДЫ 460x200 */
+.meta_deck-card {
+  width: 460px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+}
+
+.meta_deck-card:hover {
+  transform: translateY(-5px);
+  background: white;
+}
+
+.meta_deck-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+}
+
+/* Для колоды 1 размер 144x38 – зададим через line-height */
+.meta_deck-item:first-child .meta_deck-card-title {
+  font-size: 32px;
+  height: 38px;
+  line-height: 38px;
+}
+/* Колода 2 — 151x38 */
+.meta_deck-item:last-child .meta_deck-card-title {
+  font-size: 32px;
+  height: 38px;
+  line-height: 38px;
+}
+
+.meta_cards-icons {
+  font-size: 32px;
+  margin-bottom: 12px;
+  letter-spacing: 8px;
+}
+
+.meta_elixir {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: auto;
+}
+
+/* БЛОК КОЛОДЫ 3 С КНОПКАМИ */
+.meta_deck3-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 8px;
+}
+
+.meta_deck3-item {
+  align-items: center;
+}
+
+.meta_deck3-card {
+  width: 460px;
+  height: 200px;
+}
+
+.meta_deck3-title {
+  font-size: 32px;
+  height: 76px;
+  line-height: 76px;
+}
+
+/* КРУГЛЫЕ КНОПКИ 78x78 */
+.meta_circle-btn {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border: none;
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+
+.meta_circle-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+}
+
+.meta_btn-minus {
+  font-size: 64px;  /* визуально минус */
+  padding-bottom: 8px;
+  color: #D9D9D9;
+}
+
+.meta_btn-plus {
+  font-size: 56px;
+  color: #D9D9D9;
+}
+
+@media (max-width: 1920px) {
+  body {
     width: 100%;
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 0 60px;
-}
-
-.news-hero__content {
-    background-color: var(--mainCol);
-    border: 2px solid var(--lightgold);
-    box-shadow: 0px 3px 15px rgb(255, 214, 118);
-    border-radius: 20px;
-    padding: 30px 40px;
-    display: inline-block;
-    max-width: 520px;
-}
-
-.news-hero__tag {
-    font-size: 13px;
-    font-weight: 700;
-    background: var(--green);
-    color: #0a2a1a;
-    padding: 3px 14px;
-    border-radius: 20px;
-    display: inline-block;
-    margin-bottom: 12px;
-    letter-spacing: 0.04em;
-}
-
-.news-hero__title {
-    font-size: 42px;
-    font-weight: 700;
-    color: var(--lightgold);
-    margin-bottom: 8px;
-}
-
-.news-hero__sub {
-    font-size: 16px;
-    color: #b5d4f4;
-}
-
-/* Active nav link */
-.item.active {
-    color: var(--goldCol) !important;
-    font-weight: 700;
-}
-
-/* Section title */
-.news-section-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 22px;
-    font-weight: 700;
-    border: 1px solid var(--mainCol);
-    background-color: var(--mainCol);
-    border-radius: 15px;
-    display: inline-block;
-    padding: 15px;
-    color: var(--goldCol);
-    margin-bottom: 24px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
-.news-dot {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border: 1px solid black;
-    background-color: #fff;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-.news-dot--green{ 
-    background: var(--green); 
-}
-.news-dot--gold{ 
-    background: var(--goldCol); 
-}
-.news-dot--purple{
-    background: #7F77DD; 
-}
-.news-dot--blue{ 
-    background: var(--AkcCol); 
-}
-
-.news-tag {
-    display: inline-block;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 3px 12px;
-    border-radius: 20px;
-    letter-spacing: 0.04em;
-    margin-bottom: 10px;
-}
-.news-tag--new     { background: #1D9E75; color: #E1F5EE; }
-.news-tag--balance { background: #7F77DD; color: #EEEDFE; }
-.news-tag--event   { background: #D85A30; color: #FAECE7; }
-.news-tag--season  { background: var(--goldCol); color: #412402; }
-
-/* Latest section */
-.news-latest {
-    background: var(--mainCol);
-    padding: 60px 0;
-}
-
-.news-latest__container {
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 0 60px;
-}
-
-.news-latest .news-section-title {
-    color: var(--lightgold);
-}
-
-.news-featured {
-    display: grid;
-    grid-template-columns: 480px 1fr;
-    gap: 40px;
-    align-items: start;
-    background: var(--mainCol2);
-    border: 2px solid var(--goldCol);
-    border-radius: 20px;
-    box-shadow: 0px 5px 16px var(--lightgold);
-    overflow: hidden;
-}
-
-.news-featured__left {
-    position: relative;
-    height: 460px;
-    overflow: hidden;
-}
-
-.news-featured__left img {
+  }
+  .meta_info-block {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 903px;
+  }
 }
-
-.news-featured__overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 16px;
-    background: linear-gradient(transparent, rgba(26,43,94,0.95));
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.news-date {
-    font-size: 12px;
-    color: #b5d4f4;
-}
-
-.news-featured__right {
-    padding: 36px 36px 36px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.news-featured__title {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--lightgold);
-    line-height: 1.2;
-}
-
-.news-featured__desc {
-    font-size: 16px;
-    color: var(--cardBG);
-    line-height: 1.7;
-}
-
-.news-featured__list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.news-featured__item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 15px;
-    color: #b5d4f4;
-    line-height: 1.5;
-}
-
-.news-featured__item-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 5px;
-}
-
-.news-btn {
-    align-self: flex-start;
-    margin-top: 8px;
-}
-.news-cards {
-    background: url('https://c4.wallpaperflare.com/wallpaper/363/495/820/clash-of-clans-supercell-games-2017-games-wallpaper-preview.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 60px 0;
-}
-
-.news-cards__container {
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 0 60px;
-}
-
-.news-cards__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-.news-card {
-    background: var(--mainCol2);
-    border: 2px solid var(--goldCol);
-    border-radius: 15px;
-    box-shadow: 0px 3px 14px var(--lightgold);
-    padding: 24px;
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    transition: transform 0.2s;
-}
-
-.news-card:hover {
-    transform: translateY(-4px);
-}
-
-.news-card__icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    flex-shrink: 0;
-}
-
-.news-card__body {
-    flex: 1;
-}
-
-.news-card__title {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--lightgold);
-    margin-bottom: 6px;
-}
-
-.news-card__desc {
-    font-size: 14px;
-    color: var(--cardBG);
-    line-height: 1.6;
-}
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 18, 45, 0.85);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-}
-.modal-overlay.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.modal {
-    background: var(--mainCol2);
-    border: 2px solid var(--goldCol);
-    border-radius: 20px;
-    box-shadow: 0px 8px 32px rgba(255, 182, 11, 0.35);
-    padding: 36px;
-    max-width: 600px;
+@media (max-width: 1400px) {
+  .meta_image-block {
+    width: 400px;
+  }
+  .meta_deck-card {
     width: 100%;
-    position: relative;
-    transform: translateY(30px);
-    transition: transform 0.25s ease;
-}
-
-.modal-overlay.active .modal {
-    transform: translateY(0);
-}
-
-.modal__close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 8px;
-    color: var(--cardBG);
-    font-size: 16px;
-    width: 34px;
-    height: 34px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, color 0.2s;
-}
-
-.modal__close:hover {
-    background: var(--redAkc);
-    border-color: var(--redAkc);
-    color: #fff;
-}
-
-.modal__header {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 20px;
-}
-
-.modal__icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    flex-shrink: 0;
-}
-
-.modal__tag {
-    margin-bottom: 6px;
-}
-
-.modal__title {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--lightgold);
-    margin-bottom: 4px;
-}
-
-.modal__date {
-    font-size: 13px;
-    color: #7A9BD4;
-}
-
-.modal__desc {
-    font-size: 15px;
-    color: var(--cardBG);
-    line-height: 1.7;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.modal__list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.modal__item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 15px;
-    color: #b5d4f4;
-    line-height: 1.6;
-    background: rgba(255,255,255,0.04);
-    border-radius: 10px;
-    padding: 10px 14px;
-    border-left: 3px solid var(--goldCol);
-}
-
-.modal__item-icon {
-    font-size: 18px;
-    flex-shrink: 0;
-}
-
-/* Курсор на карточках */
-.news-card {
-    cursor: pointer;
+    max-width: 460px;
+  }
+  .meta_decks-row {
+    flex-wrap: wrap;
+  }
+  .meta_deck3-wrapper {
+    flex-wrap: wrap;
+  }
 }
