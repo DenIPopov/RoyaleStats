@@ -51,10 +51,17 @@
     color: #b5d4f4;
 }
 
-/* Active nav link */
 .item.active {
-    color: var(--goldCol) !important;
-    font-weight: 700;
+color: var(--goldCol) !important;
+font-weight: 700;
+/* Добавляем стили блока */
+display: inline-block;  /* или block, если нужно на всю ширину */
+background: rgba(255, 255, 255, 0.1); /* полупрозрачный фон */
+border-radius: 16px;
+padding: 8px 20px;
+border: 1px solid var(--goldCol);
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+transition: all 0.2s ease;
 }
 
 /* Section title */
