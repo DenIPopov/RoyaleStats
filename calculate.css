@@ -1015,3 +1015,39 @@ footer {
     display: block;
     opacity: 0.85;
 }
+
+/* ========== АКТИВНАЯ КНОПКА РЕДКОСТИ - УВЕЛИЧЕНА ========== */
+.rarity-btn {
+    transition: all 0.3s ease;
+}
+
+.rarity-btn.active {
+    transform: scale(1.15);
+    z-index: 20;
+    position: relative;
+}
+
+.btn-common.active {
+    background: rgba(52, 152, 219, 1);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
+}
+
+.btn-rare.active {
+    background: rgba(46, 204, 113, 1);
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.8);
+}
+
+.btn-epic.active {
+    background: rgba(155, 89, 182, 1);
+    box-shadow: 0 0 20px rgba(155, 89, 182, 0.8);
+}
+
+.btn-legendary.active {
+    background: rgba(241, 196, 15, 1);
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.8);
+}
+
+.btn-champion.active {
+    background: rgba(230, 126, 34, 1);
+    box-shadow: 0 0 20px rgba(230, 126, 34, 0.8);
+}

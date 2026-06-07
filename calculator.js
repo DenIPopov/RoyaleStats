@@ -98,26 +98,23 @@ function calculateNeededResources() {
         }
     }
     
-    // ВЫЧИТАЕМ то, что уже есть на руках (не может быть меньше 0)
     let remainingCards = Math.max(0, totalNeededCards - currentCards);
     let remainingGold = Math.max(0, totalNeededGold - currentGold);
     
     return { 
-        neededCards: totalNeededCards,      // сколько всего нужно
-        neededGold: totalNeededGold,        // сколько всего нужно золота
-        neededGems: totalNeededGems,        // сколько всего нужно гемов
-        remainingCards: remainingCards,     // сколько осталось докупить карт (с учетом имеющихся)
-        remainingGold: remainingGold        // сколько осталось золота (с учетом имеющегося)
+        neededCards: totalNeededCards,
+        neededGold: totalNeededGold,
+        neededGems: totalNeededGems,
+        remainingCards: remainingCards,
+        remainingGold: remainingGold
     };
 }
 
 function updateProgressBars() {
     const { neededCards, neededGold, remainingCards, remainingGold } = calculateNeededResources();
 
-    // Для прогресса используем ОСТАВШИЕСЯ ресурсы относительно нужных
     let cardsPercentValue = 0;
     if (neededCards > 0) {
-        // Сколько процентов УЖЕ есть (не осталось)
         let haveCards = neededCards - remainingCards;
         cardsPercentValue = Math.min(100, Math.max(0, (haveCards / neededCards) * 100));
     } else {
@@ -166,12 +163,11 @@ function updateSquares() {
     cardsValue.textContent = currentCards;
     goldValue.textContent = currentGold;
     updateProgressBars();
-    updateResults(); // Обновляем результаты при изменении полей
+    updateResults();
 }
 
 function updateResults() {
     const { remainingCards, remainingGold, neededGems } = calculateNeededResources();
-    // Выводим ОСТАВШИЕСЯ ресурсы (с учетом того, что уже есть)
     resultCards.textContent = remainingCards;
     resultGold.textContent = remainingGold;
     resultGems.textContent = neededGems;
@@ -239,7 +235,7 @@ cardsInput.addEventListener('input', function (e) {
     
     currentCards = value;
     cardsValue.textContent = value;
-    updateResults(); // Обновляем результаты
+    updateResults();
     updateProgressBars();
 });
 
@@ -258,20 +254,39 @@ goldInput.addEventListener('input', function (e) {
     
     currentGold = value;
     goldValue.textContent = value;
-    updateResults(); // Обновляем результаты
+    updateResults();
     updateProgressBars();
 });
 
-document.querySelectorAll('.rarity-btn').forEach(btn => {
+// ========== КНОПКИ РЕДКОСТИ С ВИЗУАЛЬНЫМ ВЫДЕЛЕНИЕМ ==========
+const rarityBtns = document.querySelectorAll('.rarity-btn');
+
+function setActiveRarity(activeBtn) {
+    rarityBtns.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    activeBtn.classList.add('active');
+}
+
+rarityBtns.forEach(btn => {
     btn.addEventListener('click', function () {
+        setActiveRarity(this);
+        
         if (this.classList.contains('btn-common')) currentRarity = 'common';
         else if (this.classList.contains('btn-rare')) currentRarity = 'rare';
         else if (this.classList.contains('btn-epic')) currentRarity = 'epic';
         else if (this.classList.contains('btn-legendary')) currentRarity = 'legendary';
         else if (this.classList.contains('btn-champion')) currentRarity = 'champion';
+        
         updateResults();
     });
 });
+
+// Устанавливаем активную кнопку по умолчанию (обычная)
+const defaultRarityBtn = document.querySelector('.btn-common');
+if (defaultRarityBtn) {
+    setActiveRarity(defaultRarityBtn);
+}
 
 setCurrentLevel(1);
 setTargetLevel(1);
