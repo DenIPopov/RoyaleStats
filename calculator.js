@@ -83,36 +83,51 @@ function updateLevelColors() {
 
 function calculateNeededResources() {
     const costs = upgradeCosts[currentRarity];
-    let neededCards = 0;
-    let neededGold = 0;
-    let neededGems = 0;
+    let totalNeededCards = 0;
+    let totalNeededGold = 0;
+    let totalNeededGems = 0;
 
     let start = Math.min(currentLevel, targetLevel);
     let end = Math.max(currentLevel, targetLevel);
 
     for (let i = start + 1; i <= end; i++) {
         if (i < costs.cards.length) {
-            neededCards += costs.cards[i] || 0;
-            neededGold += costs.gold[i] || 0;
-            neededGems += costs.gems[i] || 0;
+            totalNeededCards += costs.cards[i] || 0;
+            totalNeededGold += costs.gold[i] || 0;
+            totalNeededGems += costs.gems[i] || 0;
         }
     }
-    return { neededCards, neededGold, neededGems };
+    
+    // ВЫЧИТАЕМ то, что уже есть на руках (не может быть меньше 0)
+    let remainingCards = Math.max(0, totalNeededCards - currentCards);
+    let remainingGold = Math.max(0, totalNeededGold - currentGold);
+    
+    return { 
+        neededCards: totalNeededCards,      // сколько всего нужно
+        neededGold: totalNeededGold,        // сколько всего нужно золота
+        neededGems: totalNeededGems,        // сколько всего нужно гемов
+        remainingCards: remainingCards,     // сколько осталось докупить карт (с учетом имеющихся)
+        remainingGold: remainingGold        // сколько осталось золота (с учетом имеющегося)
+    };
 }
 
 function updateProgressBars() {
-    const { neededCards, neededGold } = calculateNeededResources();
+    const { neededCards, neededGold, remainingCards, remainingGold } = calculateNeededResources();
 
+    // Для прогресса используем ОСТАВШИЕСЯ ресурсы относительно нужных
     let cardsPercentValue = 0;
     if (neededCards > 0) {
-        cardsPercentValue = Math.min(100, Math.max(0, (currentCards / neededCards) * 100));
+        // Сколько процентов УЖЕ есть (не осталось)
+        let haveCards = neededCards - remainingCards;
+        cardsPercentValue = Math.min(100, Math.max(0, (haveCards / neededCards) * 100));
     } else {
         cardsPercentValue = 100;
     }
 
     let goldPercentValue = 0;
     if (neededGold > 0) {
-        goldPercentValue = Math.min(100, Math.max(0, (currentGold / neededGold) * 100));
+        let haveGold = neededGold - remainingGold;
+        goldPercentValue = Math.min(100, Math.max(0, (haveGold / neededGold) * 100));
     } else {
         goldPercentValue = 100;
     }
@@ -130,7 +145,6 @@ function updateSquares() {
     if (isNaN(currentCards)) { currentCards = 0; cardsInput.value = 0; }
     if (isNaN(currentGold)) { currentGold = 0; goldInput.value = 0; }
     
-    // Ограничения для карт (не меньше 0)
     if (currentCards < 0) {
         currentCards = 0;
         cardsInput.value = 0;
@@ -140,7 +154,6 @@ function updateSquares() {
         cardsInput.value = MAX_CARDS;
     }
     
-    // Ограничения для золота (не меньше 0)
     if (currentGold < 0) {
         currentGold = 0;
         goldInput.value = 0;
@@ -153,12 +166,14 @@ function updateSquares() {
     cardsValue.textContent = currentCards;
     goldValue.textContent = currentGold;
     updateProgressBars();
+    updateResults(); // Обновляем результаты при изменении полей
 }
 
 function updateResults() {
-    const { neededCards, neededGold, neededGems } = calculateNeededResources();
-    resultCards.textContent = neededCards;
-    resultGold.textContent = neededGold;
+    const { remainingCards, remainingGold, neededGems } = calculateNeededResources();
+    // Выводим ОСТАВШИЕСЯ ресурсы (с учетом того, что уже есть)
+    resultCards.textContent = remainingCards;
+    resultGold.textContent = remainingGold;
     resultGems.textContent = neededGems;
     updateProgressBars();
 }
@@ -171,7 +186,6 @@ function setCurrentLevel(level) {
     const bottomText = document.querySelector('.square-bottom-text');
     bottomText.textContent = `текущий уровень: ${level}`;
     
-    // Если текущий уровень стал больше целевого, поднимаем целевой до текущего
     if (targetLevel < currentLevel) {
         setTargetLevel(currentLevel);
     } else {
@@ -181,7 +195,6 @@ function setCurrentLevel(level) {
 }
 
 function setTargetLevel(level) {
-    // Целевой уровень не может быть меньше текущего
     if (level < currentLevel) {
         level = currentLevel;
     }
@@ -215,12 +228,10 @@ cardsInput.addEventListener('input', function (e) {
     let value = parseInt(this.value, 10);
     if (isNaN(value)) value = 0;
     
-    // Ограничение: не меньше 0
     if (value < 0) {
         value = 0;
         this.value = 0;
     }
-    // Ограничение: не больше MAX_CARDS
     if (value > MAX_CARDS) {
         value = MAX_CARDS;
         this.value = MAX_CARDS;
@@ -228,6 +239,7 @@ cardsInput.addEventListener('input', function (e) {
     
     currentCards = value;
     cardsValue.textContent = value;
+    updateResults(); // Обновляем результаты
     updateProgressBars();
 });
 
@@ -235,12 +247,10 @@ goldInput.addEventListener('input', function (e) {
     let value = parseInt(this.value, 10);
     if (isNaN(value)) value = 0;
     
-    // Ограничение: не меньше 0
     if (value < 0) {
         value = 0;
         this.value = 0;
     }
-    // Ограничение: не больше MAX_GOLD
     if (value > MAX_GOLD) {
         value = MAX_GOLD;
         this.value = MAX_GOLD;
@@ -248,6 +258,7 @@ goldInput.addEventListener('input', function (e) {
     
     currentGold = value;
     goldValue.textContent = value;
+    updateResults(); // Обновляем результаты
     updateProgressBars();
 });
 

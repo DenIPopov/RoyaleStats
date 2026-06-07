@@ -61,7 +61,7 @@ html, body {
     z-index: 10;
     display: flex;
     flex-direction: row;
-    gap: 50px;
+    gap: 20px;
 }
 
 /* ========== КНОПКИ РЕДКОСТИ С box-shadow ========== */
@@ -263,8 +263,8 @@ html, body {
 }
 
 .level-btn {
-    width: 65px;
-    height: 65px;
+    width: 50px;
+    height: 50px;
     border-radius: 12px;
     background: rgba(26, 43, 94, 0.85);
     backdrop-filter: blur(5px);
@@ -322,7 +322,7 @@ html, body {
 /* ========== КВАДРАТ ПОД КНОПКАМИ УРОВНЕЙ ========== */
 .square-under-levels {
     position: absolute;
-    top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares));
+    top: calc(5% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares));
     left: 33%;
     width: var(--square-under-levels-width);
     height: var(--square-under-levels-height);
@@ -355,7 +355,7 @@ html, body {
 /* ========== КВАДРАТ СПРАВА ========== */
 .square-right {
     position: absolute;
-    top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares));
+    top: calc(5% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares));
     left: calc(33% + var(--square-under-levels-width) + var(--gap-between-squares));
     width: var(--square-right-width);
     height: var(--square-right-height);
@@ -388,7 +388,7 @@ html, body {
 /* ========== ПОЛЯ ВВОДА ========== */
 .input-under-left {
     position: absolute;
-    top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 15px);
+    top: calc(5% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 15px);
     left: 33%;
     width: var(--square-under-levels-width);
     z-index: 10;
@@ -417,7 +417,7 @@ html, body {
 
 .input-under-right {
     position: absolute;
-    top: calc(10% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 15px);
+    top: calc(5% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 15px);
     left: calc(33% + var(--square-under-levels-width) + var(--gap-between-squares));
     width: var(--square-right-width);
     z-index: 10;
@@ -447,56 +447,59 @@ html, body {
 /* ========== КОНТЕЙНЕР ДЛЯ ИТОГОВ ========== */
 .result-container {
     position: absolute;
-    bottom: 10%;
-    left: 33%;
-    width: calc(var(--square-under-levels-width) + var(--gap-between-squares) + var(--square-right-width));
+    bottom: 5%;
+    left: 65%;
+    transform: translateX(-50%);
+    width: 65%;
     background: rgba(26, 43, 94, 0.85);
     backdrop-filter: blur(10px);
     border: 2px solid #F0B429;
-    border-radius: 25px;
+    border-radius: 20px;
     z-index: 10;
-    padding: 20px;
+    padding: 15px 20px;
 }
 
 .result-title {
     color: #F0B429;
     font-family: 'Barlow', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
     border-bottom: 1px solid rgba(240, 180, 41, 0.3);
 }
 
 .result-stats {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     gap: 15px;
     flex-wrap: wrap;
+    margin-bottom: 15px;
 }
 
 .result-item {
     flex: 1;
+    min-width: 100px;
     text-align: center;
-    padding: 15px 10px;
+    padding: 10px 8px;
     background: rgba(0, 0, 0, 0.3);
-    border-radius: 15px;
+    border-radius: 12px;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
 }
 
 .result-item:hover {
-    background: rgba(240, 180, 41, 0.2);
+    background: rgba(240, 180, 41, 0.15);
     transform: translateY(-2px);
 }
 
 .result-label {
     color: #F0B429;
     font-family: 'Barlow', sans-serif;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.5px;
 }
@@ -504,7 +507,7 @@ html, body {
 .result-value {
     color: #fff;
     font-family: 'Barlow', sans-serif;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 800;
     letter-spacing: 1px;
 }
@@ -522,26 +525,26 @@ html, body {
 }
 
 .result-sub {
-    font-size: 10px;
+    font-size: 9px;
     color: rgba(255, 255, 255, 0.5);
     font-family: 'Barlow', sans-serif;
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
 /* ========== ПОЛОСКИ ПРОГРЕССА ========== */
 .progress-bars {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
-    padding-top: 15px;
+    gap: 10px;
+    margin-top: 5px;
+    padding-top: 10px;
     border-top: 1px solid rgba(240, 180, 41, 0.3);
 }
 
 .progress-item {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
 }
 
 .progress-header {
@@ -549,13 +552,13 @@ html, body {
     justify-content: space-between;
     color: #F0B429;
     font-family: 'Barlow', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
 }
 
 .progress-bar-container {
     width: 100%;
-    height: 8px;
+    height: 6px;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     overflow: hidden;
@@ -579,7 +582,7 @@ html, body {
 .progress-percent {
     color: rgba(255, 255, 255, 0.6);
     font-family: 'Barlow', sans-serif;
-    font-size: 10px;
+    font-size: 9px;
 }
 
 /* ========== СТИЛИ ДЛЯ HEADER И FOOTER ========== */
@@ -614,6 +617,10 @@ header {
     color: #F0B429;
     font-size: 28px;
     margin: 0;
+}
+
+.logo a {
+    text-decoration: none;
 }
 
 .nuvbar ul {
@@ -727,19 +734,33 @@ footer {
     }
     
     .result-container {
-        width: calc(var(--square-under-levels-width) + var(--gap-between-squares) + var(--square-right-width) - 100px);
+        width: 70%;
+        bottom: 8%;
+        padding: 12px 15px;
     }
     
     .result-value {
-        font-size: 22px;
+        font-size: 18px;
     }
     
     .result-label {
-        font-size: 11px;
+        font-size: 10px;
     }
     
     .result-sub {
-        font-size: 9px;
+        font-size: 8px;
+    }
+    
+    .result-title {
+        font-size: 12px;
+    }
+    
+    .result-stats {
+        gap: 10px;
+    }
+    
+    .result-item {
+        padding: 8px 6px;
     }
 
     .nuvbar a {
@@ -806,25 +827,46 @@ footer {
         top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 10px);
     }
     
+    .result-container {
+        width: 85%;
+        bottom: 6%;
+        padding: 10px 12px;
+    }
+    
     .result-stats {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
+        margin-bottom: 10px;
     }
     
     .result-item {
-        padding: 10px;
+        padding: 8px;
+        min-width: auto;
     }
     
     .result-value {
-        font-size: 20px;
-    }
-    
-    .result-title {
-        font-size: 14px;
+        font-size: 16px;
     }
     
     .result-label {
-        font-size: 12px;
+        font-size: 10px;
+    }
+    
+    .result-title {
+        font-size: 11px;
+        margin-bottom: 8px;
+    }
+    
+    .progress-header {
+        font-size: 9px;
+    }
+    
+    .progress-percent {
+        font-size: 8px;
+    }
+    
+    .progress-bar-container {
+        height: 5px;
     }
 
     .nuvbar a {
@@ -900,16 +942,30 @@ footer {
         font-size: 10px;
     }
     
+    .result-container {
+        width: 92%;
+        bottom: 5%;
+        padding: 8px 10px;
+    }
+    
     .result-value {
-        font-size: 16px;
+        font-size: 14px;
     }
     
     .result-label {
-        font-size: 10px;
+        font-size: 9px;
     }
     
     .result-sub {
-        font-size: 8px;
+        font-size: 7px;
+    }
+    
+    .result-title {
+        font-size: 10px;
+    }
+    
+    .progress-bars {
+        gap: 6px;
     }
 
     .nuvbar a {
