@@ -9,7 +9,7 @@ session.query(QuantityGold).delete()
 session.query(Card).delete()
 session.commit()
 
-# 1. Таблица upgrade (общая стоимость)
+# Таблица c общей стоимостью прокачки
 upgrade_data = [
     (1, 50, 2, 0),
     (2, 100, 4, 0),
@@ -32,8 +32,8 @@ upgrade_data = [
 for level, gold, cards, cristal in upgrade_data:
     session.add(Upgrade(level=level, cost_gold=gold, cost_cards=cards, cost_cristals=cristal))
 
-# 2. Таблица об количестве карт (сколько карт нужно для прокачки)
-# Уровни 1-16
+# Таблица. Сколько карт нужно для прокачки
+# Уровней 16
 cards_quantity_data = [
     (1, 1, 0, 0, 0, 0),
     (2, 2, 0, 0, 0, 0),
@@ -59,7 +59,7 @@ for level, common, rare, epic, legendary, champions in cards_quantity_data:
         legendary=legendary, champions=champions
     ))
 
-# 3. Таблица об количестве золота (сколько золота нужно для прокачки)
+# Таблица о том, сколько количества золота нужно для прокачки
 gold_quantity_data = [
     (1, 0, 0, 0, 0, 0),
     (2, 5, 0, 0, 0, 0),
@@ -85,7 +85,7 @@ for level, common, rare, epic, legendary, champions in gold_quantity_data:
         legendary=legendary, champions=champions
     ))
 
-# 4. Информация о картах (список из 125 карт)
+# Сборник карт Clash Royale (125 штук)
 cards_data = [
     # Обычные
     (1, "Принцесса из башни", "Воин для башни", "common"),
