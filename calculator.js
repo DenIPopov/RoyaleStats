@@ -33,33 +33,179 @@ let currentGold = 0;
 const MAX_CARDS = 9999999;
 const MAX_GOLD = 999999999;
 
-const upgradeCosts = {
-    common: {
-        cards: [0, 0, 2, 4, 10, 20, 50, 100, 200, 400, 800, 1000, 1500, 2500, 3500, 5500, 7500],
-        gold: [0, 0, 5, 20, 50, 150, 400, 1000, 2000, 4000, 8000, 15000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 100, 150, 200, 250, 300]
-    },
-    rare: {
-        cards: [0, 0, 0, 1, 2, 4, 10, 20, 50, 100, 200, 300, 400, 550, 750, 1000, 1400],
-        gold: [0, 0, 0, 0, 50, 150, 400, 1000, 2000, 4000, 8000, 15000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 75, 150, 225, 300, 375, 450]
-    },
-    epic: {
-        cards: [0, 0, 0, 0, 0, 0, 0, 2, 4, 10, 20, 30, 50, 70, 100, 130, 180],
-        gold: [0, 0, 0, 0, 0, 0, 0, 1000, 2000, 4000, 8000, 15000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 200, 300, 400, 500, 600]
-    },
-    legendary: {
-        cards: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 9, 12, 14, 20],
-        gold: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5000, 15000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 300, 450, 600, 750, 900]
-    },
-    champion: {
-        cards: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 8, 11, 15],
-        gold: [0, 1000, 2000, 5000, 10000, 20000, 40000, 80000, 160000, 320000, 480000, 640000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 400, 600, 800, 1000, 1200]
+// Пустой объект для данных из БД
+let upgradeCosts = null;
+let dataLoaded = false;
+
+// Загрузка данных из БД
+async function loadDataFromDB() {
+    try {
+        console.log('Загрузка данных из базы данных...');
+        const response = await fetch('/api/all-costs');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        upgradeCosts = data;
+        dataLoaded = true;
+        
+        console.log('✅ Данные успешно загружены из БД:', upgradeCosts);
+        
+        // Инициализируем интерфейс после загрузки данных
+        initializeAfterDataLoad();
+        
+    } catch (error) {
+        console.error('❌ Ошибка загрузки данных из БД:', error);
+        console.error('Проверьте:');
+        console.error('1. Запущен ли сервер (python app.py)');
+        console.error('2. Правильно ли настроено подключение к БД');
+        console.error('3. Есть ли данные в таблицах quantity_gold и quantity_cards');
+        
+        // Показываем сообщение об ошибке пользователю
+        showErrorMessage('Не удалось загрузить данные из базы данных. Проверьте подключение к серверу.');
     }
-};
+}
+
+// Показ сообщения об ошибке
+function showErrorMessage(message) {
+    const resultContainer = document.querySelector('.result-container');
+    const errorDiv = document.createElement('div');
+    errorDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(231, 76, 60, 0.95);
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        z-index: 1000;
+        text-align: center;
+        font-family: 'Barlow', sans-serif;
+        border: 2px solid #F0B429;
+        max-width: 80%;
+    `;
+    errorDiv.innerHTML = `
+        <h3>⚠️ Ошибка подключения к БД</h3>
+        <p>${message}</p>
+        <button onclick="location.reload()" style="
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: #F0B429;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        ">Обновить страницу</button>
+    `;
+    document.body.appendChild(errorDiv);
+}
+
+// Инициализация после загрузки данных
+function initializeAfterDataLoad() {
+    // Создаем кнопки уровней
+    for (let i = 1; i <= 16; i++) {
+        const button = document.createElement('button');
+        button.className = 'level-btn';
+        button.textContent = i;
+        button.dataset.level = i;
+        button.addEventListener('click', function () {
+            setCurrentLevel(parseInt(this.dataset.level, 10));
+        });
+        levelsContainer.appendChild(button);
+        levelButtons.push(button);
+    }
+    
+    // Устанавливаем обработчики событий
+    setupEventListeners();
+    
+    // Устанавливаем начальные значения
+    setCurrentLevel(1);
+    setTargetLevel(1);
+    updateSquares();
+    updateResults();
+    
+    console.log('✅ Интерфейс инициализирован с данными из БД');
+}
+
+// Настройка обработчиков событий
+function setupEventListeners() {
+    btnPlus.addEventListener('click', () => setCurrentLevel(currentLevel + 1));
+    btnMinus.addEventListener('click', () => setCurrentLevel(currentLevel - 1));
+    targetPlus.addEventListener('click', () => setTargetLevel(targetLevel + 1));
+    targetMinus.addEventListener('click', () => setTargetLevel(targetLevel - 1));
+    
+    cardsInput.addEventListener('input', function (e) {
+        let value = parseInt(this.value, 10);
+        if (isNaN(value)) value = 0;
+        
+        if (value < 0) {
+            value = 0;
+            this.value = 0;
+        }
+        if (value > MAX_CARDS) {
+            value = MAX_CARDS;
+            this.value = MAX_CARDS;
+        }
+        
+        currentCards = value;
+        cardsValue.textContent = value;
+        updateResults();
+        updateProgressBars();
+    });
+    
+    goldInput.addEventListener('input', function (e) {
+        let value = parseInt(this.value, 10);
+        if (isNaN(value)) value = 0;
+        
+        if (value < 0) {
+            value = 0;
+            this.value = 0;
+        }
+        if (value > MAX_GOLD) {
+            value = MAX_GOLD;
+            this.value = MAX_GOLD;
+        }
+        
+        currentGold = value;
+        goldValue.textContent = value;
+        updateResults();
+        updateProgressBars();
+    });
+    
+    // Кнопки редкости
+    const rarityBtns = document.querySelectorAll('.rarity-btn');
+    
+    function setActiveRarity(activeBtn) {
+        rarityBtns.forEach(btn => {
+            btn.classList.remove('active');
+        });
+        activeBtn.classList.add('active');
+    }
+    
+    rarityBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            setActiveRarity(this);
+            
+            if (this.classList.contains('btn-common')) currentRarity = 'common';
+            else if (this.classList.contains('btn-rare')) currentRarity = 'rare';
+            else if (this.classList.contains('btn-epic')) currentRarity = 'epic';
+            else if (this.classList.contains('btn-legendary')) currentRarity = 'legendary';
+            else if (this.classList.contains('btn-champion')) currentRarity = 'champion';
+            
+            updateResults();
+            updateProgressBars();
+        });
+    });
+    
+    // Устанавливаем активную кнопку по умолчанию
+    const defaultRarityBtn = document.querySelector('.btn-common');
+    if (defaultRarityBtn) {
+        setActiveRarity(defaultRarityBtn);
+    }
+}
 
 function updateLevelColors() {
     levelButtons.forEach((btn, index) => {
@@ -82,7 +228,20 @@ function updateLevelColors() {
 }
 
 function calculateNeededResources() {
+    // Проверяем, загружены ли данные
+    if (!dataLoaded || !upgradeCosts || !upgradeCosts[currentRarity]) {
+        console.warn('Данные еще не загружены');
+        return { 
+            neededCards: 0, 
+            neededGold: 0, 
+            neededGems: 0, 
+            remainingCards: 0, 
+            remainingGold: 0 
+        };
+    }
+    
     const costs = upgradeCosts[currentRarity];
+    
     let totalNeededCards = 0;
     let totalNeededGold = 0;
     let totalNeededGems = 0;
@@ -94,7 +253,9 @@ function calculateNeededResources() {
         if (i < costs.cards.length) {
             totalNeededCards += costs.cards[i] || 0;
             totalNeededGold += costs.gold[i] || 0;
-            totalNeededGems += costs.gems[i] || 0;
+            if (costs.gems && i < costs.gems.length) {
+                totalNeededGems += costs.gems[i] || 0;
+            }
         }
     }
     
@@ -129,11 +290,10 @@ function updateProgressBars() {
         goldPercentValue = 100;
     }
 
-    cardsProgressFill.style.width = `${cardsPercentValue}%`;
-    goldProgressFill.style.width = `${goldPercentValue}%`;
-
-    cardsPercent.textContent = `${Math.round(cardsPercentValue)}%`;
-    goldPercent.textContent = `${Math.round(goldPercentValue)}%`;
+    if (cardsProgressFill) cardsProgressFill.style.width = `${cardsPercentValue}%`;
+    if (goldProgressFill) goldProgressFill.style.width = `${goldPercentValue}%`;
+    if (cardsPercent) cardsPercent.textContent = `${Math.round(cardsPercentValue)}%`;
+    if (goldPercent) goldPercent.textContent = `${Math.round(goldPercentValue)}%`;
 }
 
 function updateSquares() {
@@ -203,92 +363,5 @@ function setTargetLevel(level) {
     updateResults();
 }
 
-btnPlus.addEventListener('click', () => setCurrentLevel(currentLevel + 1));
-btnMinus.addEventListener('click', () => setCurrentLevel(currentLevel - 1));
-targetPlus.addEventListener('click', () => setTargetLevel(targetLevel + 1));
-targetMinus.addEventListener('click', () => setTargetLevel(targetLevel - 1));
-
-for (let i = 1; i <= 16; i++) {
-    const button = document.createElement('button');
-    button.className = 'level-btn';
-    button.textContent = i;
-    button.dataset.level = i;
-    button.addEventListener('click', function () {
-        setCurrentLevel(parseInt(this.dataset.level, 10));
-    });
-    levelsContainer.appendChild(button);
-    levelButtons.push(button);
-}
-
-cardsInput.addEventListener('input', function (e) {
-    let value = parseInt(this.value, 10);
-    if (isNaN(value)) value = 0;
-    
-    if (value < 0) {
-        value = 0;
-        this.value = 0;
-    }
-    if (value > MAX_CARDS) {
-        value = MAX_CARDS;
-        this.value = MAX_CARDS;
-    }
-    
-    currentCards = value;
-    cardsValue.textContent = value;
-    updateResults();
-    updateProgressBars();
-});
-
-goldInput.addEventListener('input', function (e) {
-    let value = parseInt(this.value, 10);
-    if (isNaN(value)) value = 0;
-    
-    if (value < 0) {
-        value = 0;
-        this.value = 0;
-    }
-    if (value > MAX_GOLD) {
-        value = MAX_GOLD;
-        this.value = MAX_GOLD;
-    }
-    
-    currentGold = value;
-    goldValue.textContent = value;
-    updateResults();
-    updateProgressBars();
-});
-
-// ========== КНОПКИ РЕДКОСТИ С ВИЗУАЛЬНЫМ ВЫДЕЛЕНИЕМ ==========
-const rarityBtns = document.querySelectorAll('.rarity-btn');
-
-function setActiveRarity(activeBtn) {
-    rarityBtns.forEach(btn => {
-        btn.classList.remove('active');
-    });
-    activeBtn.classList.add('active');
-}
-
-rarityBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-        setActiveRarity(this);
-        
-        if (this.classList.contains('btn-common')) currentRarity = 'common';
-        else if (this.classList.contains('btn-rare')) currentRarity = 'rare';
-        else if (this.classList.contains('btn-epic')) currentRarity = 'epic';
-        else if (this.classList.contains('btn-legendary')) currentRarity = 'legendary';
-        else if (this.classList.contains('btn-champion')) currentRarity = 'champion';
-        
-        updateResults();
-    });
-});
-
-// Устанавливаем активную кнопку по умолчанию (обычная)
-const defaultRarityBtn = document.querySelector('.btn-common');
-if (defaultRarityBtn) {
-    setActiveRarity(defaultRarityBtn);
-}
-
-setCurrentLevel(1);
-setTargetLevel(1);
-updateSquares();
-updateResults();
+// ЗАПУСКАЕМ ЗАГРУЗКУ ДАННЫХ
+loadDataFromDB();

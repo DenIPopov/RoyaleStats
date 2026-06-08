@@ -1,56 +1,110 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
-from models import SessionLocal, Card, QuantityCards, QuantityGold
+from sqlalchemy import create_engine, Column, Integer
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/api/upgrade', methods=['POST'])
-def calculate_upgrade():
-    data = request.json
-    card_id = data.get('card_id')
-    current_level = data.get('current_level')
-    target_level = data.get('target_level')
+# Подключение к SQLite
+DATABASE_URL = 'sqlite:///royalstats.db'
 
-    if not card_id or not current_level or not target_level:
-        return jsonify({"error": "Не хватает данных"}), 400
+try:
+    engine = create_engine(DATABASE_URL, echo=False)
+    print(f"✅ Подключение к БД: {DATABASE_URL}")
+except Exception as e:
+    print(f"❌ Ошибка: {e}")
+    engine = None
 
-    session = SessionLocal()
+Base = declarative_base()
 
-    card = session.query(Card).filter_by(id=card_id).first()
-    if not card:
-        session.close()
-        return jsonify({"error": "Карта не найдена"}), 404
+class QuantityGold(Base):
+    __tablename__ = "quantity_gold"
+    
+    level = Column(Integer, primary_key=True)
+    common = Column(Integer, nullable=False)
+    rare = Column(Integer, nullable=False)
+    epic = Column(Integer, nullable=False)
+    legendary = Column(Integer, nullable=False)
+    champions = Column(Integer, nullable=False)
 
-    rarity = card.rarity
-    total_gold = 0
-    total_cards = 0
+class QuantityCards(Base):
+    __tablename__ = "quantity_cards"
+    
+    level = Column(Integer, primary_key=True)
+    common = Column(Integer, nullable=False)
+    rare = Column(Integer, nullable=False)
+    epic = Column(Integer, nullable=False)
+    legendary = Column(Integer, nullable=False)
+    champions = Column(Integer, nullable=False)
 
-    for level in range(current_level, target_level):
-        cards_q = session.query(QuantityCards).filter_by(level=level).first()
-        if cards_q:
-            total_cards += getattr(cards_q, rarity)
+def init_database():
+    if engine is None:
+        return False
+    try:
+        Base.metadata.create_all(engine)
+        print("✅ Таблицы созданы")
+        return True
+    except Exception as e:
+        print(f"❌ Ошибка: {e}")
+        return False
+
+if engine:
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    init_database()
+else:
+    session = None
+
+@app.route('/')
+def index():
+    return render_template('calculator.html')
+
+@app.route('/api/all-costs', methods=['GET'])
+def get_all_costs():
+    if session is None:
+        return jsonify({'error': 'Нет подключения к БД'}), 500
+    
+    try:
+        gold_data = session.query(QuantityGold).order_by(QuantityGold.level).all()
+        cards_data = session.query(QuantityCards).order_by(QuantityCards.level).all()
         
-        gold_q = session.query(QuantityGold).filter_by(level=level).first()
-        if gold_q:
-            total_gold += getattr(gold_q, rarity)
-
-    session.close()
-
-    return jsonify({
-        "card_name": card.name,
-        "rarity": rarity,
-        "gold_needed": total_gold,
-        "cards_needed": total_cards,
-        "levels_needed": target_level - current_level
-    })
-
-@app.route('/api/cards', methods=['GET'])
-def get_cards():
-    session = SessionLocal()
-    cards = session.query(Card).all()
-    session.close()
-    return jsonify([{"id": c.id, "name": c.name, "rarity": c.rarity} for c in cards])
+        if not gold_data or not cards_data:
+            return jsonify({'error': 'Нет данных в таблицах'}), 404
+        
+        upgrade_costs = {
+            'common': {'cards': [0], 'gold': [0], 'gems': [0]},
+            'rare': {'cards': [0], 'gold': [0], 'gems': [0]},
+            'epic': {'cards': [0], 'gold': [0], 'gems': [0]},
+            'legendary': {'cards': [0], 'gold': [0], 'gems': [0]},
+            'champion': {'cards': [0], 'gold': [0], 'gems': [0]}
+        }
+        
+        # Маппинг: ключ из фронта -> поле в БД
+        rarity_map = {
+            'common': 'common',
+            'rare': 'rare',
+            'epic': 'epic',
+            'legendary': 'legendary',
+            'champion': 'champions'
+        }
+        
+        # Заполняем данные по картам
+        for card in cards_data:
+            for rarity_key, db_field in rarity_map.items():
+                upgrade_costs[rarity_key]['cards'].append(getattr(card, db_field))
+        
+        # Заполняем данные по золоту
+        for gold in gold_data:
+            for rarity_key, db_field in rarity_map.items():
+                upgrade_costs[rarity_key]['gold'].append(getattr(gold, db_field))
+        
+        return jsonify(upgrade_costs)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
