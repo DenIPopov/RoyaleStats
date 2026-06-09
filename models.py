@@ -8,16 +8,6 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
-# Таблица: стоимость прокачки по уровням (общая)
-class Upgrade(Base):
-    __tablename__ = "upgrade"
-    
-    id = Column(Integer, primary_key=True)
-    level = Column(Integer, nullable=False)
-    cost_gold = Column(Integer, nullable=False)
-    cost_cards = Column(Integer, nullable=False)
-    cost_cristals = Column(Integer, nullable=False)
-
 # Таблица: количество карт для прокачки по уровням и редкости
 class QuantityCards(Base):
     __tablename__ = "quantity_cards"

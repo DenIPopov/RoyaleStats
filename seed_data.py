@@ -9,29 +9,6 @@ session.query(QuantityGold).delete()
 session.query(Card).delete()
 session.commit()
 
-# Таблица c общей стоимостью прокачки
-upgrade_data = [
-    (1, 50, 2, 0),
-    (2, 100, 4, 0),
-    (3, 200, 10, 0),
-    (4, 400, 20, 0),
-    (5, 800, 50, 0),
-    (6, 2000, 100, 0),
-    (7, 4000, 200, 0),
-    (8, 8000, 400, 0),
-    (9, 15000, 800, 0),
-    (10, 25000, 1000, 0),
-    (11, 35000, 2000, 0),
-    (12, 45000, 3500, 0),
-    (13, 50000, 5000, 100),
-    (14, 60000, 6000, 150),
-    (15, 80000, 8000, 200),
-    (16, 100000, 10000, 300),
-]
-
-for level, gold, cards, cristal in upgrade_data:
-    session.add(Upgrade(level=level, cost_gold=gold, cost_cards=cards, cost_cristals=cristal))
-
 # Таблица. Сколько карт нужно для прокачки
 # Уровней 16
 cards_quantity_data = [
