@@ -1,16 +1,16 @@
-from models import SessionLocal, Upgrade, QuantityCards, QuantityGold, Card
+from models import SessionLocal, QuantityCards, QuantityGold, Card
 
 session = SessionLocal()
 
 # Очистка старых данных
-session.query(Upgrade).delete()
+print("Очищаем старые данные...")
 session.query(QuantityCards).delete()
 session.query(QuantityGold).delete()
 session.query(Card).delete()
 session.commit()
 
-# Таблица. Сколько карт нужно для прокачки
-# Уровней 16
+# ========== КАРТЫ ДЛЯ ПРОКАЧКИ ==========
+print("Заполняем данные о количестве карт...")
 cards_quantity_data = [
     (1, 1, 0, 0, 0, 0),
     (2, 2, 0, 0, 0, 0),
@@ -36,7 +36,8 @@ for level, common, rare, epic, legendary, champions in cards_quantity_data:
         legendary=legendary, champions=champions
     ))
 
-# Таблица о том, сколько количества золота нужно для прокачки
+# ========== ЗОЛОТО ДЛЯ ПРОКАЧКИ ==========
+print("Заполняем данные о количестве золота...")
 gold_quantity_data = [
     (1, 0, 0, 0, 0, 0),
     (2, 5, 0, 0, 0, 0),
@@ -62,9 +63,9 @@ for level, common, rare, epic, legendary, champions in gold_quantity_data:
         legendary=legendary, champions=champions
     ))
 
-# Сборник карт Clash Royale (125 штук)
+# ========== ВСЕ КАРТЫ CLASH ROYALE ==========
+print("Заполняем справочник карт (125 штук)...")
 cards_data = [
-    # Обычные
     (1, "Принцесса из башни", "Воин для башни", "common"),
     (2, "Скелеты", "Воин", "common"),
     (3, "Огненный дух", "Воин", "common"),
@@ -96,8 +97,6 @@ cards_data = [
     (29, "Элитные варвары", "Воин", "common"),
     (30, "Королевские рекруты", "Воин", "common"),
     (31, "Валькирия", "Воин", "common"),
-
-    # Редкие
     (32, "Дух исцеления", "Воин", "rare"),
     (33, "Ледяной голем", "Воин", "rare"),
     (34, "Подозрительный куст", "Воин", "rare"),
@@ -127,8 +126,6 @@ cards_data = [
     (58, "Хижина варваров", "Здание", "rare"),
     (59, "Сборщик эликсира", "Здание", "rare"),
     (60, "Три мушкетера", "Воин", "rare"),
-
-    # Эпические
     (61, "Канонир", "Воин для башни", "epic"),
     (62, "Зеркало", "Заклинание", "epic"),
     (63, "Варварская бочка", "Заклинание", "epic"),
@@ -163,8 +160,6 @@ cards_data = [
     (92, "П.Е.К.К.А.", "Воин", "epic"),
     (93, "Электрогрант", "Воин", "epic"),
     (94, "Голем", "Воин", "epic"),
-
-    # Легендарные
     (95, "Графиня с кинжалами", "Воин для башни", "legendary"),
     (96, "Королевский повар", "Воин для башни", "legendary"),
     (97, "Бревно", "Заклинание", "legendary"),
@@ -188,8 +183,6 @@ cards_data = [
     (115, "Императрица духов", "Воин", "legendary"),
     (116, "Мегарыцарь", "Воин", "legendary"),
     (117, "Адская гончая", "Воин", "legendary"),
-
-    # Чемпионы
     (118, "Маленький принц", "Воин", "champions"),
     (119, "Король скелетов", "Воин", "champions"),
     (120, "Золотой рыцарь", "Воин", "champions"),
@@ -206,4 +199,4 @@ for card_id, name, card_type, rarity in cards_data:
 session.commit()
 session.close()
 
-print("База данных заполнена!")
+print("✅ База данных полностью заполнена!")

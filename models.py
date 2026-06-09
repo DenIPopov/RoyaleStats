@@ -1,14 +1,16 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
+from datetime import datetime
 
-DATABASE_URL = "postgresql://postgres:root_password@localhost:5432/royalestats"
+# SQLite база данных (файл royalestats.db создастся автоматически)
+DATABASE_URL = "sqlite:///royalestats.db"
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
-# Таблица: количество карт для прокачки по уровням и редкости
+# Таблица: количество карт для прокачки
 class QuantityCards(Base):
     __tablename__ = "quantity_cards"
     
@@ -19,7 +21,7 @@ class QuantityCards(Base):
     legendary = Column(Integer, nullable=False)
     champions = Column(Integer, nullable=False)
 
-# Таблица: количество золота для прокачки по уровням и редкости
+# Таблица: количество золота для прокачки
 class QuantityGold(Base):
     __tablename__ = "quantity_gold"
     
@@ -30,14 +32,34 @@ class QuantityGold(Base):
     legendary = Column(Integer, nullable=False)
     champions = Column(Integer, nullable=False)
 
-# Таблица: игроки
+# Таблица: игроки (главная)
 class Player(Base):
     __tablename__ = "players"
     
     id = Column(Integer, primary_key=True)
-    username = Column(String, nullable=False)
-    trophies = Column(Integer, nullable=False)
-
+    tag = Column(String, unique=True, nullable=False, index=True)
+    name = Column(String, nullable=False)
+    exp_level = Column(Integer, default=1)
+    trophies = Column(Integer, default=0)
+    best_trophies = Column(Integer, default=0)
+    wins = Column(Integer, default=0)
+    losses = Column(Integer, default=0)
+    battle_count = Column(Integer, default=0)
+    three_crown_wins = Column(Integer, default=0)
+    challenge_cards_won = Column(Integer, default=0)
+    challenge_max_wins = Column(Integer, default=0)
+    tournament_cards_won = Column(Integer, default=0)
+    tournament_battle_count = Column(Integer, default=0)
+    clan_name = Column(String, nullable=True)
+    clan_role = Column(String, nullable=True)
+    donations = Column(Integer, default=0)
+    donations_received = Column(Integer, default=0)
+    total_donations = Column(Integer, default=0)
+    war_day_wins = Column(Integer, default=0)
+    current_streak = Column(Integer, default=0)
+    arena_name = Column(String, nullable=True)
+    last_updated = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
     # Связь с картами игрока
     cards = relationship("PlayerCard", back_populates="player")
 
@@ -60,10 +82,10 @@ class Card(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     card_type = Column(String, nullable=False)
-    rarity = Column(String, nullable=False)  
+    rarity = Column(String, nullable=False)
     
     players = relationship("PlayerCard", back_populates="card")
 
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
-    print("Все таблицы созданы!")
+    print("✅ Таблицы созданы в файле royalestats.db")
