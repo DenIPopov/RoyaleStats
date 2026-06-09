@@ -1,3 +1,85 @@
+// ========== ПОДКЛЮЧЕНИЕ К БАЗЕ ДАННЫХ ==========
+let db = null;
+let upgradeCosts = {
+    common: { cards: [], gold: [] },
+    rare: { cards: [], gold: [] },
+    epic: { cards: [], gold: [] },
+    legendary: { cards: [], gold: [] },
+    champion: { cards: [], gold: [] }
+};
+
+// Загрузка базы данных
+async function initDatabase() {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js';
+        script.onload = async () => {
+            try {
+                const SQL = await initSqlJs({
+                    locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+                });
+                
+                const response = await fetch('royalestats.db');
+                const arrayBuffer = await response.arrayBuffer();
+                const uint8Array = new Uint8Array(arrayBuffer);
+                db = new SQL.Database(uint8Array);
+                
+                loadDataFromDB();
+                resolve();
+            } catch (err) {
+                console.error('Ошибка загрузки БД:', err);
+                reject(err);
+            }
+        };
+        script.onerror = () => {
+            console.error('Не удалось загрузить SQL.js');
+            reject(new Error('SQL.js не загрузился'));
+        };
+        document.head.appendChild(script);
+    });
+}
+
+// Загрузка данных из базы данных
+function loadDataFromDB() {
+    // Загрузка количества карт
+    const cardsResult = db.exec("SELECT * FROM quantity_cards ORDER BY level");
+    if (cardsResult.length > 0) {
+        const cardsData = cardsResult[0].values;
+        cardsData.forEach(row => {
+            const level = row[0];
+            upgradeCosts.common.cards[level] = row[1];
+            upgradeCosts.rare.cards[level] = row[2];
+            upgradeCosts.epic.cards[level] = row[3];
+            upgradeCosts.legendary.cards[level] = row[4];
+            upgradeCosts.champion.cards[level] = row[5];
+        });
+    }
+    
+    // Загрузка количества золота
+    const goldResult = db.exec("SELECT * FROM quantity_gold ORDER BY level");
+    if (goldResult.length > 0) {
+        const goldData = goldResult[0].values;
+        goldData.forEach(row => {
+            const level = row[0];
+            upgradeCosts.common.gold[level] = row[1];
+            upgradeCosts.rare.gold[level] = row[2];
+            upgradeCosts.epic.gold[level] = row[3];
+            upgradeCosts.legendary.gold[level] = row[4];
+            upgradeCosts.champion.gold[level] = row[5];
+        });
+    }
+    
+    // Заполняем нулями отсутствующие уровни
+    for (let rarity of ['common', 'rare', 'epic', 'legendary', 'champion']) {
+        for (let i = 0; i <= 16; i++) {
+            if (upgradeCosts[rarity].cards[i] === undefined) upgradeCosts[rarity].cards[i] = 0;
+            if (upgradeCosts[rarity].gold[i] === undefined) upgradeCosts[rarity].gold[i] = 0;
+        }
+    }
+}
+
+// Владика тема
+
 const levelsContainer = document.getElementById('levelsContainer');
 const cardsInput = document.getElementById('cardsInput');
 const goldInput = document.getElementById('goldInput');
@@ -7,7 +89,6 @@ const resultCards = document.getElementById('resultCards');
 const resultGold = document.getElementById('resultGold');
 const resultGems = document.getElementById('resultGems');
 
-// Элементы для полосок прогресса
 const cardsProgressFill = document.getElementById('cardsProgressFill');
 const goldProgressFill = document.getElementById('goldProgressFill');
 const cardsPercent = document.getElementById('cardsPercent');
@@ -17,7 +98,6 @@ const targetLevelValue = document.getElementById('targetLevelValue');
 const levelDisplay = document.getElementById('levelDisplay');
 const btnMinus = document.getElementById('btnMinus');
 const btnPlus = document.getElementById('btnPlus');
-
 const targetDisplay = document.getElementById('targetDisplay');
 const targetMinus = document.getElementById('targetMinus');
 const targetPlus = document.getElementById('targetPlus');
@@ -29,73 +109,20 @@ let levelButtons = [];
 let currentCards = 0;
 let currentGold = 0;
 
-// Максимальные значения для полей ввода
 const MAX_CARDS = 9999999;
 const MAX_GOLD = 999999999;
-
-const upgradeCosts = {
-    common: {
-        cards: [0, 0, 2, 4, 10, 20, 50, 100, 200, 400, 800, 1000, 1500, 2500, 3500, 5500, 7500],
-        gold: [0, 0, 5, 20, 50, 150, 400, 1000, 2000, 4000, 8000, 15000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 100, 150, 200, 250, 300]
-    },
-    rare: {
-        cards: [0, 0, 0, 1, 2, 4, 10, 20, 50, 100, 200, 300, 400, 550, 750, 1000, 1400],
-        gold: [0, 0, 0, 0, 50, 150, 400, 1000, 2000, 4000, 8000, 15000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 75, 150, 225, 300, 375, 450]
-    },
-    epic: {
-        cards: [0, 0, 0, 0, 0, 0, 0, 2, 4, 10, 20, 30, 50, 70, 100, 130, 180],
-        gold: [0, 0, 0, 0, 0, 0, 0, 1000, 2000, 4000, 8000, 15000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 200, 300, 400, 500, 600]
-    },
-    legendary: {
-        cards: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 9, 12, 14, 20],
-        gold: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5000, 15000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 300, 450, 600, 750, 900]
-    },
-    champion: {
-        cards: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 8, 11, 15],
-        gold: [0, 1000, 2000, 5000, 10000, 20000, 40000, 80000, 160000, 320000, 480000, 640000, 25000, 40000, 60000, 90000, 120000],
-        gems: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 400, 600, 800, 1000, 1200]
-    }
-};
-
-function updateLevelColors() {
-    levelButtons.forEach((btn, index) => {
-        const level = index + 1;
-        btn.classList.remove('current', 'range', 'target', 'future');
-
-        if (level === currentLevel) {
-            btn.classList.add('current');
-        }
-        else if (level === targetLevel) {
-            btn.classList.add('target');
-        }
-        else if ((level > currentLevel && level < targetLevel) || (level < currentLevel && level > targetLevel)) {
-            btn.classList.add('range');
-        }
-        else {
-            btn.classList.add('future');
-        }
-    });
-}
 
 function calculateNeededResources() {
     const costs = upgradeCosts[currentRarity];
     let totalNeededCards = 0;
     let totalNeededGold = 0;
-    let totalNeededGems = 0;
 
     let start = Math.min(currentLevel, targetLevel);
     let end = Math.max(currentLevel, targetLevel);
 
     for (let i = start + 1; i <= end; i++) {
-        if (i < costs.cards.length) {
-            totalNeededCards += costs.cards[i] || 0;
-            totalNeededGold += costs.gold[i] || 0;
-            totalNeededGems += costs.gems[i] || 0;
-        }
+        totalNeededCards += costs.cards[i] || 0;
+        totalNeededGold += costs.gold[i] || 0;
     }
     
     let remainingCards = Math.max(0, totalNeededCards - currentCards);
@@ -104,7 +131,6 @@ function calculateNeededResources() {
     return { 
         neededCards: totalNeededCards,
         neededGold: totalNeededGold,
-        neededGems: totalNeededGems,
         remainingCards: remainingCards,
         remainingGold: remainingGold
     };
@@ -131,35 +157,40 @@ function updateProgressBars() {
 
     cardsProgressFill.style.width = `${cardsPercentValue}%`;
     goldProgressFill.style.width = `${goldPercentValue}%`;
-
     cardsPercent.textContent = `${Math.round(cardsPercentValue)}%`;
     goldPercent.textContent = `${Math.round(goldPercentValue)}%`;
+}
+
+function updateLevelColors() {
+    levelButtons.forEach((btn, index) => {
+        const level = index + 1;
+        btn.classList.remove('current', 'range', 'target', 'future');
+
+        if (level === currentLevel) {
+            btn.classList.add('current');
+        } else if (level === targetLevel) {
+            btn.classList.add('target');
+        } else if ((level > currentLevel && level < targetLevel) || (level < currentLevel && level > targetLevel)) {
+            btn.classList.add('range');
+        } else {
+            btn.classList.add('future');
+        }
+    });
 }
 
 function updateSquares() {
     currentCards = parseInt(cardsInput.value, 10);
     currentGold = parseInt(goldInput.value, 10);
-    if (isNaN(currentCards)) { currentCards = 0; cardsInput.value = 0; }
-    if (isNaN(currentGold)) { currentGold = 0; goldInput.value = 0; }
+    if (isNaN(currentCards)) currentCards = 0;
+    if (isNaN(currentGold)) currentGold = 0;
     
-    if (currentCards < 0) {
-        currentCards = 0;
-        cardsInput.value = 0;
-    }
-    if (currentCards > MAX_CARDS) {
-        currentCards = MAX_CARDS;
-        cardsInput.value = MAX_CARDS;
-    }
+    if (currentCards < 0) currentCards = 0;
+    if (currentCards > MAX_CARDS) currentCards = MAX_CARDS;
+    if (currentGold < 0) currentGold = 0;
+    if (currentGold > MAX_GOLD) currentGold = MAX_GOLD;
     
-    if (currentGold < 0) {
-        currentGold = 0;
-        goldInput.value = 0;
-    }
-    if (currentGold > MAX_GOLD) {
-        currentGold = MAX_GOLD;
-        goldInput.value = MAX_GOLD;
-    }
-    
+    cardsInput.value = currentCards;
+    goldInput.value = currentGold;
     cardsValue.textContent = currentCards;
     goldValue.textContent = currentGold;
     updateProgressBars();
@@ -167,10 +198,10 @@ function updateSquares() {
 }
 
 function updateResults() {
-    const { remainingCards, remainingGold, neededGems } = calculateNeededResources();
+    const { remainingCards, remainingGold } = calculateNeededResources();
     resultCards.textContent = remainingCards;
     resultGold.textContent = remainingGold;
-    resultGems.textContent = neededGems;
+    resultGems.textContent = 0;
     updateProgressBars();
 }
 
@@ -179,21 +210,15 @@ function setCurrentLevel(level) {
     if (level > 16) level = 16;
     currentLevel = level;
     levelDisplay.textContent = level;
-    const bottomText = document.querySelector('.square-bottom-text');
-    bottomText.textContent = `текущий уровень: ${level}`;
+    document.querySelector('.square-bottom-text').textContent = `текущий уровень: ${level}`;
     
-    if (targetLevel < currentLevel) {
-        setTargetLevel(currentLevel);
-    } else {
-        updateLevelColors();
-        updateResults();
-    }
+    if (targetLevel < currentLevel) setTargetLevel(currentLevel);
+    else updateLevelColors();
+    updateResults();
 }
 
 function setTargetLevel(level) {
-    if (level < currentLevel) {
-        level = currentLevel;
-    }
+    if (level < currentLevel) level = currentLevel;
     if (level < 1) level = 1;
     if (level > 16) level = 16;
     targetLevel = level;
@@ -203,92 +228,56 @@ function setTargetLevel(level) {
     updateResults();
 }
 
-btnPlus.addEventListener('click', () => setCurrentLevel(currentLevel + 1));
-btnMinus.addEventListener('click', () => setCurrentLevel(currentLevel - 1));
-targetPlus.addEventListener('click', () => setTargetLevel(targetLevel + 1));
-targetMinus.addEventListener('click', () => setTargetLevel(targetLevel - 1));
-
-for (let i = 1; i <= 16; i++) {
-    const button = document.createElement('button');
-    button.className = 'level-btn';
-    button.textContent = i;
-    button.dataset.level = i;
-    button.addEventListener('click', function () {
-        setCurrentLevel(parseInt(this.dataset.level, 10));
-    });
-    levelsContainer.appendChild(button);
-    levelButtons.push(button);
-}
-
-cardsInput.addEventListener('input', function (e) {
-    let value = parseInt(this.value, 10);
-    if (isNaN(value)) value = 0;
-    
-    if (value < 0) {
-        value = 0;
-        this.value = 0;
-    }
-    if (value > MAX_CARDS) {
-        value = MAX_CARDS;
-        this.value = MAX_CARDS;
+// ========== ИНИЦИАЛИЗАЦИЯ ==========
+async function init() {
+    try {
+        await initDatabase();
+    } catch (err) {
+        console.error('База данных не загрузилась:', err);
+        alert('Ошибка загрузки базы данных. Проверьте подключение.');
+        return;
     }
     
-    currentCards = value;
-    cardsValue.textContent = value;
-    updateResults();
-    updateProgressBars();
-});
-
-goldInput.addEventListener('input', function (e) {
-    let value = parseInt(this.value, 10);
-    if (isNaN(value)) value = 0;
+    btnPlus.addEventListener('click', () => setCurrentLevel(currentLevel + 1));
+    btnMinus.addEventListener('click', () => setCurrentLevel(currentLevel - 1));
+    targetPlus.addEventListener('click', () => setTargetLevel(targetLevel + 1));
+    targetMinus.addEventListener('click', () => setTargetLevel(targetLevel - 1));
     
-    if (value < 0) {
-        value = 0;
-        this.value = 0;
-    }
-    if (value > MAX_GOLD) {
-        value = MAX_GOLD;
-        this.value = MAX_GOLD;
+    for (let i = 1; i <= 16; i++) {
+        const button = document.createElement('button');
+        button.className = 'level-btn';
+        button.textContent = i;
+        button.dataset.level = i;
+        button.addEventListener('click', () => setCurrentLevel(parseInt(button.dataset.level, 10)));
+        levelsContainer.appendChild(button);
+        levelButtons.push(button);
     }
     
-    currentGold = value;
-    goldValue.textContent = value;
-    updateResults();
-    updateProgressBars();
-});
-
-// ========== КНОПКИ РЕДКОСТИ С ВИЗУАЛЬНЫМ ВЫДЕЛЕНИЕМ ==========
-const rarityBtns = document.querySelectorAll('.rarity-btn');
-
-function setActiveRarity(activeBtn) {
+    cardsInput.addEventListener('input', () => updateSquares());
+    goldInput.addEventListener('input', () => updateSquares());
+    
+    const rarityBtns = document.querySelectorAll('.rarity-btn');
+    const setActiveRarity = (activeBtn) => {
+        rarityBtns.forEach(btn => btn.classList.remove('active'));
+        activeBtn.classList.add('active');
+    };
+    
     rarityBtns.forEach(btn => {
-        btn.classList.remove('active');
+        btn.addEventListener('click', function() {
+            setActiveRarity(this);
+            if (this.classList.contains('btn-common')) currentRarity = 'common';
+            else if (this.classList.contains('btn-rare')) currentRarity = 'rare';
+            else if (this.classList.contains('btn-epic')) currentRarity = 'epic';
+            else if (this.classList.contains('btn-legendary')) currentRarity = 'legendary';
+            else if (this.classList.contains('btn-champion')) currentRarity = 'champion';
+            updateResults();
+        });
     });
-    activeBtn.classList.add('active');
+    
+    document.querySelector('.btn-common').classList.add('active');
+    setCurrentLevel(1);
+    setTargetLevel(1);
+    updateSquares();
 }
 
-rarityBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-        setActiveRarity(this);
-        
-        if (this.classList.contains('btn-common')) currentRarity = 'common';
-        else if (this.classList.contains('btn-rare')) currentRarity = 'rare';
-        else if (this.classList.contains('btn-epic')) currentRarity = 'epic';
-        else if (this.classList.contains('btn-legendary')) currentRarity = 'legendary';
-        else if (this.classList.contains('btn-champion')) currentRarity = 'champion';
-        
-        updateResults();
-    });
-});
-
-// Устанавливаем активную кнопку по умолчанию (обычная)
-const defaultRarityBtn = document.querySelector('.btn-common');
-if (defaultRarityBtn) {
-    setActiveRarity(defaultRarityBtn);
-}
-
-setCurrentLevel(1);
-setTargetLevel(1);
-updateSquares();
-updateResults();
+init();
