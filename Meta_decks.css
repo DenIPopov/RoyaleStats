@@ -68,11 +68,16 @@ body {
 
 .meta_image-block {
   flex-shrink: 0;
-  width: 579px;
-  height: 100%;          
   overflow: hidden;
 }
-
+.metaBGI{
+  background: url('https://images2.alphacoders.com/127/thumb-1920-1270367.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 30vw;
+  height: 100vh;        
+}
 .meta_arena-image {
   width: 100%;
   height: auto;
@@ -84,10 +89,14 @@ body {
   flex: 1;
   padding: 40px 60px;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 24px;
+  align-items: center;
 }
-
+.meta_deck3-item {
+  display: block;
+}
 .meta_info-block {
   width: 903px;
   height: 216px;
@@ -100,6 +109,14 @@ body {
   margin-bottom: 8px;
 }
 
+.meta_deck-label{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  align-items: center;
+  text-transform: uppercase;
+  text-shadow: 0px 3px 8px var(--green);
+}
 .meta_info-title {
   font-size: 48px;
   font-weight: 700;
@@ -115,6 +132,8 @@ body {
 
 .meta_arena-section {
   margin-bottom: 8px;
+  display: grid;
+  justify-content: center;
 }
 
 .meta_arena-label {
@@ -156,15 +175,15 @@ body {
 }
 
 .meta_decks-row {
-  display: flex;
-  gap: 250px;
-  margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
 .meta_deck-item {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    flex: 1 1 300px;
+    max-width: 460px;
 }
 
 .meta_deck-label {
@@ -249,19 +268,9 @@ body {
   margin-top: 8px;
 }
 
-.meta_deck3-item {
-  align-items: center;
-}
-
 .meta_deck3-card {
   width: 460px;
   height: auto;
-}
-
-.meta_deck3-title {
-  font-size: 32px;
-  height: 76px;
-  line-height: 76px;
 }
 
 .meta_circle-btn {
@@ -305,6 +314,9 @@ body {
   }
   .meta_info-block {
     width: 100%;
+    text-align: center;
+    display: grid;
+    justify-content: center;
     max-width: 903px;
   }
 }
@@ -321,5 +333,159 @@ body {
   }
   .meta_deck3-wrapper {
     flex-wrap: wrap;
+  }
+}
+
+
+/* ===== Responsive Fixes ===== */
+
+body{
+  width:100%;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+.meta_main{
+  width:100%;
+  max-width:none;
+}
+
+.meta_image-block{
+  flex:0 0 35%;
+  max-width:579px;
+}
+
+.meta_info-block{
+  width:100%;
+  max-width:903px;
+  min-height:216px;
+  height:auto;
+}
+
+.meta_arena-label{
+  margin-left:0;
+  width:auto;
+}
+
+.meta_arena-select{
+  margin-left:0;
+  width:100%;
+  max-width:500px;
+}
+
+.meta_decks-row{
+  flex-wrap:wrap;
+  gap:30px;
+}
+
+.meta_deck-card{
+  width:100%;
+  max-width:460px;
+}
+
+@media (max-width:1024px){
+  .meta_main{
+    flex-direction:column;
+  }
+
+  .meta_image-block{
+    width:100%;
+    max-width:none;
+    flex:none;
+    height:300px;
+    overflow:hidden;
+  }
+
+  .metaBGI{
+    width:100%;
+    height:300px;
+  }
+
+  .meta_content-block{
+    padding:30px;
+  }
+
+  .meta_decks-row{
+    justify-content:center;
+    gap:20px;
+  }
+
+  .meta_deck3-wrapper{
+    gap:30px;
+  }
+}
+
+@media (max-width:768px){
+  .meta_content-block{
+    padding:20px 15px;
+  }
+  .meta_deck3-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+  }
+  .meta_info-title{
+    font-size:32px;
+    margin-bottom:20px;
+  }
+
+  .meta_info-subtitle{
+    font-size:18px;
+  }
+
+  .meta_arena-select{
+    height:55px;
+  }
+
+  .meta_decks-row{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .meta_deck-card{
+    max-width:100%;
+  }
+
+  .meta_deck3-wrapper{
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .meta_circle-btn{
+    width:60px;
+    height:60px;
+    font-size:36px;
+  }
+}
+
+@media (max-width:480px){
+  .meta_image-block{
+    height:200px;
+  }
+
+  .metaBGI{
+    height:200px;
+  }
+
+  .meta_info-title{
+    font-size:26px;
+  }
+
+  .meta_info-subtitle{
+    font-size:16px;
+  }
+
+  .meta_content-block{
+    padding:15px 10px;
+  }
+
+  .meta_deck-card{
+    padding:12px;
+  }
+
+  .meta_circle-btn{
+    width:50px;
+    height:50px;
+    font-size:28px;
   }
 }
