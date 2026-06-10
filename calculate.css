@@ -94,7 +94,7 @@ header {
     z-index: 10;
     max-width: 1400px;
     margin: 0 auto;
-    margin-left: 30%;
+    margin-left: 30%;  /* исходное положение для широких экранов */
     padding: 15px 20px;
     display: flex;
     flex-direction: column;
@@ -479,13 +479,20 @@ footer {
 }
 
 /* ========== АДАПТАЦИЯ ========== */
-@media (max-width: 768px) {
+
+/* Планшеты (сохраняем исходное положение до 768px) */
+@media (max-width: 1024px) and (min-width: 767px) {
     .calculator {
-        margin-left: 15%;
-        height: calc(100vh - 60px);
+        margin-left: 30%;  /* сохраняем исходное положение */
     }
-    
+}
+
+/* Мобильные экраны - центрируем и убираем отступ */
+@media (max-width: 766px) {
     .calculator {
+        margin-left: auto;
+        margin-right: auto;
+        height: calc(100vh - 60px);
         padding: 12px 15px;
     }
     
@@ -543,6 +550,10 @@ footer {
 }
 
 @media (max-width: 650px) {
+    .calculator {
+        padding: 10px 12px;
+    }
+    
     .levels-container {
         gap: 5px;
     }
@@ -568,6 +579,10 @@ footer {
 }
 
 @media (max-width: 550px) {
+    .calculator {
+        padding: 8px 10px;
+    }
+    
     .levels-container {
         gap: 4px;
     }
@@ -608,7 +623,9 @@ footer {
 
 @media (max-width: 480px) {
     .calculator {
-        margin-left: 10%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 8px 10px;
     }
     
     .level-control {
@@ -646,6 +663,10 @@ footer {
 }
 
 @media (max-width: 400px) {
+    .calculator {
+        padding: 6px 8px;
+    }
+    
     .levels-container {
         gap: 3px;
     }
@@ -687,5 +708,40 @@ footer {
         width: 26px;
         height: 26px;
         font-size: 16px;
+    }
+}
+
+/* Для очень маленьких экранов до 320px */
+@media (max-width: 340px) {
+    .level-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 9px;
+        border-radius: 5px;
+    }
+    
+    .levels-container {
+        gap: 2px;
+    }
+    
+    .square, .card-block, .gold-block {
+        min-width: 80px;
+        padding: 3px 6px;
+    }
+    
+    .rarity-btn {
+        padding: 4px 8px;
+        font-size: 8px;
+    }
+    
+    .level-block {
+        padding: 3px 6px;
+        gap: 4px;
+    }
+    
+    .level-control-btn {
+        width: 22px;
+        height: 22px;
+        font-size: 14px;
     }
 }
