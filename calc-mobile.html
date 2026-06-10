@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>RoyalStats - Калькулятор прокачки</title>
+    <link rel="stylesheet" href="calculate.css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-blue"></div>
+    <div class="fullscreen-photo">
+        <img src="https://i.pinimg.com/736x/ab/20/38/ab203829c25f2c83c5b1f70fa3a30618.jpg" alt="фон">
+    </div>
+
+    <header>
+        <div class="Header__container">
+            <div class="header__content">
+                <div class="logo"><a href="#"><h1>RoyalStats</h1></a></div>
+                <div class="nuvbar">
+                    <ul>
+                        <li><a href="#">База знаний</a></li>
+                        <li><a href="calculator.html">калькулятор прокачки</a></li>
+                        <li><a href="#">метовые колоды</a></li>
+                        <li><a href="#">Нововведения</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="calculator-main">
+        <div class="square">
+            <div class="square-text">выберите редкость карты:</div>
+        </div>
+
+        <div class="buttons-right">
+            <button class="rarity-btn btn-common">обычная</button>
+            <button class="rarity-btn btn-rare">редкая</button>
+            <button class="rarity-btn btn-epic">эпическая</button>
+            <button class="rarity-btn btn-legendary">легендарная</button>
+            <button class="rarity-btn btn-champion">чемпион</button>
+        </div>
+
+        <div class="square-bottom">
+            <div class="square-bottom-text">текущий уровень: 1</div>
+        </div>
+
+        <div class="level-control-left">
+            <button class="level-control-btn" id="btnMinus">-</button>
+            <div class="level-display" id="levelDisplay">1</div>
+            <button class="level-control-btn" id="btnPlus">+</button>
+        </div>
+
+        <div class="square-bottom-right">
+            <div class="square-bottom-right-text">целевой уровень</div>
+            <div class="square-bottom-right-value" id="targetLevelValue">1</div>
+        </div>
+
+        <div class="level-control-right">
+            <button class="level-control-btn" id="targetMinus">-</button>
+            <div class="level-display" id="targetDisplay">1</div>
+            <button class="level-control-btn" id="targetPlus">+</button>
+        </div>
+
+        <div class="levels-container" id="levelsContainer"></div>
+
+        <div class="square-under-levels">
+            <div class="square-under-levels-text">карт на руках</div>
+            <div class="square-under-levels-value" id="cardsValue">0</div>
+        </div>
+
+        <div class="input-under-left">
+            <input type="number" id="cardsInput" placeholder="введите количество карт" value="0">
+        </div>
+
+        <div class="square-right">
+            <div class="square-right-text">золота на руках</div>
+            <div class="square-right-value" id="goldValue">0</div>
+        </div>
+
+        <div class="input-under-right">
+            <input type="number" id="goldInput" placeholder="введите количество золота" value="0">
+        </div>
+
+        <div class="result-container">
+            <div class="result-title">📊 итого для прокачки необходимо</div>
+            <div class="result-stats">
+                <div class="result-item">
+                    <div class="result-label">количество карт</div>
+                    <div class="result-value cards" id="resultCards">0</div>
+                    <div class="result-sub">портерес по картам</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">количество золота</div>
+                    <div class="result-value gold" id="resultGold">0</div>
+                    <div class="result-sub">портерес по золоту</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">количество гемов</div>
+                    <div class="result-value gems" id="resultGems">0</div>
+                    <div class="result-sub">портерес по гемам</div>
+                </div>
+            </div>
+
+            <div class="progress-bars">
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span>📊 Прогресс по картам</span>
+                        <span class="progress-percent" id="cardsPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill cards-fill" id="cardsProgressFill"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span>💰 Прогресс по золоту</span>
+                        <span class="progress-percent" id="goldPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill gold-fill" id="goldProgressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer__container">
+            <div class="footer__content">
+                <p>© 2026 RoyalStats. Все права защищены.</p>
+                <p>Clash Royale и все связанные материалы являются товарными знаками Supercell.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="calculator.js"></script>
+</body>
+
+</html>
