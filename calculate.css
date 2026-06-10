@@ -7,462 +7,369 @@
 html, body {
     width: 100%;
     height: 100%;
-    margin: 0;
-    padding: 0;
+    background: #1A2B5E;
+    font-family: 'Barlow', sans-serif;
     overflow: hidden;
 }
 
-/* ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ДЛЯ РАЗМЕРОВ КВАДРАТОВ ========== */
-:root {
-    /* Размеры для нижних квадратов */
-    --square-under-levels-width: 15%;
-    --square-under-levels-height: 5%;
-    
-    --square-right-width: 15%;
-    --square-right-height: 5%;
-    
-    /* Отступ между квадратами (горизонтальный) */
-    --gap-between-squares: 410px;
-    
-    /* Отступ между кнопками уровней и квадратами */
-    --gap-between-levels-and-squares: 30px;
+/* ========== ФОН ========== */
+.fullscreen-photo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.fullscreen-photo img {
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+}
+
+/* ========== HEADER ========== */
+header {
+    position: relative;
+    z-index: 100;
+    background: rgba(26, 43, 94, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.Header__container {
+    display: flex;
+    justify-content: center;
+}
+
+.header__content {
+    max-width: 1500px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.logo h1 {
+    color: #F0B429;
+    font-size: clamp(18px, 3vw, 26px);
+}
+
+.logo a {
+    text-decoration: none;
+}
+
+.nuvbar ul {
+    list-style: none;
+    display: flex;
+    gap: clamp(12px, 2vw, 25px);
+    flex-wrap: wrap;
+}
+
+.nuvbar a {
+    color: #6b8ef8;
+    text-decoration: none;
+    font-size: clamp(11px, 1.5vw, 15px);
+    transition: color 0.3s;
+}
+
+.nuvbar a:hover {
+    color: #F0B429;
+}
+
+/* ========== ОСНОВНОЙ КОНТЕЙНЕР ========== */
+.calculator {
+    position: relative;
+    z-index: 10;
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-left: 30%;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+}
+
+/* ========== РЯД 1: ВЫБОР РЕДКОСТИ ========== */
+.row-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 .square {
-    position: absolute;
-    top: 10%;
-    left: 33%;
-    width: 10%;
-    height: 10%;
     background: rgba(251, 255, 0, 0.9);
     border: 2px solid #F0B429;
     border-radius: 30px;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 12px 25px;
     text-align: center;
-    padding: 10px;
+    min-width: 160px;
 }
 
 .square-text {
     color: #1A2B5E;
-    font-family: 'Barlow', sans-serif;
-    font-size: clamp(8px, 1vw, 14px);
-    font-weight: 1000;
-    margin-bottom: 5px;
+    font-size: clamp(11px, 1.4vw, 14px);
+    font-weight: 700;
 }
 
 .buttons-right {
-    position: absolute;
-    top: 10%;
-    left: calc(33% + 15% + 20px);
-    z-index: 10;
     display: flex;
-    flex-direction: row;
-    gap: 20px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-/* ========== КНОПКИ РЕДКОСТИ С box-shadow ========== */
 .rarity-btn {
     background: rgba(26, 43, 94, 0.8);
     backdrop-filter: blur(5px);
     border: 1px solid #F0B429;
     color: #F0B429;
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
+    font-size: clamp(10px, 1.2vw, 13px);
     font-weight: 500;
     border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     white-space: nowrap;
-    width: 120px;
-    height: 80px;
-    text-align: center;
+    padding: 10px 18px;
 }
 
-.btn-common { 
-    background: rgba(52, 152, 219, 0.85); 
-    color: white;
-    box-shadow: 0 0 15px rgba(52, 152, 219, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
-}
-.btn-common:hover {
-    box-shadow: 0 0 25px rgba(52, 152, 219, 0.9), inset 0 1px 0 rgba(255,255,255,0.3);
-    transform: scale(1.02);
+.btn-common { background: rgba(52, 152, 219, 0.85); color: white; }
+.btn-rare { background: rgba(46, 204, 113, 0.85); color: white; }
+.btn-epic { background: rgba(155, 89, 182, 0.85); color: white; }
+.btn-legendary { background: rgba(241, 196, 15, 0.85); color: #1A2B5E; }
+.btn-champion { background: rgba(230, 126, 34, 0.85); color: white; }
+
+.rarity-btn.active {
+    transform: scale(1.08);
+    box-shadow: 0 0 18px currentColor;
 }
 
-.btn-rare { 
-    background: rgba(46, 204, 113, 0.85); 
-    color: white;
-    box-shadow: 0 0 15px rgba(46, 204, 113, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
-}
-.btn-rare:hover {
-    box-shadow: 0 0 25px rgba(46, 204, 113, 0.9), inset 0 1px 0 rgba(255,255,255,0.3);
-    transform: scale(1.02);
-}
-
-.btn-epic { 
-    background: rgba(155, 89, 182, 0.85); 
-    color: white;
-    box-shadow: 0 0 15px rgba(155, 89, 182, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
-}
-.btn-epic:hover {
-    box-shadow: 0 0 25px rgba(155, 89, 182, 0.9), inset 0 1px 0 rgba(255,255,255,0.3);
-    transform: scale(1.02);
-}
-
-.btn-legendary { 
-    background: rgba(241, 196, 15, 0.85); 
-    color: #1A2B5E;
-    box-shadow: 0 0 15px rgba(241, 196, 15, 0.7), inset 0 1px 0 rgba(255,255,255,0.3);
-}
-.btn-legendary:hover {
-    box-shadow: 0 0 30px rgba(241, 196, 15, 1), inset 0 1px 0 rgba(255,255,255,0.4);
-    transform: scale(1.02);
-}
-
-.btn-champion { 
-    background: rgba(230, 126, 34, 0.85); 
-    color: white;
-    box-shadow: 0 0 15px rgba(230, 126, 34, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
-}
-.btn-champion:hover {
-    box-shadow: 0 0 25px rgba(230, 126, 34, 0.9), inset 0 1px 0 rgba(255,255,255,0.3);
-    transform: scale(1.02);
-}
-
-.square-bottom {
-    position: absolute;
-    top: calc(10% + 10% + 15px);
-    left: 33%;
-    width: 10%;
-    height: 10%;
-    background: rgba(251, 255, 0, 0.9);
-    border: 2px solid #F0B429;
-    border-radius: 30px;
-    z-index: 10;
+/* ========== РЯД 2: ТЕКУЩИЙ И ЦЕЛЕВОЙ УРОВНИ ========== */
+.row-2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
-.square-bottom-text {
-    color: #1A2B5E;
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-/* ========== КВАДРАТ СПРАВА ОТ square-bottom ========== */
-.square-bottom-right {
-    position: absolute;
-    top: calc(10% + 10% + 15px);
-    left: calc(33% + 10% + var(--gap-between-squares));
-    width: 10%;
-    height: 10%;
+.level-block {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     background: rgba(251, 255, 0, 0.9);
     border: 2px solid #F0B429;
     border-radius: 30px;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 5px;
+    padding: 10px 20px;
 }
 
+.square-bottom, .square-bottom-right {
+    background: transparent;
+    border: none;
+    text-align: center;
+}
+
+.square-bottom-text,
 .square-bottom-right-text {
-    color: #1A2B5E;
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
+    font-size: clamp(12px, 1.5vw, 15px);
     font-weight: 600;
-}
-
-.square-bottom-right-value {
     color: #1A2B5E;
-    font-family: 'Barlow', sans-serif;
-    font-size: 16px;
+}
+
+.square-bottom-text span,
+.square-bottom-right-text span {
+    font-size: clamp(18px, 2.2vw, 12px);
     font-weight: 800;
+    color: #1A2B5E;
 }
 
-/* ========== ПЕРВЫЙ БЛОК КНОПОК + И - (справа от square-bottom) ========== */
-.level-control-left {
-    position: absolute;
-    top: calc(10% + 12% + 15px);
-    left: calc(33% + 10% + var(--gap-between-squares) + -21% + 20px);
+.level-control {
     display: flex;
-    gap: 15px;
-    z-index: 10;
     align-items: center;
-}
-
-/* ========== ВТОРОЙ БЛОК КНОПОК + И - (справа от square-bottom-right) ========== */
-.level-control-right {
-    position: absolute;
-    top: calc(10% + 12% + 15px);
-    left: calc(33% + 10% + var(--gap-between-squares) + -3% + 20px + 10% + 60px);
-    display: flex;
-    gap: 15px;
-    z-index: 10;
-    align-items: center;
+    gap: 10px;
 }
 
 .level-control-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
+    width: clamp(38px, 5vw, 48px);
+    height: clamp(38px, 5vw, 48px);
+    border-radius: 50%;
     background: rgba(26, 43, 94, 0.9);
-    backdrop-filter: blur(5px);
     border: 2px solid #F0B429;
     color: #F0B429;
-    font-family: 'Barlow', sans-serif;
-    font-size: 28px;
+    font-size: clamp(20px, 3vw, 26px);
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s;
 }
 
 .level-control-btn:hover {
     background: rgba(240, 180, 41, 0.85);
     color: #1A2B5E;
-    transform: scale(1.05);
-    border-color: #fff;
-}
-
-.level-control-btn:active {
-    transform: scale(0.95);
 }
 
 .level-display {
-    min-width: 60px;
+    min-width: 50px;
     text-align: center;
-    font-family: 'Barlow', sans-serif;
-    font-size: 24px;
+    font-size: clamp(20px, 3vw, 26px);
     font-weight: 700;
     color: #F0B429;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
-/* КНОПКИ УРОВНЕЙ */
+.hidden-display {
+    display: none;
+}
+
+/* ========== РЯД 3: КНОПКИ УРОВНЕЙ ========== */
+.row-3 {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 .levels-container {
-    position: absolute;
-    top: calc(10% + 10% + 15px + 10% + 15px);
-    left: 65%;
-    transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    gap: 10px;
-    z-index: 10;
-    flex-wrap: nowrap;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: 100%;
 }
 
 .level-btn {
-    width: 50px;
-    height: 50px;
+    width: clamp(42px, 5vw, 52px);
+    height: clamp(42px, 5vw, 52px);
     border-radius: 12px;
     background: rgba(26, 43, 94, 0.85);
     backdrop-filter: blur(5px);
     border: 2px solid #F0B429;
     color: #F0B429;
-    font-family: 'Barlow', sans-serif;
-    font-size: 26px;
+    font-size: clamp(16px, 2.5vw, 22px);
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    transition: all 0.2s;
 }
 
 .level-btn:hover {
+    transform: scale(1.05);
     background: rgba(240, 180, 41, 0.85);
     color: #1A2B5E;
-    transform: scale(1.05);
-    border-color: #fff;
 }
 
-/* Желтый цвет для текущего уровня */
 .level-btn.current {
     background: rgba(240, 180, 41, 0.85);
     color: #1A2B5E;
-    border-color: #F0B429;
 }
 
-/* Зеленый цвет для уровней между текущим и целевым */
 .level-btn.range {
     background: rgba(46, 204, 113, 0.85);
     color: white;
     border-color: #2ecc71;
-    box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
 }
 
-/* Синий для целевого уровня */
 .level-btn.target {
     background: rgba(52, 152, 219, 0.85);
     color: white;
     border-color: #3498db;
-    box-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
 }
 
-/* Серый для будущих уровней (после целевого) */
 .level-btn.future {
     background: rgba(26, 43, 94, 0.85);
     color: #6b8ef8;
-    border-color: #F0B429;
     opacity: 0.7;
 }
 
-/* ========== КВАДРАТ ПОД КНОПКАМИ УРОВНЕЙ ========== */
-.square-under-levels {
-    position: absolute;
-    top: calc(5% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares));
-    left: 33%;
-    width: var(--square-under-levels-width);
-    height: var(--square-under-levels-height);
-    background: rgba(251, 255, 0, 0.9);
-    border: 2px solid #F0B429;
-    border-radius: 30px;
-    z-index: 10;
+/* ========== РЯД 4: КАРТЫ И ЗОЛОТО ========== */
+.row-4 {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 5px;
-}
-
-.square-under-levels-text {
-    color: #1A2B5E;
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.square-under-levels-value {
-    color: #1A2B5E;
-    font-family: 'Barlow', sans-serif;
-    font-size: 16px;
-    font-weight: 800;
-}
-
-/* ========== КВАДРАТ СПРАВА ========== */
-.square-right {
-    position: absolute;
-    top: calc(5% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares));
-    left: calc(33% + var(--square-under-levels-width) + var(--gap-between-squares));
-    width: var(--square-right-width);
-    height: var(--square-right-height);
-    background: rgba(251, 255, 0, 0.9);
-    border: 2px solid #F0B429;
-    border-radius: 30px;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 5px;
-}
-
-.square-right-text {
-    color: #1A2B5E;
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.square-right-value {
-    color: #1A2B5E;
-    font-family: 'Barlow', sans-serif;
-    font-size: 16px;
-    font-weight: 800;
-}
-
-/* ========== ПОЛЯ ВВОДА ========== */
-.input-under-left {
-    position: absolute;
-    top: calc(5% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 15px);
-    left: 33%;
-    width: var(--square-under-levels-width);
-    z-index: 10;
-}
-
-.input-under-left input {
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
     width: 100%;
-    padding: 10px;
+}
+
+.card-block, .gold-block {
+    background: rgba(251, 255, 0, 0.9);
+    border: 2px solid #F0B429;
+    border-radius: 30px;
+    padding: 12px 25px;
+    text-align: center;
+    min-width: 160px;
+}
+
+.card-block-text, .gold-block-text {
+    color: #1A2B5E;
+    font-size: clamp(11px, 1.3vw, 14px);
+    font-weight: 600;
+}
+
+.card-block-value, .gold-block-value {
+    color: #1A2B5E;
+    font-size: clamp(18px, 2.2vw, 24px);
+    font-weight: 800;
+}
+
+/* ========== РЯД 5: ПОЛЯ ВВОДА ========== */
+.row-5 {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-card input, .input-gold input {
+    width: 200px;
+    padding: 10px 15px;
     background: rgba(26, 43, 94, 0.9);
     backdrop-filter: blur(5px);
     border: 2px solid #F0B429;
     border-radius: 15px;
     color: #F0B429;
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: clamp(12px, 1.5vw, 14px);
     text-align: center;
     outline: none;
-    transition: all 0.3s ease;
 }
 
-.input-under-left input:focus {
+.input-card input:focus, .input-gold input:focus {
     border-color: #fff;
     box-shadow: 0 0 10px rgba(240, 180, 41, 0.5);
 }
 
-.input-under-right {
-    position: absolute;
-    top: calc(5% + 10% + 15px + 10% + 15px + 90px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 15px);
-    left: calc(33% + var(--square-under-levels-width) + var(--gap-between-squares));
-    width: var(--square-right-width);
-    z-index: 10;
-}
-
-.input-under-right input {
+/* ========== РЯД 6: РЕЗУЛЬТАТЫ ========== */
+.row-6 {
     width: 100%;
-    padding: 10px;
-    background: rgba(26, 43, 94, 0.9);
-    backdrop-filter: blur(5px);
-    border: 2px solid #F0B429;
-    border-radius: 15px;
-    color: #F0B429;
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-    outline: none;
-    transition: all 0.3s ease;
+    max-width: 520px;
+    margin: 0 auto 15px;
 }
 
-.input-under-right input:focus {
-    border-color: #fff;
-    box-shadow: 0 0 10px rgba(240, 180, 41, 0.5);
-}
-
-/* ========== КОНТЕЙНЕР ДЛЯ ИТОГОВ ========== */
 .result-container {
-    position: absolute;
-    bottom: 5%;
-    left: 65%;
-    transform: translateX(-50%);
-    width: 65%;
     background: rgba(26, 43, 94, 0.85);
     backdrop-filter: blur(10px);
     border: 2px solid #F0B429;
     border-radius: 20px;
-    z-index: 10;
     padding: 15px 20px;
 }
 
 .result-title {
     color: #F0B429;
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
+    font-size: clamp(12px, 1.6vw, 15px);
     font-weight: 700;
     text-align: center;
     margin-bottom: 12px;
@@ -480,65 +387,38 @@ html, body {
 
 .result-item {
     flex: 1;
-    min-width: 100px;
+    min-width: 120px;
     text-align: center;
-    padding: 10px 8px;
+    padding: 10px;
     background: rgba(0, 0, 0, 0.3);
     border-radius: 12px;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.result-item:hover {
-    background: rgba(240, 180, 41, 0.15);
-    transform: translateY(-2px);
 }
 
 .result-label {
     color: #F0B429;
-    font-family: 'Barlow', sans-serif;
-    font-size: 11px;
+    font-size: clamp(10px, 1.2vw, 12px);
     font-weight: 600;
-    letter-spacing: 0.5px;
 }
 
 .result-value {
     color: #fff;
-    font-family: 'Barlow', sans-serif;
-    font-size: 22px;
+    font-size: clamp(18px, 2.5vw, 24px);
     font-weight: 800;
-    letter-spacing: 1px;
 }
 
-.result-value.cards {
-    color: #52b9ff;
-}
-
-.result-value.gold {
-    color: #ffd700;
-}
-
-.result-value.gems {
-    color: #9b59b6;
-}
+.result-value.cards { color: #52b9ff; }
+.result-value.gold { color: #ffd700; }
 
 .result-sub {
-    font-size: 9px;
+    font-size: clamp(8px, 1vw, 10px);
     color: rgba(255, 255, 255, 0.5);
-    font-family: 'Barlow', sans-serif;
-    margin-top: 3px;
 }
 
-/* ========== ПОЛОСКИ ПРОГРЕССА ========== */
+/* ========== ПРОГРЕСС БАРЫ ========== */
 .progress-bars {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 5px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(240, 180, 41, 0.3);
 }
 
 .progress-item {
@@ -551,9 +431,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     color: #F0B429;
-    font-family: 'Barlow', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
+    font-size: clamp(10px, 1.2vw, 12px);
 }
 
 .progress-bar-container {
@@ -568,7 +446,7 @@ html, body {
     height: 100%;
     width: 0%;
     border-radius: 10px;
-    transition: width 0.5s ease;
+    transition: width 0.5s;
 }
 
 .progress-bar-fill.cards-fill {
@@ -579,343 +457,119 @@ html, body {
     background: linear-gradient(90deg, #ffd700, #f39c12);
 }
 
-.progress-percent {
-    color: rgba(255, 255, 255, 0.6);
-    font-family: 'Barlow', sans-serif;
-    font-size: 9px;
-}
-
-/* ========== СТИЛИ ДЛЯ HEADER И FOOTER ========== */
-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 20;
-    background: rgba(26, 43, 94, 0.95);
-}
-
-.Header__container {
-    display: flex;
-    justify-content: center;
-    background: rgba(26, 43, 94, 0.95);
-    height: 6vh;
-    min-height: 50px;
-}
-
-.header__content {
-    width: 100vw;
-    margin: 0 auto;
-    max-width: 1500px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.logo h1 {
-    color: #F0B429;
-    font-size: 28px;
-    margin: 0;
-}
-
-.logo a {
-    text-decoration: none;
-}
-
-.nuvbar ul {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    margin: 0;
-    padding: 0;
-}
-
-.nuvbar a {
-    color: #6b8ef8;
-    font-family: 'Barlow', sans-serif;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-    text-shadow: 1px 1px 2px #2C2C2A;
-}
-
-.nuvbar a:hover {
-    color: #F0B429;
-}
-
+/* ========== FOOTER ========== */
 footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 20;
+    position: relative;
     background: rgba(26, 43, 94, 0.95);
-    padding: 10px 20px;
+    padding: 8px;
     text-align: center;
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
-}
-
-.footer__container {
-    max-width: 1200px;
-    margin: 0 auto;
+    margin-top: 0;
 }
 
 .footer__content p {
-    margin: 5px 0;
     color: #6b8ef8;
+    font-size: clamp(10px, 1.3vw, 12px);
 }
 
-/* Убираем старый navbar-overlay */
-.navbar-overlay {
-    display: none;
-}
-
-/* Адаптив */
-@media (max-width: 1000px) {
-    .buttons-right {
-        left: calc(33% + 15% + 10px);
-        gap: 5px;
+/* ========== АДАПТАЦИЯ ========== */
+@media (max-width: 768px) {
+    .calculator {
+        margin-left: 15%;
+        height: calc(100vh - 60px);
     }
     
-    .rarity-btn {
-        width: 90px;
-        height: 60px;
-        font-size: 10px;
-    }
-
-    .level-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 14px;
-    }
-    .levels-container {
-        gap: 4px;
-    }
-    
-    .square-under-levels {
-        top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares));
-    }
-    
-    .square-right {
-        top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares));
-    }
-    
-    .square-bottom-right {
-        left: calc(33% + 10% + var(--gap-between-squares) - 100px);
-    }
-    
-    .level-control-left {
-        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 10px);
-    }
-    
-    .level-control-right {
-        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 20px + 10% + 40px);
-    }
-    
-    .level-control-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 24px;
-    }
-    
-    .level-display {
-        font-size: 20px;
-        min-width: 50px;
-    }
-    
-    .input-under-left {
-        top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 10px);
-    }
-    
-    .input-under-right {
-        top: calc(10% + 10% + 15px + 10% + 15px + 52px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 10px);
-    }
-    
-    .result-container {
-        width: 70%;
-        bottom: 8%;
+    .calculator {
         padding: 12px 15px;
     }
     
-    .result-value {
-        font-size: 18px;
+    .row-1, .row-2, .row-4, .row-5 {
+        gap: 15px;
     }
     
-    .result-label {
-        font-size: 10px;
+    .level-block {
+        padding: 8px 15px;
     }
     
-    .result-sub {
-        font-size: 8px;
+    .square, .card-block, .gold-block {
+        padding: 8px 18px;
+        min-width: 130px;
     }
     
-    .result-title {
-        font-size: 12px;
-    }
-    
-    .result-stats {
-        gap: 10px;
-    }
-    
-    .result-item {
-        padding: 8px 6px;
-    }
-
-    .nuvbar a {
-        font-size: 14px;
-    }
-    
-    .logo h1 {
-        font-size: 22px;
-    }
-    
-    .nuvbar ul {
-        gap: 20px;
-    }
-}
-
-@media (max-width: 700px) {
-    .level-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 12px;
-    }
-    .levels-container {
-        gap: 3px;
-    }
-    
-    .square-under-levels {
-        top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares));
-    }
-    
-    .square-right {
-        top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares));
-    }
-    
-    .square-bottom-right {
-        left: calc(33% + 10% + var(--gap-between-squares) - 200px);
-    }
-    
-    .level-control-left {
-        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 5px);
-        gap: 8px;
-    }
-    
-    .level-control-right {
-        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 15px + 10% + 30px);
-        gap: 8px;
-    }
-    
-    .level-control-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 20px;
-    }
-    
-    .level-display {
-        font-size: 18px;
-        min-width: 40px;
-    }
-    
-    .input-under-left {
-        top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 10px);
-    }
-    
-    .input-under-right {
-        top: calc(10% + 10% + 15px + 10% + 15px + 45px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 10px);
-    }
-    
-    .result-container {
-        width: 85%;
-        bottom: 6%;
-        padding: 10px 12px;
+    .input-card input, .input-gold input {
+        width: 170px;
+        padding: 8px 12px;
     }
     
     .result-stats {
         flex-direction: column;
         gap: 8px;
-        margin-bottom: 10px;
     }
     
     .result-item {
-        padding: 8px;
         min-width: auto;
+        padding: 8px;
     }
     
-    .result-value {
+    .row-6 {
+        max-width: 400px;
+    }
+    
+    .levels-container {
+        gap: 6px;
+    }
+    
+    .level-btn {
+        width: 38px;
+        height: 38px;
         font-size: 16px;
     }
     
-    .result-label {
-        font-size: 10px;
+    .level-control-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 22px;
     }
     
-    .result-title {
-        font-size: 11px;
-        margin-bottom: 8px;
-    }
-    
-    .progress-header {
-        font-size: 9px;
-    }
-    
-    .progress-percent {
-        font-size: 8px;
-    }
-    
-    .progress-bar-container {
-        height: 5px;
-    }
-
-    .nuvbar a {
-        font-size: 11px;
-    }
-    
-    .logo h1 {
-        font-size: 18px;
-    }
-    
-    .nuvbar ul {
-        gap: 12px;
-    }
-    
-    .header__content {
-        padding: 0 15px;
+    .level-control {
+        gap: 6px;
     }
 }
 
-@media (max-width: 580px) {
+@media (max-width: 650px) {
+    .levels-container {
+        gap: 5px;
+    }
+    
+    .level-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+    }
+    
+    .square, .card-block, .gold-block {
+        min-width: 120px;
+        padding: 6px 14px;
+    }
+    
+    .square-text, .card-block-text, .gold-block-text {
+        font-size: 11px;
+    }
+    
+    .card-block-value, .gold-block-value {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    .levels-container {
+        gap: 4px;
+    }
+    
     .level-btn {
         width: 30px;
         height: 30px;
-        font-size: 10px;
-    }
-    .levels-container {
-        gap: 2px;
-    }
-    
-    .square-under-levels {
-        top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares));
-    }
-    
-    .square-right {
-        top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares));
-    }
-    
-    .square-bottom-right {
-        left: calc(33% + 10% + var(--gap-between-squares) - 250px);
-    }
-    
-    .level-control-left {
-        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 2px);
-        gap: 5px;
-    }
-    
-    .level-control-right {
-        left: calc(33% + 10% + var(--gap-between-squares) + 10% + 12px + 10% + 20px);
-        gap: 5px;
+        font-size: 12px;
+        border-radius: 8px;
     }
     
     .level-control-btn {
@@ -925,129 +579,106 @@ footer {
     }
     
     .level-display {
-        font-size: 16px;
         min-width: 35px;
+        font-size: 18px;
     }
     
-    .input-under-left {
-        top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares) + var(--square-under-levels-height) + 8px);
-    }
-    
-    .input-under-right {
-        top: calc(10% + 10% + 15px + 10% + 15px + 40px + var(--gap-between-levels-and-squares) + var(--square-right-height) + 8px);
-    }
-    
-    .input-under-left input, .input-under-right input {
-        padding: 6px;
-        font-size: 10px;
-    }
-    
-    .result-container {
-        width: 92%;
-        bottom: 5%;
-        padding: 8px 10px;
-    }
-    
-    .result-value {
-        font-size: 14px;
-    }
-    
-    .result-label {
-        font-size: 9px;
-    }
-    
-    .result-sub {
-        font-size: 7px;
-    }
-    
-    .result-title {
-        font-size: 10px;
-    }
-    
-    .progress-bars {
-        gap: 6px;
-    }
-
-    .nuvbar a {
-        font-size: 9px;
-    }
-    
-    .logo h1 {
-        font-size: 14px;
-    }
-    
-    .nuvbar ul {
+    .level-block {
+        padding: 6px 12px;
         gap: 8px;
     }
-}
-
-@media (max-width: 800px) {
-    .buttons-right {
-        top: 22%;
-        left: 33%;
-        flex-wrap: wrap;
+    
+    .square-bottom-text,
+    .square-bottom-right-text {
+        font-size: 11px;
+    }
+    
+    .square-bottom-text span,
+    .square-bottom-right-text span {
+        font-size: 18px;
     }
 }
 
-.background-blue {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #1A2B5E;
-    z-index: 0;
+@media (max-width: 480px) {
+    .calculator {
+        margin-left: 10%;
+    }
+    
+    .level-control {
+        gap: 5px;
+    }
+    
+    .level-display {
+        min-width: 40px;
+    }
+    
+    .square, .card-block, .gold-block {
+        min-width: 100px;
+        padding: 5px 10px;
+    }
+    
+    .input-card input, .input-gold input {
+        width: 130px;
+        padding: 5px 8px;
+    }
+    
+    .levels-container {
+        gap: 4px;
+    }
+    
+    .level-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+        border-radius: 6px;
+    }
+    
+    .row-6 {
+        max-width: 320px;
+    }
 }
 
-.fullscreen-photo {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.fullscreen-photo img {
-    width: 30%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    opacity: 0.85;
-}
-
-/* ========== АКТИВНАЯ КНОПКА РЕДКОСТИ - УВЕЛИЧЕНА ========== */
-.rarity-btn {
-    transition: all 0.3s ease;
-}
-
-.rarity-btn.active {
-    transform: scale(1.15);
-    z-index: 20;
-    position: relative;
-}
-
-.btn-common.active {
-    background: rgba(52, 152, 219, 1);
-    box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
-}
-
-.btn-rare.active {
-    background: rgba(46, 204, 113, 1);
-    box-shadow: 0 0 20px rgba(46, 204, 113, 0.8);
-}
-
-.btn-epic.active {
-    background: rgba(155, 89, 182, 1);
-    box-shadow: 0 0 20px rgba(155, 89, 182, 0.8);
-}
-
-.btn-legendary.active {
-    background: rgba(241, 196, 15, 1);
-    box-shadow: 0 0 20px rgba(241, 196, 15, 0.8);
-}
-
-.btn-champion.active {
-    background: rgba(230, 126, 34, 1);
-    box-shadow: 0 0 20px rgba(230, 126, 34, 0.8);
+@media (max-width: 400px) {
+    .levels-container {
+        gap: 3px;
+    }
+    
+    .level-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+    }
+    
+    .square, .card-block, .gold-block {
+        min-width: 90px;
+        padding: 4px 8px;
+    }
+    
+    .square-text, .card-block-text, .gold-block-text {
+        font-size: 9px;
+    }
+    
+    .card-block-value, .gold-block-value {
+        font-size: 16px;
+    }
+    
+    .rarity-btn {
+        padding: 6px 12px;
+        font-size: 9px;
+    }
+    
+    .row-2 {
+        gap: 15px;
+    }
+    
+    .level-block {
+        padding: 5px 10px;
+        gap: 6px;
+    }
+    
+    .level-control-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 16px;
+    }
 }
