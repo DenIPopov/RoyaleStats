@@ -94,7 +94,7 @@ header {
     z-index: 10;
     max-width: 1400px;
     margin: 0 auto;
-    margin-left: 30%;  /* исходное положение для широких экранов */
+    margin-left: 30%;
     padding: 15px 20px;
     display: flex;
     flex-direction: column;
@@ -157,7 +157,32 @@ header {
 
 .rarity-btn.active {
     transform: scale(1.08);
-    box-shadow: 0 0 18px currentColor;
+}
+
+.btn-common.active {
+    background: rgba(52, 152, 219, 1);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
+}
+
+.btn-rare.active {
+    background: rgba(46, 204, 113, 1);
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.8);
+}
+
+.btn-epic.active {
+    background: rgba(155, 89, 182, 1);
+    box-shadow: 0 0 20px rgba(155, 89, 182, 0.8);
+}
+
+.btn-legendary.active {
+    background: rgba(241, 196, 15, 1);
+    color: #1A2B5E;
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.8);
+}
+
+.btn-champion.active {
+    background: rgba(230, 126, 34, 1);
+    box-shadow: 0 0 20px rgba(230, 126, 34, 0.8);
 }
 
 /* ========== РЯД 2: ТЕКУЩИЙ И ЦЕЛЕВОЙ УРОВНИ ========== */
@@ -483,7 +508,7 @@ footer {
 /* Планшеты (сохраняем исходное положение до 768px) */
 @media (max-width: 1024px) and (min-width: 767px) {
     .calculator {
-        margin-left: 30%;  /* сохраняем исходное положение */
+        margin-left: 30%;
     }
 }
 

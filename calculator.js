@@ -233,8 +233,6 @@ function createLevelButtons() {
         return;
     }
     
-    console.log('Создаю кнопки уровней...');
-    
     for (let i = 1; i <= 16; i++) {
         const button = document.createElement('button');
         button.className = 'level-btn';
@@ -245,20 +243,15 @@ function createLevelButtons() {
         levelButtons.push(button);
     }
     
-    console.log(`Создано ${levelButtons.length} кнопок уровней`);
     updateLevelColors();
 }
 
 // ========== ИНИЦИАЛИЗАЦИЯ ==========
 async function init() {
-    console.log('Инициализация...');
-    
-    // Сначала создаём кнопки уровней, чтобы они точно появились
     createLevelButtons();
     
     try {
         await initDatabase();
-        console.log('База данных загружена');
     } catch (err) {
         console.error('База данных не загрузилась:', err);
         alert('Ошибка загрузки базы данных. Проверьте подключение.');
@@ -296,8 +289,6 @@ async function init() {
     setCurrentLevel(1);
     setTargetLevel(1);
     updateSquares();
-    
-    console.log('Инициализация завершена');
 }
 
 // Запускаем инициализацию после загрузки DOM
