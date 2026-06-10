@@ -41,7 +41,6 @@ async function initDatabase() {
 
 // Загрузка данных из базы данных
 function loadDataFromDB() {
-    // Загрузка количества карт
     const cardsResult = db.exec("SELECT * FROM quantity_cards ORDER BY level");
     if (cardsResult.length > 0) {
         const cardsData = cardsResult[0].values;
@@ -55,7 +54,6 @@ function loadDataFromDB() {
         });
     }
     
-    // Загрузка количества золота
     const goldResult = db.exec("SELECT * FROM quantity_gold ORDER BY level");
     if (goldResult.length > 0) {
         const goldData = goldResult[0].values;
@@ -69,7 +67,6 @@ function loadDataFromDB() {
         });
     }
     
-    // Заполняем нулями отсутствующие уровни
     for (let rarity of ['common', 'rare', 'epic', 'legendary', 'champion']) {
         for (let i = 0; i <= 16; i++) {
             if (upgradeCosts[rarity].cards[i] === undefined) upgradeCosts[rarity].cards[i] = 0;
@@ -77,8 +74,6 @@ function loadDataFromDB() {
         }
     }
 }
-
-// Владика тема
 
 const levelsContainer = document.getElementById('levelsContainer');
 const cardsInput = document.getElementById('cardsInput');
@@ -210,7 +205,10 @@ function setCurrentLevel(level) {
     if (level > 16) level = 16;
     currentLevel = level;
     levelDisplay.textContent = level;
-    document.querySelector('.square-bottom-text').textContent = `текущий уровень: ${level}`;
+    const squareBottomText = document.querySelector('.square-bottom-text');
+    if (squareBottomText) {
+        squareBottomText.innerHTML = `текущий уровень: <span>${level}</span>`;
+    }
     
     if (targetLevel < currentLevel) setTargetLevel(currentLevel);
     else updateLevelColors();
@@ -222,26 +220,20 @@ function setTargetLevel(level) {
     if (level < 1) level = 1;
     if (level > 16) level = 16;
     targetLevel = level;
-    targetDisplay.textContent = level;
-    targetLevelValue.textContent = level;
+    if (targetDisplay) targetDisplay.textContent = level;
+    if (targetLevelValue) targetLevelValue.textContent = level;
     updateLevelColors();
     updateResults();
 }
 
-// ========== ИНИЦИАЛИЗАЦИЯ ==========
-async function init() {
-    try {
-        await initDatabase();
-    } catch (err) {
-        console.error('База данных не загрузилась:', err);
-        alert('Ошибка загрузки базы данных. Проверьте подключение.');
+// Функция для создания кнопок уровней
+function createLevelButtons() {
+    if (!levelsContainer) {
+        console.error('levelsContainer не найден!');
         return;
     }
     
-    btnPlus.addEventListener('click', () => setCurrentLevel(currentLevel + 1));
-    btnMinus.addEventListener('click', () => setCurrentLevel(currentLevel - 1));
-    targetPlus.addEventListener('click', () => setTargetLevel(targetLevel + 1));
-    targetMinus.addEventListener('click', () => setTargetLevel(targetLevel - 1));
+    console.log('Создаю кнопки уровней...');
     
     for (let i = 1; i <= 16; i++) {
         const button = document.createElement('button');
@@ -253,8 +245,32 @@ async function init() {
         levelButtons.push(button);
     }
     
-    cardsInput.addEventListener('input', () => updateSquares());
-    goldInput.addEventListener('input', () => updateSquares());
+    console.log(`Создано ${levelButtons.length} кнопок уровней`);
+    updateLevelColors();
+}
+
+// ========== ИНИЦИАЛИЗАЦИЯ ==========
+async function init() {
+    console.log('Инициализация...');
+    
+    // Сначала создаём кнопки уровней, чтобы они точно появились
+    createLevelButtons();
+    
+    try {
+        await initDatabase();
+        console.log('База данных загружена');
+    } catch (err) {
+        console.error('База данных не загрузилась:', err);
+        alert('Ошибка загрузки базы данных. Проверьте подключение.');
+    }
+    
+    if (btnPlus) btnPlus.addEventListener('click', () => setCurrentLevel(currentLevel + 1));
+    if (btnMinus) btnMinus.addEventListener('click', () => setCurrentLevel(currentLevel - 1));
+    if (targetPlus) targetPlus.addEventListener('click', () => setTargetLevel(targetLevel + 1));
+    if (targetMinus) targetMinus.addEventListener('click', () => setTargetLevel(targetLevel - 1));
+    
+    if (cardsInput) cardsInput.addEventListener('input', () => updateSquares());
+    if (goldInput) goldInput.addEventListener('input', () => updateSquares());
     
     const rarityBtns = document.querySelectorAll('.rarity-btn');
     const setActiveRarity = (activeBtn) => {
@@ -274,10 +290,19 @@ async function init() {
         });
     });
     
-    document.querySelector('.btn-common').classList.add('active');
+    const defaultBtn = document.querySelector('.btn-common');
+    if (defaultBtn) defaultBtn.classList.add('active');
+    
     setCurrentLevel(1);
     setTargetLevel(1);
     updateSquares();
+    
+    console.log('Инициализация завершена');
 }
 
-init();
+// Запускаем инициализацию после загрузки DOM
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
