@@ -29,6 +29,13 @@ html, body {
     opacity: 0.85;
 }
 
+/* Скрываем фотку на экранах меньше 766px */
+@media (max-width: 766px) {
+    .fullscreen-photo {
+        display: none;
+    }
+}
+
 /* ========== HEADER ========== */
 header {
     position: relative;
@@ -189,7 +196,7 @@ header {
 
 .square-bottom-text span,
 .square-bottom-right-text span {
-    font-size: clamp(18px, 2.2vw, 12px);
+    font-size: clamp(18px, 2.2vw, 24px);
     font-weight: 800;
     color: #1A2B5E;
 }
