@@ -12,13 +12,18 @@
     <header>
         <div class="Header__container">
             <div class="header__content">
-                <div class="logo"><a href="https://denipopov.github.io/RoyaleStats"><h1>RoyalStats</h1></a></div>
+                <div class="logo"><a href="/"><h1>RoyalStats</h1></a></div>
+                <button class="burger" id="burger" onclick="this.classList.toggle('open'); document.querySelector('.nuvbar').classList.toggle('open')">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <div class="nuvbar">
                     <ul class="link">
-                    <li class="list"><a href="player.html" class="item active">База знаний</a></li>
-                    <li class="list"><a href="calculator.html" class="item">Калькулятор прокачки</a></li>
-                    <li class="list"><a href="Meta_decks.html" class="item active" id="meta">Метовые колоды</a></li>
-                    <li class="list"><a href="news.html" class="item">Нововведения</a></li>
+                        <li class="list"><a href="#" class="item">База знаний</a></li>
+                        <li class="list"><a href="calculator.html" class="item">Калькулятор прокачки</a></li>
+                        <li class="list"><a href="Meta_decks.html" class="item" id="meta">Метовые колоды</a></li>
+                        <li class="list"><a href="news.html" class="item">Нововведения</a></li>
                     </ul>
                 </div>
             </div>
@@ -29,25 +34,23 @@
 
         <!-- ПОИСК -->
         <section class="search-section">
-            <div class="search-section__container">
-                <div class="search-section__content">
-                    <h2 class="search-section__title">База знаний игроков</h2>
-                    <p class="search-section__sub">Введи тег игрока чтобы получить полную статистику аккаунта</p>
-                    <div class="search-bar">
-                        <span class="search-bar__hash">#</span>
-                        <input type="text" id="tagInput" class="search-bar__input" placeholder="L8R2QLLU2" maxlength="12">
-                        <button class="search-bar__btn" onclick="loadPlayer()">Найти</button>
-                    </div>
-                    <p class="search-bar__hint" id="searchHint">Пример: #L8R2QLLU2 · Тег можно найти в профиле игры</p>
+            <div class="search-section__inner">
+                <h2 class="search-section__title">База знаний игроков</h2>
+                <p class="search-section__sub">Введи тег игрока чтобы получить полную статистику аккаунта</p>
+                <div class="search-bar">
+                    <span class="search-bar__hash">#</span>
+                    <input type="text" id="tagInput" class="search-bar__input" placeholder="L8R2QLLU2" maxlength="12">
+                    <button class="search-bar__btn" onclick="loadPlayer()">Найти</button>
                 </div>
+                <p class="search-bar__hint">Пример: #L8R2QLLU2 · Тег можно найти в профиле игры</p>
             </div>
         </section>
 
-        <!-- ПРОФИЛЬ — всегда виден -->
+        <!-- ПРОФИЛЬ -->
         <section class="player-section">
             <div class="player-section__container">
 
-                <!-- ШАПКА -->
+                <!-- ШАПКА ИГРОКА -->
                 <div class="player-header">
                     <div class="player-header__avatar" id="playerAvatar">👑</div>
                     <div class="player-header__info">
@@ -55,26 +58,28 @@
                         <div class="player-header__tag" id="playerTag">Введи тег для поиска</div>
                         <div class="player-header__arena" id="playerArena">🏟️ —</div>
                     </div>
-                    <div class="player-header__level">
-                        <div class="player-header__level-num" id="playerLevel">—</div>
-                        <div class="player-header__level-lbl">Уровень</div>
-                    </div>
-                    <div class="player-header__trophies">
-                        <div class="player-header__trophies-num" id="playerTrophies">—</div>
-                        <div class="player-header__trophies-lbl">🏆 Кубки</div>
-                    </div>
-                    <div class="player-header__trophies">
-                        <div class="player-header__trophies-num" id="playerBestTrophies" style="color:var(--lightgold);">—</div>
-                        <div class="player-header__trophies-lbl">🥇 Рекорд</div>
+                    <div class="player-header__badges">
+                        <div class="player-badge player-badge--blue">
+                            <div class="player-badge__val" id="playerLevel">—</div>
+                            <div class="player-badge__lbl">Уровень</div>
+                        </div>
+                        <div class="player-badge player-badge--gold">
+                            <div class="player-badge__val" id="playerTrophies">—</div>
+                            <div class="player-badge__lbl">🏆 Кубки</div>
+                        </div>
+                        <div class="player-badge player-badge--amber">
+                            <div class="player-badge__val" id="playerBestTrophies">—</div>
+                            <div class="player-badge__lbl">🥇 Рекорд</div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- ОСНОВНАЯ СТАТИСТИКА -->
-                <div class="stats-section-title">
-                    <span class="player-dot" style="background:var(--green);"></span>
+                <div class="stats-title">
+                    <span class="stats-title__dot" style="background:var(--green);"></span>
                     Основная статистика
                 </div>
-                <div class="stats-grid">
+                <div class="stats-grid stats-grid--6">
                     <div class="stat-card">
                         <div class="stat-card__icon">⚔️</div>
                         <div class="stat-card__val" id="statWins">—</div>
@@ -108,8 +113,8 @@
                 </div>
 
                 <!-- ИСПЫТАНИЯ И ТУРНИРЫ -->
-                <div class="stats-section-title" style="margin-top:28px;">
-                    <span class="player-dot" style="background:var(--AkcCol);"></span>
+                <div class="stats-title" style="margin-top:28px;">
+                    <span class="stats-title__dot" style="background:var(--AkcCol);"></span>
                     Испытания и турниры
                 </div>
                 <div class="stats-grid stats-grid--4">
@@ -136,8 +141,8 @@
                 </div>
 
                 <!-- КЛАН И ДОНАТЫ -->
-                <div class="stats-section-title" style="margin-top:28px;">
-                    <span class="player-dot" style="background:var(--goldCol);"></span>
+                <div class="stats-title" style="margin-top:28px;">
+                    <span class="stats-title__dot" style="background:var(--goldCol);"></span>
                     Клан и пожертвования
                 </div>
                 <div class="stats-grid stats-grid--4">
@@ -185,7 +190,7 @@
         <div class="footer__content">
             <div class="footer__about">
                 <h2>RoyalStats</h2>
-                <p>Статистика, колоды, калькулятор прокачки и инструменты для игроков Clash Royale.</p>
+                <p>Статистика колоды калькулятор прокачки и инструменты для игроков Clash Royale</p>
             </div>
             <div class="footer__links">
                 <h3>Навигация</h3>
@@ -204,7 +209,6 @@
         <div class="footer__bottom">© 2026 RoyalStats | Не связан с Supercell</div>
     </footer>
 
-    <script src="players.js">
-    </script>
+    <script src="players.js"></script>
 </body>
 </html>
