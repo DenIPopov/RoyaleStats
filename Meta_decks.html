@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лучшие колоды по аренам</title>
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="news.css">
-    <link rel="stylesheet" href="Meta_decks.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/news.css">
+    <link rel="stylesheet" href="/css/Meta_decks.css">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
@@ -14,7 +14,7 @@
 <header>
     <div class="Header__container">
         <div class="header__content">
-            <div class="logo"><a href="https://denipopov.github.io/RoyaleStats"><h1>RoyalStats</h1></a></div>
+            <div class="logo"><a href="main.html"><h1>RoyalStats</h1></a></div>
             <div class="nuvbar">
                 <ul class="link">
                     <li class="list"><a href="player.html" class="item">База знаний</a></li>
@@ -31,7 +31,7 @@
 
 <main class="meta_main">
   <div class="meta_image-block">
-    <img src="1.jpg" alt="image" class="meta_arena-image">
+    <img src="https://github.com/DenIPopov/RoyaleStats/blob/main/1.jpg?raw=true" alt="image" class="meta_arena-image">
   </div>
 
   <div class="meta_content-block">
@@ -41,7 +41,7 @@
     </div>
 
     <div class="meta_arena-section">
-      <label class="meta_arena-label">выберите арену 🩵</label>
+      <label class="meta_arena-label">выберите арену</label>
       <select class="meta_arena-select">
           <option disabled selected hidden></option>
           <option value="arena1">Арена 1: Тренировочный лагерь</option>
@@ -76,37 +76,42 @@
           <option value="arena30">Арена 30: Академия магии</option>
           <option value="arena31">Арена 31: Яма абсолютной битвы</option>
           <option value="arena32">Арена 32: Таверна Маленького принца</option>
-          <option value="arena32">Арена 33: Площадь духов</option>
+          <option value="arena33">Арена 33: Площадь духов</option>
       </select>
     </div>
 
     <div class="meta_decks-row">
       <div class="meta_deck-item">
-        <div class="meta_deck-label">Колода 1</div>
         <div class="meta_deck-card">
-          <div class="meta_deck-card-title">Колода 1</div>
-          <div class="meta_cards-icons">🃏 🃏 🃏 🃏</div>
-          <div class="meta_elixir">Сред. стоимость: 3.5</div>
+          <div class="meta_deck-label">Колода 1</div>
+          <div class="meta_cards-icons">
+            <div class="deckImage">
+              <img src="#" alt="deck1">
+            </div>
+          </div>
+          <div class="meta_elixir">Сред. стоимость: —</div>
         </div>
       </div>
       <div class="meta_deck-item">
-        <div class="meta_deck-label">Колода 2</div>
         <div class="meta_deck-card">
-          <div class="meta_deck-card-title">Колода 2</div>
-          <div class="meta_cards-icons">🃏 🃏 🃏 🃏</div>
-          <div class="meta_elixir">Сред. стоимость: 3.8</div>
+          <div class="meta_deck-label">Колода 2</div>
+          <div class="deckImage">
+            <img src="#" alt="deck2">
+          </div>
+          <div class="meta_elixir">Сред. стоимость: —</div>
         </div>
       </div>
     </div>
 
-    <div class="meta_deck3-wrapper">
+    <div class="meta_deck3-wrapper" style="display:none;">
       <button class="meta_circle-btn meta_btn-minus">−</button>
       <div class="meta_deck-item meta_deck3-item">
-        <div class="meta_deck-label">Колода 3</div>
         <div class="meta_deck-card meta_deck3-card">
           <div class="meta_deck-card-title meta_deck3-title">Колода 3</div>
-          <div class="meta_cards-icons">🃏 🃏 🃏 🃏</div>
-          <div class="meta_elixir">Сред. стоимость: 4.0</div>
+          <div class="deckImage">
+            <img src="#" alt="deck3">
+          </div>
+          <div class="meta_elixir">Сред. стоимость: —</div>
         </div>
       </div>
       <button class="meta_circle-btn meta_btn-plus">+</button>
@@ -138,6 +143,6 @@
     </div>
     <div class="footer__bottom">© 2026 RoyalStats | Не связан с Supercell</div>
 </footer>
-<script src="Meta_decks.js"></script>
+<script src="/js/Meta_decks.js"></script>
 </body>
 </html>
