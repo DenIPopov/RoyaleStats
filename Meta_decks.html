@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лучшие колоды по аренам</title>
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="news.css">
     <link rel="stylesheet" href="Meta_decks.css">
+    <link rel="stylesheet" href="news.css">
+    <link rel="stylesheet" href="main.css">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
@@ -15,6 +15,11 @@
     <div class="Header__container">
         <div class="header__content">
             <div class="logo"><a href="main.html"><h1>RoyalStats</h1></a></div>
+            <button class="burger" id="burger" onclick="this.classList.toggle('open'); document.querySelector('.nuvbar').classList.toggle('open')">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+            </button>
             <div class="nuvbar">
                 <ul class="link">
                     <li class="list"><a href="player.html" class="item">База знаний</a></li>
@@ -31,7 +36,7 @@
 
 <main class="meta_main">
   <div class="meta_image-block">
-    <img src="https://github.com/DenIPopov/RoyaleStats/blob/main/1.jpg?raw=true" alt="image" class="meta_arena-image">
+    <div class="metaBGI"></div>
   </div>
 
   <div class="meta_content-block">
@@ -44,39 +49,25 @@
       <label class="meta_arena-label">выберите арену</label>
       <select class="meta_arena-select">
           <option disabled selected hidden></option>
-          <option value="arena1">Арена 1: Тренировочный лагерь</option>
-          <option value="arena2">Арена 2: Стадион гоблинов</option>
-          <option value="arena3">Арена 3: Костяная яма</option>
-          <option value="arena4">Арена 4: Варварская арена</option>
-          <option value="arena5">Арена 5: Долина заклинаний</option>
-          <option value="arena6">Арена 6: Мастерская строителя</option>
-          <option value="arena7">Арена 7: Игровой домик П.Е.К.К.А</option>
-          <option value="arena8">Арена 8: Королевская арена</option>
-          <option value="arena9">Арена 9: Ледяной пик</option>
-          <option value="arena10">Арена 10: Арена джунглей</option>
-          <option value="arena11">Арена 11: Кабанья гора</option>
-          <option value="arena12">Арена 12: Электродолина</option>
-          <option value="arena13">Арена 13: Жуткий город</option>
-          <option value="arena14">Арена 14: Укрытие разбойников</option>
-          <option value="arena15">Арена 15: Пик безмятежности</option>
-          <option value="arena16">Арена 16: Шахта шахтёра</option>
-          <option value="arena17">Арена 17: Кухня палача</option>
-          <option value="arena18">Арена 18: Королевский склеп</option>
-          <option value="arena19">Арена 19: Тихое святилище</option>
-          <option value="arena20">Арена 20: Драконий курорт</option>
-          <option value="arena21">Арена 21: Военный лагерь</option>
-          <option value="arena22">Арена 22: Clash Fest</option>
-          <option value="arena23">Арена 23: Блинчики!</option>
-          <option value="arena24">Арена 24: Валгалла</option>
-          <option value="arena25">Арена 25: Легендарная арена</option>
-          <option value="arena26">Арена 26: Дворец королевы</option>
-          <option value="arena27">Арена 27: Путь чемпионов</option>
-          <option value="arena28">Арена 28: Арена путешествий во времени</option>
-          <option value="arena29">Арена 29: Астральный узел</option>
-          <option value="arena30">Арена 30: Академия магии</option>
-          <option value="arena31">Арена 31: Яма абсолютной битвы</option>
-          <option value="arena32">Арена 32: Таверна Маленького принца</option>
-          <option value="arena33">Арена 33: Площадь духов</option>
+          <option value="arena0">Арена 0: Тренировочный лагерь</option>
+          <option value="arena1">Арена 1: Стадион гоблинов</option>
+          <option value="arena2">Арена 2: Костяная яма</option>
+          <option value="arena3">Арена 3: Варварская арена</option>
+          <option value="arena4">Арена 4: Долина заклинаний</option>
+          <option value="arena5">Арена 5: Мастерская строителя</option>
+          <option value="arena6">Арена 6: Игровой домик П.Е.К.К.А</option>
+          <option value="arena7">Арена 7: Королевская арена</option>
+          <option value="arena8">Арена 8: Ледяной пик</option>
+          <option value="arena9">Арена 9: Арена джунглей</option>
+          <option value="arena10">Арена 10: Кабанья гора</option>
+          <option value="arena11">Арена 11: Электро долина</option>
+          <option value="arena12">Арена 12: Жуткий город</option>
+          <option value="arena13">Арена 13: Укрытие разбойников</option>
+          <option value="arena14">Арена 14: Пик безмятежности</option>
+          <option value="arena15">Арена 15: Шахта шахтёра</option>
+          <option value="arena16">Арена 16: Кухня палача</option>
+          <option value="arena17">Арена 17: Королевская гробница</option>
+          <option value="arena18">Арена 18: Тихая обитель</option>
       </select>
     </div>
 
@@ -89,7 +80,6 @@
               <img src="#" alt="deck1">
             </div>
           </div>
-          <div class="meta_elixir">Сред. стоимость: —</div>
         </div>
       </div>
       <div class="meta_deck-item">
@@ -98,22 +88,20 @@
           <div class="deckImage">
             <img src="#" alt="deck2">
           </div>
-          <div class="meta_elixir">Сред. стоимость: —</div>
+        </div>
+      </div>
+      <div class="meta_deck-item meta_deck3-item">
+        <div class="meta_deck-card meta_deck3-card">
+          <div class="meta_deck-label">Колода 3</div>
+          <div class="deckImage">
+            <img src="#" alt="deck3">
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="meta_deck3-wrapper" style="display:none;">
+    <div class="meta_deck3-wrapper" >
       <button class="meta_circle-btn meta_btn-minus">−</button>
-      <div class="meta_deck-item meta_deck3-item">
-        <div class="meta_deck-card meta_deck3-card">
-          <div class="meta_deck-card-title meta_deck3-title">Колода 3</div>
-          <div class="deckImage">
-            <img src="#" alt="deck3">
-          </div>
-          <div class="meta_elixir">Сред. стоимость: —</div>
-        </div>
-      </div>
       <button class="meta_circle-btn meta_btn-plus">+</button>
     </div>
   </div>
@@ -125,7 +113,7 @@
     <div class="footer__content">
         <div class="footer__about">
             <h2>RoyalStats</h2>
-            <p>Статистика, колоды, калькулятор прокачки и инструменты для игроков Clash Royale.</p>
+            <p>Статистика колоды калькулятор прокачки и инструменты для игроков Clash Royale</p>
         </div>
         <div class="footer__links">
             <h3>Навигация</h3>
