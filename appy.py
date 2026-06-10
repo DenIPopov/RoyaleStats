@@ -5,8 +5,8 @@ app = Flask(__name__,
             static_folder='static')
 
 @app.route('/')
-def main():
-    return render_template('main.html', active_page='main')
+def index():
+    return render_template('index.html', active_page='main')
 
 @app.route('/player')
 def player():
