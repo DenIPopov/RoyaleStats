@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}RoyalStats{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/media-main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/media-player.css') }}">
     {% block extra_css %}{% endblock %}
@@ -16,7 +16,7 @@
     <div class="Header__container">
         <div class="header__content">
             <div class="logo">
-                <a href="{{ url_for('main') }}"><h1>RoyalStats</h1></a>
+                <a href="{{ url_for('index') }}"><h1>RoyalStats</h1></a>
             </div>
             <button class="burger" id="burger"
                 onclick="this.classList.toggle('open'); document.querySelector('.nuvbar').classList.toggle('open')">
@@ -56,7 +56,7 @@
         </div>
         <div class="footer__links">
             <h3>Навигация</h3>
-            <a href="{{ url_for('main') }}">Главная</a>
+            <a href="{{ url_for('index') }}">Главная</a>
             <a href="{{ url_for('player') }}">База знаний</a>
             <a href="{{ url_for('meta_decks') }}">Метовые колоды</a>
             <a href="{{ url_for('calculator') }}">Калькулятор прокачки</a>
