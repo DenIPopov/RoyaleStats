@@ -17,13 +17,26 @@
     <header>
         <div class="Header__container">
             <div class="header__content">
-                <div class="logo"><a href="#"><h1>RoyalStats</h1></a></div>
+                <div class="logo"><a href="https://denipopov.github.io/RoyaleStats"><h1>RoyalStats</h1></a></div>
+                <button class="burger" id="burger" onclick="this.classList.toggle('open'); document.querySelector('.nuvbar').classList.toggle('open')">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <div class="nuvbar">
-                    <ul>
-                        <li><a href="#">База знаний</a></li>
-                        <li><a href="#">калькулятор прокачки</a></li>
-                        <li><a href="#">метовые колоды</a></li>
-                        <li><a href="#">Нововведения</a></li>
+                    <ul class="link">
+                        <li class="list">
+                            <a href="player.html" class="item">База знаний</a>
+                        </li>
+                        <li class="list">
+                            <a href="calculator.html" class="item">Калькулятор прокачки</a>
+                        </li>
+                        <li class="list">
+                            <a href="Meta_decks.html" class="item" id="meta">Метовые колоды</a>
+                        </li>
+                        <li class="list">
+                            <a href="news.html" class="item">Нововведения</a>
+                        </li>
                     </ul>
                 </div>
             </div>
