@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}RoyalStats — Нововведения Сезон 84{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="news-hero">
+    <div class="news-hero__container">
+        <div class="news-hero__content">
+            <div class="news-hero__tag">Сезон 84 Stone Cold</div>
+            <h2 class="news-hero__title">Каменная стужа</h2>
+            <p class="news-hero__sub">Новый герой, ледяная эволюция и масштабный баланс заклинаний — всё о сезоне 84</p>
+        </div>
+    </div>
+</section>
+
+<section class="news-latest">
+    <div class="news-latest__container">
+        <div class="news-section-title">
+            <span class="news-dot news-dot--green"></span>
+            Последнее обновление - Сезон 84 «Stone Cold»
+        </div>
+        <div class="news-featured">
+            <div class="news-featured__left">
+                <img src="https://images.alphacoders.com/127/thumb-1920-1270388.jpg" alt="Сезон 84 Stone Cold">
+                <div class="news-featured__overlay">
+                    <span class="news-tag news-tag--season">Сезон 84</span>
+                </div>
+            </div>
+            <div class="news-featured__right">
+                <span class="news-tag news-tag--season">Главное обновление</span>
+                <h3 class="news-featured__title">«Stone Cold» — Сезон 84</h3>
+                <p class="news-featured__desc">Сезон «Каменная стужа» принёс первого героя-здание, новую эволюцию Принцессы и самое масштабное изменение заклинаний за последние годы.</p>
+                <div class="news-featured__list">
+                    <div class="news-featured__item"><span class="news-featured__item-dot news-dot--green"></span><span>Новая эволюция: <strong>Эволюция Принцессы (Ледяные стрелы)</strong> — цикл 2, замедление при атаке и смерти</span></div>
+                    <div class="news-featured__item"><span class="news-featured__item-dot news-dot--purple"></span><span>Новый герой: <strong>Геройское Надгробие</strong> — редкий герой с активной способностью «Королевское возрождение»</span></div>
+                    <div class="news-featured__item"><span class="news-featured__item-dot news-dot--gold"></span><span>Баланс: массовый нерф заклинаний по башням (Огненный шар, Молния, Ракета и другие)</span></div>
+                    <div class="news-featured__item"><span class="news-featured__item-dot news-dot--blue"></span><span>Ивент «Undead Bazaar» — бесплатный Геройское Надгробие и магазин за жетоны</span></div>
+                </div>
+                <div class="info-btn__a">
+                    <a href="#infobtn" class="btn news-btn">Подробнее об обновлении</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="news-cards" id="infobtn">
+    <div class="news-cards__container">
+        <div class="news-section-title">
+            <span class="news-dot news-dot--gold"></span>
+            Что изменилось в патче 84.1 (Stone Cold)
+        </div>
+        <div class="news-cards__grid">
+            <div class="news-card" onclick="openModal('hero')"><div class="news-card__icon" style="background:#d0ac40;">👑</div><div class="news-card__body"><span class="news-tag news-tag--new">Новый герой</span><p class="news-card__title">Геройское Надгробие</p><p class="news-card__desc">Редкий герой-здание с призывом Королевы гробниц.</p></div></div>
+            <div class="news-card" onclick="openModal('evo')"><div class="news-card__icon" style="background:#4013AF;">❄️</div><div class="news-card__body"><span class="news-tag news-tag--new">Эволюция</span><p class="news-card__title">Эволюция Принцессы</p><p class="news-card__desc">Ледяные стрелы с замедлением на 7 секунд.</p></div></div>
+            <div class="news-card" onclick="openModal('nerf')"><div class="news-card__icon" style="background:#cbe14c;">⚖️</div><div class="news-card__body"><span class="news-tag news-tag--balance">Нёрфы</span><p class="news-card__title">Ослабления заклинаний</p><p class="news-card__desc">Огненный шар, Молния, Ракета, Кладбище и другие.</p></div></div>
+            <div class="news-card" onclick="openModal('buff')"><div class="news-card__icon" style="background:#cbe14c;">⚖️</div><div class="news-card__body"><span class="news-tag news-tag--balance">Баффы</span><p class="news-card__title">Усиленные карты</p><p class="news-card__desc">Эво Дротиковый Гоблин, Электро-Дракон, Гоблин-Гигант.</p></div></div>
+            <div class="news-card" onclick="openModal('event')"><div class="news-card__icon" style="background:#3901bc;">⚡</div><div class="news-card__body"><span class="news-tag news-tag--event">События сезона</span><p class="news-card__title">Restless Undead & Драфты</p><p class="news-card__desc">Undead Bazaar, Princess Gambit, 3x Elixir турнир.</p></div></div>
+            <div class="news-card" onclick="openModal('fix')"><div class="news-card__icon" style="background:#b0f5f1;">🔧</div><div class="news-card__body"><span class="news-tag news-tag--balance">Исправления</span><p class="news-card__title">Фиксы багов</p><p class="news-card__desc">Исправления анимаций и стабильности.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- МОДАЛЬНОЕ ОКНО -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+        <button class="modal__close" onclick="closeModalBtn()">✕</button>
+        <div class="modal__header">
+            <div class="modal__icon" id="modalIcon"></div>
+            <div>
+                <span class="modal__tag" id="modalTag"></span>
+                <h3 class="modal__title" id="modalTitle"></h3>
+                <p class="modal__date" id="modalDate"></p>
+            </div>
+        </div>
+        <p class="modal__desc" id="modalDesc"></p>
+        <div class="modal__list" id="modalList"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/news.js') }}"></script>
+{% endblock %}

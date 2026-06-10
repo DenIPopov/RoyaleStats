@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}RoyalStats — База знаний{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/player.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="search-section">
+    <div class="search-section__inner">
+        <h2 class="search-section__title">База знаний игроков</h2>
+        <p class="search-section__sub">Введи тег игрока чтобы получить полную статистику аккаунта</p>
+        <div class="search-bar">
+            <span class="search-bar__hash">#</span>
+            <input type="text" id="tagInput" class="search-bar__input" placeholder="L8R2QLLU2" maxlength="12">
+            <button class="search-bar__btn" onclick="loadPlayer()">Найти</button>
+        </div>
+        <p class="search-bar__hint" id="searchHint">Пример: #L8R2QLLU2 · Тег можно найти в профиле игры</p>
+    </div>
+</section>
+
+<section class="player-section">
+    <div class="player-section__container">
+        <div class="player-header">
+            <div class="player-header__avatar" id="playerAvatar">👑</div>
+            <div class="player-header__info">
+                <div class="player-header__name" id="playerName">—</div>
+                <div class="player-header__tag" id="playerTag">Введи тег для поиска</div>
+                <div class="player-header__arena" id="playerArena">🏟️ —</div>
+            </div>
+            <div class="player-header__badges">
+                <div class="player-badge player-badge--blue">
+                    <div class="player-badge__val" id="playerLevel">—</div>
+                    <div class="player-badge__lbl">Уровень</div>
+                </div>
+                <div class="player-badge player-badge--gold">
+                    <div class="player-badge__val" id="playerTrophies">—</div>
+                    <div class="player-badge__lbl">🏆 Кубки</div>
+                </div>
+                <div class="player-badge player-badge--amber">
+                    <div class="player-badge__val" id="playerBestTrophies">—</div>
+                    <div class="player-badge__lbl">🥇 Рекорд</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-title">
+            <span class="stats-title__dot" style="background:var(--green);"></span>
+            Основная статистика
+        </div>
+        <div class="stats-grid stats-grid--6">
+            <div class="stat-card"><div class="stat-card__icon">⚔️</div><div class="stat-card__val" id="statWins">—</div><div class="stat-card__lbl">Побед</div></div>
+            <div class="stat-card"><div class="stat-card__icon">💀</div><div class="stat-card__val" id="statLosses">—</div><div class="stat-card__lbl">Поражений</div></div>
+            <div class="stat-card"><div class="stat-card__icon">🎮</div><div class="stat-card__val" id="statBattles">—</div><div class="stat-card__lbl">Всего боёв</div></div>
+            <div class="stat-card stat-card--gold"><div class="stat-card__icon">📊</div><div class="stat-card__val" id="statWinrate">—</div><div class="stat-card__lbl">Винрейт</div></div>
+            <div class="stat-card"><div class="stat-card__icon">👑</div><div class="stat-card__val" id="statThreeCrown">—</div><div class="stat-card__lbl">3-коронных побед</div></div>
+            <div class="stat-card"><div class="stat-card__icon">🔥</div><div class="stat-card__val" id="statStreak">—</div><div class="stat-card__lbl">Текущая серия</div></div>
+        </div>
+
+        <div class="stats-title" style="margin-top:28px;">
+            <span class="stats-title__dot" style="background:var(--AkcCol);"></span>
+            Испытания и турниры
+        </div>
+        <div class="stats-grid stats-grid--4">
+            <div class="stat-card"><div class="stat-card__icon">🃏</div><div class="stat-card__val" id="statChallengeCards">—</div><div class="stat-card__lbl">Карт в испытаниях</div></div>
+            <div class="stat-card stat-card--blue"><div class="stat-card__icon">🏅</div><div class="stat-card__val" id="statChallengeMax">—</div><div class="stat-card__lbl">Макс. побед в испытании</div></div>
+            <div class="stat-card"><div class="stat-card__icon">🏟️</div><div class="stat-card__val" id="statTournamentCards">—</div><div class="stat-card__lbl">Карт в турнирах</div></div>
+            <div class="stat-card"><div class="stat-card__icon">⚡</div><div class="stat-card__val" id="statTournamentBattles">—</div><div class="stat-card__lbl">Боёв в турнирах</div></div>
+        </div>
+
+        <div class="stats-title" style="margin-top:28px;">
+            <span class="stats-title__dot" style="background:var(--goldCol);"></span>
+            Клан и пожертвования
+        </div>
+        <div class="stats-grid stats-grid--4">
+            <div class="stat-card"><div class="stat-card__icon">🎁</div><div class="stat-card__val" id="statDonations">—</div><div class="stat-card__lbl">Пожертвовано карт</div></div>
+            <div class="stat-card"><div class="stat-card__icon">📦</div><div class="stat-card__val" id="statDonationsReceived">—</div><div class="stat-card__lbl">Получено карт</div></div>
+            <div class="stat-card stat-card--gold"><div class="stat-card__icon">💝</div><div class="stat-card__val" id="statTotalDonations">—</div><div class="stat-card__lbl">Всего пожертвовано</div></div>
+            <div class="stat-card"><div class="stat-card__icon">🛡️</div><div class="stat-card__val" id="statWarWins">—</div><div class="stat-card__lbl">Побед в войне кланов</div></div>
+        </div>
+
+        <div class="winrate-block">
+            <div class="winrate-block__title">Соотношение побед и поражений</div>
+            <div class="winrate-block__bar-wrap">
+                <div class="winrate-block__bar-wins" id="barWins" style="width:0%"></div>
+                <div class="winrate-block__bar-losses" id="barLosses" style="width:0%"></div>
+            </div>
+            <div class="winrate-block__labels">
+                <span style="color:var(--green);" id="barWinsLbl">Победы: —</span>
+                <span style="color:var(--redAkc);" id="barLossesLbl">Поражения: —</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/players.js') }}"></script>
+{% endblock %}

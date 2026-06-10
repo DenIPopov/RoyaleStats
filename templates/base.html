@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RoyalStats{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/media-main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/media-player.css') }}">
+    {% block extra_css %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <div class="Header__container">
+        <div class="header__content">
+            <div class="logo">
+                <a href="{{ url_for('main') }}"><h1>RoyalStats</h1></a>
+            </div>
+            <button class="burger" id="burger"
+                onclick="this.classList.toggle('open'); document.querySelector('.nuvbar').classList.toggle('open')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nuvbar">
+                <ul class="link">
+                    <li class="list">
+                        <a href="{{ url_for('player') }}" class="item {% if active_page == 'player' %}active{% endif %}">База знаний</a>
+                    </li>
+                    <li class="list">
+                        <a href="{{ url_for('calculator') }}" class="item {% if active_page == 'calculator' %}active{% endif %}">Калькулятор прокачки</a>
+                    </li>
+                    <li class="list">
+                        <a href="{{ url_for('meta_decks') }}" class="item {% if active_page == 'meta_decks' %}active{% endif %}">Метовые колоды</a>
+                    </li>
+                    <li class="list">
+                        <a href="{{ url_for('news') }}" class="item {% if active_page == 'news' %}active{% endif %}">Нововведения</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <div class="footer__content">
+        <div class="footer__about">
+            <h2>RoyalStats</h2>
+            <p>Статистика колоды калькулятор прокачки и инструменты для игроков Clash Royale</p>
+        </div>
+        <div class="footer__links">
+            <h3>Навигация</h3>
+            <a href="{{ url_for('main') }}">Главная</a>
+            <a href="{{ url_for('player') }}">База знаний</a>
+            <a href="{{ url_for('meta_decks') }}">Метовые колоды</a>
+            <a href="{{ url_for('calculator') }}">Калькулятор прокачки</a>
+        </div>
+        <div class="footer__info">
+            <h3>Информация</h3>
+            <a href="https://maps.app.goo.gl/2d6aUvVsrnce1ypQ6" target="_blank">Наш офис</a>
+            <a href="tel:+79294339472">Связь с нами</a>
+            <a href="#">Политика конфиденциальности</a>
+        </div>
+    </div>
+    <div class="footer__bottom">© 2026 RoyalStats | Не связан с Supercell</div>
+</footer>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

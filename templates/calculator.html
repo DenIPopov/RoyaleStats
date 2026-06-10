@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}RoyalStats - Калькулятор прокачки{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/calculate.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="calculator">
+    <div class="fullscreen-photo">
+        <img src="https://i.pinimg.com/736x/ab/20/38/ab203829c25f2c83c5b1f70fa3a30618.jpg" alt="фото">
+    </div>
+
+    <div class="square">
+        <div class="square-text">выберите редкость карты:</div>
+    </div>
+
+    <div class="square-bottom">
+        <div class="square-bottom-text">текущий уровень: <span id="levelDisplay">1</span></div>
+    </div>
+
+    <div class="level-control-left level-control">
+        <button class="level-control-btn" id="btnMinus">-</button>
+        <button class="level-control-btn" id="btnPlus">+</button>
+    </div>
+
+    <div class="square-bottom-right">
+        <div class="square-bottom-right-text">целевой уровень: <span id="targetLevelValue">1</span></div>
+    </div>
+
+    <div class="level-control-right level-control">
+        <button class="level-control-btn" id="targetMinus">-</button>
+        <button class="level-control-btn" id="targetPlus">+</button>
+    </div>
+
+    <div class="buttons-right">
+        <button class="rarity-btn btn-common">обычная</button>
+        <button class="rarity-btn btn-rare">редкая</button>
+        <button class="rarity-btn btn-epic">эпическая</button>
+        <button class="rarity-btn btn-legendary">легендарная</button>
+        <button class="rarity-btn btn-champion">чемпион</button>
+    </div>
+
+    <div class="levels-container" id="levelsContainer"></div>
+
+    <div class="card-block">
+        <div class="card-block-text">карт на руках</div>
+        <div class="card-block-value" id="cardsValue">0</div>
+    </div>
+
+    <div class="gold-block">
+        <div class="gold-block-text">золота на руках</div>
+        <div class="gold-block-value" id="goldValue">0</div>
+    </div>
+
+    <div class="input-card">
+        <input type="number" id="cardsInput" placeholder="введите количество карт" value="0">
+    </div>
+
+    <div class="input-gold">
+        <input type="number" id="goldInput" placeholder="введите количество золота" value="0">
+    </div>
+
+    <div class="result-container">
+        <div class="result-title">📊 итого для прокачки необходимо</div>
+        <div class="result-stats">
+            <div class="result-item">
+                <div class="result-label">количество карт</div>
+                <div class="result-value cards" id="resultCards">0</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">количество золота</div>
+                <div class="result-value gold" id="resultGold">0</div>
+            </div>
+        </div>
+
+        <div class="progress-bars">
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>📊 Прогресс по картам</span>
+                    <span class="progress-percent" id="cardsPercent">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill cards-fill" id="cardsProgressFill"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>💰 Прогресс по золоту</span>
+                    <span class="progress-percent" id="goldPercent">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill gold-fill" id="goldProgressFill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+<script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}RoyalStats{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/media-main.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="sec1">
+  <div class="sec1__conteiner">
+    <div class="sec1__content">
+        <div class="sec1__block-main">
+            <div class="sec1__title">
+                <p class="T-up">RoyalStats</p>
+                <p class="T-down">Твоя статистика — твоё оружие</p>
+            </div>
+            <div class="sec1__subtitle">
+                <p>Карты, колоды, прокачка и мета аналитика. Для новичков и про-игроков</p>
+            </div>
+            <div class="sec1__btns">
+                <a href="{{ url_for('calculator') }}" class="btn">Рассчитать прокачку</a>
+                <a href="{{ url_for('meta_decks') }}" class="btn">Посмотреть мету</a>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec2">
+    <div class="sec2__conteiner">
+        <div class="sec2__content">
+            <div class="sec2__block-card">
+                <div class="card">
+                    <div class="cardNum">108</div>
+                    <div class="cardText">карт в игре</div>
+                </div>
+                <div class="card">
+                    <div class="cardNum">2400+</div>
+                    <div class="cardText">колод в базе</div>
+                </div>
+                <div class="card">
+                    <div class="cardNum">14+</div>
+                    <div class="cardText">активных турниров</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sec3">
+    <div class="sec3__conteiner">
+        <div class="sec3__content">
+            <div class="sec3__block-info">
+                <div class="info__title">
+                    <p>Карты в топе прямо сейчас</p>
+                </div>
+                <div class="info-cards">
+                    <div class="unit">
+                        <div class="unit__img">
+                            <img src="https://media.ffycdn.net/eu/supercell/bjNCTZaWkfGonTc9Vd8p.png?width=2400" alt="Принцесса" width="100">
+                        </div>
+                        <div class="unit__info">
+                            <p class="unit__name">ПРИНЦЕССА</p>
+                            <p class="unit__type">ВОИН</p>
+                            <p class="unit__cost">СТОИМОСТЬ:<br>3 ЭЛЕКСИРА</p>
+                        </div>
+                    </div>
+                    <div class="unit">
+                        <div class="unit__img">
+                            <img src="https://media.ffycdn.net/eu/supercell/vJcQwhbsXh2pgHV2UdtN.png?width=2400" alt="Мегарыцарь" width="100">
+                        </div>
+                        <div class="unit__info">
+                            <p class="unit__name">МЕГАРЫЦАРЬ</p>
+                            <p class="unit__type">ВОИН</p>
+                            <p class="unit__cost">СТОИМОСТЬ:<br>7 ЭЛЕКСИРА</p>
+                        </div>
+                    </div>
+                    <div class="unit">
+                        <div class="unit__img">
+                            <img src="https://media.ffycdn.net/eu/supercell/9o2BPCy7njYDQkThStkM.png?width=2400" alt="Ведьма" width="100">
+                        </div>
+                        <div class="unit__info">
+                            <p class="unit__name">ВЕДЬМА</p>
+                            <p class="unit__type">ВОИН</p>
+                            <p class="unit__cost">СТОИМОСТЬ:<br>5 ЭЛЕКСИРА</p>
+                        </div>
+                    </div>
+                    <div class="unit">
+                        <div class="unit__img">
+                            <img src="https://media.ffycdn.net/eu/supercell/BtNo5Kb7xookemgfswKz.png?width=2400" alt="Босс-Бандитка" width="100">
+                        </div>
+                        <div class="unit__info">
+                            <p class="unit__name">БОСС-БАНДИТКА</p>
+                            <p class="unit__type">ВОИН</p>
+                            <p class="unit__cost">СТОИМОСТЬ:<br>6 ЭЛЕКСИРА</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sec4">
+    <div class="sec4__container">
+        <div class="sec4__content">
+            <div class="sec4__left">
+                <img src="https://images2.alphacoders.com/128/thumb-1920-1284529.jpg" alt="Гоблин">
+            </div>
+            <div class="sec4__right">
+                <div class="sec4__title">
+                    <h2>ТОП КОЛОДЫ ВАШЕЙ АРЕНЫ</h2>
+                </div>
+                <div class="deck-card">
+                    <div class="deck-info">
+                        <p>1. HOG RIDER CYCLE</p>
+                        <span>СР. ЭЛЕКСИР: 2.6 • АРЕНА 10+</span>
+                    </div>
+                    <div class="deck-winrate">63%</div>
+                </div>
+                <div class="deck-card">
+                    <div class="deck-info">
+                        <p>2. LOG BAIT</p>
+                        <span>СР. ЭЛЕКСИР: 3.1 • АРЕНА 10+</span>
+                    </div>
+                    <div class="deck-winrate">61%</div>
+                </div>
+                <div class="deck-card">
+                    <div class="deck-info">
+                        <p>3. PEKKA BRIDGE SPAM</p>
+                        <span>СР. ЭЛЕКСИР: 4.1 • АРЕНА 10+</span>
+                    </div>
+                    <div class="deck-winrate">59%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

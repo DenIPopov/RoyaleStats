@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Лучшие колоды по аренам{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Meta_decks.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="meta_yellow-bar"></div>
+
+<div class="meta_main">
+  <div class="meta_image-block">
+    <div class="metaBGI"></div>
+  </div>
+
+  <div class="meta_content-block">
+    <div class="meta_info-block">
+      <h2 class="meta_info-title">Лучшие колоды по аренам</h2>
+      <p class="meta_info-subtitle">Топ-3 колоды для каждой арены</p>
+    </div>
+
+    <div class="meta_arena-section">
+      <label class="meta_arena-label">выберите арену</label>
+      <select class="meta_arena-select">
+          <option disabled selected hidden></option>
+          <option value="arena0">Арена 0: Тренировочный лагерь</option>
+          <option value="arena1">Арена 1: Стадион гоблинов</option>
+          <option value="arena2">Арена 2: Костяная яма</option>
+          <option value="arena3">Арена 3: Варварская арена</option>
+          <option value="arena4">Арена 4: Долина заклинаний</option>
+          <option value="arena5">Арена 5: Мастерская строителя</option>
+          <option value="arena6">Арена 6: Игровой домик П.Е.К.К.А</option>
+          <option value="arena7">Арена 7: Королевская арена</option>
+          <option value="arena8">Арена 8: Ледяной пик</option>
+          <option value="arena9">Арена 9: Арена джунглей</option>
+          <option value="arena10">Арена 10: Кабанья гора</option>
+          <option value="arena11">Арена 11: Электро долина</option>
+          <option value="arena12">Арена 12: Жуткий город</option>
+          <option value="arena13">Арена 13: Укрытие разбойников</option>
+          <option value="arena14">Арена 14: Пик безмятежности</option>
+          <option value="arena15">Арена 15: Шахта шахтёра</option>
+          <option value="arena16">Арена 16: Кухня палача</option>
+          <option value="arena17">Арена 17: Королевская гробница</option>
+          <option value="arena18">Арена 18: Тихая обитель</option>
+      </select>
+    </div>
+
+    <div class="meta_decks-row">
+      <div class="meta_deck-item">
+        <div class="meta_deck-card">
+          <div class="meta_deck-label">Колода 1</div>
+          <div class="deckImage"><img src="#" alt="deck1"></div>
+          <div class="meta_elixir">Сред. стоимость: —</div>
+        </div>
+      </div>
+      <div class="meta_deck-item">
+        <div class="meta_deck-card">
+          <div class="meta_deck-label">Колода 2</div>
+          <div class="deckImage"><img src="#" alt="deck2"></div>
+          <div class="meta_elixir">Сред. стоимость: —</div>
+        </div>
+      </div>
+      <div class="meta_deck-item meta_deck3-item">
+        <div class="meta_deck-card meta_deck3-card">
+          <div class="meta_deck-label">Колода 3</div>
+          <div class="deckImage"><img src="#" alt="deck3"></div>
+          <div class="meta_elixir">Сред. стоимость: —</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta_deck3-wrapper">
+      <button class="meta_circle-btn meta_btn-minus">−</button>
+      <button class="meta_circle-btn meta_btn-plus">+</button>
+    </div>
+  </div>
+</div>
+
+<div class="meta_yellow-bar"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/Meta_decks.js') }}"></script>
+{% endblock %}
