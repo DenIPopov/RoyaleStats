@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лучшие колоды по аренам</title>
+    <link rel="stylesheet" href="Meta_decks.css">
+    <link rel="stylesheet" href="news.css">
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<header>
+    <div class="Header__container">
+        <div class="header__content">
+            <div class="logo"><a href="index.html"><h1>RoyalStats</h1></a></div>
+            <button class="burger" id="burger" onclick="this.classList.toggle('open'); document.querySelector('.nuvbar').classList.toggle('open')">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+            </button>
+            <div class="nuvbar">
+                <ul class="link">
+                    <li class="list"><a href="player.html" class="item">База знаний</a></li>
+                    <li class="list"><a href="calculator.html" class="item">Калькулятор прокачки</a></li>
+                    <li class="list"><a href="Meta_decks.html" class="item active" id="meta">Метовые колоды</a></li>
+                    <li class="list"><a href="news.html" class="item">Нововведения</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="meta_yellow-bar"></div>
+
+<main class="meta_main">
+  <div class="meta_image-block">
+    <div class="metaBGI"></div>
+  </div>
+
+  <div class="meta_content-block">
+    <div class="meta_info-block">
+      <h2 class="meta_info-title">Лучшие колоды по аренам</h2>
+      <p class="meta_info-subtitle">Топ-3 колоды для каждой арены</p>
+    </div>
+
+    <div class="meta_arena-section">
+      <label class="meta_arena-label">выберите арену</label>
+      <select class="meta_arena-select">
+          <option disabled selected hidden></option>
+          <option value="arena0">Арена 0: Тренировочный лагерь</option>
+          <option value="arena1">Арена 1: Стадион гоблинов</option>
+          <option value="arena2">Арена 2: Костяная яма</option>
+          <option value="arena3">Арена 3: Варварская арена</option>
+          <option value="arena4">Арена 4: Долина заклинаний</option>
+          <option value="arena5">Арена 5: Мастерская строителя</option>
+          <option value="arena6">Арена 6: Игровой домик П.Е.К.К.А</option>
+          <option value="arena7">Арена 7: Королевская арена</option>
+          <option value="arena8">Арена 8: Ледяной пик</option>
+          <option value="arena9">Арена 9: Арена джунглей</option>
+          <option value="arena10">Арена 10: Кабанья гора</option>
+          <option value="arena11">Арена 11: Электро долина</option>
+          <option value="arena12">Арена 12: Жуткий город</option>
+          <option value="arena13">Арена 13: Укрытие разбойников</option>
+          <option value="arena14">Арена 14: Пик безмятежности</option>
+          <option value="arena15">Арена 15: Шахта шахтёра</option>
+          <option value="arena16">Арена 16: Кухня палача</option>
+          <option value="arena17">Арена 17: Королевская гробница</option>
+          <option value="arena18">Арена 18: Тихая обитель</option>
+      </select>
+    </div>
+
+    <div class="meta_decks-row">
+      <div class="meta_deck-item">
+        <div class="meta_deck-card">
+          <div class="meta_deck-label">Колода 1</div>
+          <div class="meta_cards-icons">
+            <div class="deckImage">
+              <img src="#" alt="deck1">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meta_deck-item">
+        <div class="meta_deck-card">
+          <div class="meta_deck-label">Колода 2</div>
+          <div class="deckImage">
+            <img src="#" alt="deck2">
+          </div>
+        </div>
+      </div>
+      <div class="meta_deck-item meta_deck3-item">
+        <div class="meta_deck-card meta_deck3-card">
+          <div class="meta_deck-label">Колода 3</div>
+          <div class="deckImage">
+            <img src="#" alt="deck3">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta_deck3-wrapper" >
+      <button class="meta_circle-btn meta_btn-minus">−</button>
+      <button class="meta_circle-btn meta_btn-plus">+</button>
+    </div>
+  </div>
+</main>
+
+<div class="meta_yellow-bar"></div>
+
+<footer class="footer">
+    <div class="footer__content">
+        <div class="footer__about">
+            <h2>RoyalStats</h2>
+            <p>Статистика колоды калькулятор прокачки и инструменты для игроков Clash Royale</p>
+        </div>
+        <div class="footer__links">
+            <h3>Навигация</h3>
+            <a href="#">Главная</a>
+            <a href="#">База знаний</a>
+            <a href="#">Метовые колоды</a>
+            <a href="#">Калькулятор прокачки</a>
+        </div>
+        <div class="footer__info">
+            <h3>Информация</h3>
+            <a href="https://maps.app.goo.gl/2d6aUvVsrnce1ypQ6" target="_blank">Наш офис</a>
+            <a href="tel:+79294339472">Связь с нами</a>
+            <a href="#">Политика конфиденциальности</a>
+        </div>
+    </div>
+    <div class="footer__bottom">© 2026 RoyalStats | Не связан с Supercell</div>
+</footer>
+<script src="Meta_decks.js"></script>
+</body>
+</html>

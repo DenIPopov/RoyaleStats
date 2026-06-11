@@ -1,0 +1,479 @@
+/* 1280px — ноутбуки */
+@media (max-width: 1280px) {
+    .header__content {
+        padding: 0 24px;
+    }
+ 
+    .sec1__content {
+        width: 580px;
+        max-width: 70%;
+        padding: 30px;
+        height: 500px;
+    }
+    .sec1__btns{
+        column-gap: 80PX;
+    }
+    .sec2__block-card {
+        gap: 5%;
+    }
+ 
+    .card {
+        width: 180px;
+        height: 280px;
+    }
+ 
+    .cardNum {
+        width: 130px;
+        height: 130px;
+        font-size: 30px;
+    }
+    .cardText{
+        font-size: 22px;
+        text-align: center;
+    }
+    /* sec2 */
+    .info-cards {
+        gap: 40px;
+        height: 80%;
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .unit {
+        width: 240px;
+        height: 220px;
+        text-align: center;
+    }
+    .unit__info{
+        text-align: center;
+    }
+    .unit__name, .unit__cost, .unit__type{
+        font-size: 12px;
+    }
+    .sec4__content {
+        grid-template-columns: 380px 1fr;
+        padding: 0 24px;
+    }
+    .sec4__title{
+        width: 90%;
+    }
+    .deck-card{
+        width: 90%;
+    }
+    .sec4__left {
+        height: 600px;
+    }
+ 
+    .footer__content {
+        padding: 40px 24px;
+        gap: 40px;
+    }
+}
+ 
+/* 1024px — планшет ландшафт */
+@media (max-width: 1024px) {
+    .Header__container {
+        height: auto;
+        padding: 12px 0;
+    }
+ 
+    .header__content {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 16px;
+    }
+ 
+    .nuvbar a {
+        padding-left: 20px;
+        font-size: 14px;
+    }
+ 
+    .sec1 {
+        height: auto;
+        min-height: 90vh;
+        padding: 40px 16px;
+    }
+ 
+    .sec1__conteiner {
+        height: auto;
+        justify-items: center;
+    }
+ 
+    .sec1__content {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 40px 30px;
+    }
+ 
+    .T-up {
+        font-size: 36px;
+    }
+ 
+    .T-down {
+        font-size: 24px;
+    }
+ 
+    .sec1__subtitle {
+        font-size: 18px;
+        margin-top: -60px;
+    }
+ 
+    .sec1__btns {
+        column-gap: 40px;
+        margin-top: 20px;
+    }
+ 
+    .sec2__conteiner {
+        height: auto;
+        padding: 40px 16px;
+    }
+ 
+    .sec2__block-card {
+        height: auto;
+        gap: 20px;
+        padding: 20px 0;
+    }
+ 
+    .card {
+        width: 100%;
+        max-width: 260px;
+        height: 280px;
+    }
+ 
+    .sec3__conteiner {
+        height: auto;
+        min-height: 60vh;
+        padding: 40px 16px;
+        background-size: cover;
+    }
+ 
+    .info-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        height: auto;
+    }
+ 
+    .unit {
+        width: 100%;
+    }
+ 
+    .sec4__content {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+    }
+ 
+    .sec4__left {
+        height: 350px;
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+    }
+ 
+    .footer__content {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        padding: 40px 16px;
+    }
+ 
+    .footer__about {
+        grid-column: 1 / -1;
+    }
+}
+ 
+/* 768px — планшет портрет */
+@media (max-width: 768px) {
+    .nuvbar ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+    }
+ 
+    .nuvbar li {
+        margin: 0;
+    }
+ 
+    .nuvbar a {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+ 
+    .sec1__content {
+        padding: 30px 20px;
+    }
+ 
+    .T-up {
+        font-size: 30px;
+    }
+ 
+    .T-down {
+        font-size: 20px;
+    }
+ 
+    .sec1__subtitle {
+        font-size: 16px;
+        margin-top: -30px;
+    }
+ 
+    .sec1__btns {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        column-gap: 0;
+    }
+ 
+    .btn {
+        width: 220px;
+        transform: scale(1);
+    }
+ 
+    .sec2__block-card {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 20px;
+    }
+ 
+    .card {
+        max-width: 300px;
+        width: 100%;
+    }
+ 
+    .info__title {
+        font-size: 28px;
+        padding: 30px 16px;
+    }
+ 
+    .info__title p {
+        width: 90%;
+    }
+ 
+    .info-cards {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+ 
+    .unit {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+ 
+    .unit__img {
+        width: 100%;
+        min-width: unset;
+        height: 160px;
+    }
+ 
+    .sec4__container {
+        padding: 40px 0;
+    }
+ 
+    .sec4__title h2 {
+        font-size: 22px;
+    }
+ 
+    .deck-card {
+        padding: 18px 20px;
+    }
+ 
+    .deck-info p {
+        font-size: 16px;
+    }
+ 
+    .deck-winrate {
+        font-size: 28px;
+    }
+ 
+    .footer__content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+ 
+    .footer__about {
+        grid-column: auto;
+    }
+}
+ 
+/* 480px — мобайл */
+@media (max-width: 480px) {
+    .Header__container {
+        padding: 10px 0;
+    }
+ 
+    .logo h1 {
+        font-size: 22px;
+    }
+ 
+    .nuvbar a {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+ 
+    .sec1 {
+        height: 20vh;
+        align-items: center;
+        min-height: 60vh;
+    }
+    .sec2{
+        display: none;
+    }
+    .sec1__content {
+        padding: 0;
+        border-radius: 16px;
+        padding: 40px;
+        min-height: 20vh;
+        width: 300px;
+    }
+ 
+    .T-up {
+        font-size: 26px;
+    }
+ 
+    .T-down {
+        font-size: 17px;
+    }
+ 
+    .sec1__subtitle {
+        font-size: 14px;
+        margin-top: -10px;
+    }
+ 
+    .btn {
+        width: 200px;
+        font-size: 12px;
+        padding: 10px 16px;
+    }
+ 
+    .sec2__conteiner {
+        padding: 30px 12px;
+    }
+ 
+    .card {
+        height: 240px;
+    }
+ 
+    .cardNum {
+        width: 100px;
+        height: 100px;
+        font-size: 32px;
+    }
+ 
+    .cardText {
+        font-size: 18px;
+    }
+ 
+    .sec3__conteiner {
+        padding: 24px 12px;
+        padding-bottom: 20px;
+    }
+    .sec3__block-info{
+        display: grid;
+    }
+    .info__title {
+        font-size: 20px;
+        padding: 20px 12px;
+    }
+ 
+    .info__title p {
+        width: 100%;
+        padding: 8px;
+    }
+ 
+    .info-cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+ 
+    .unit {
+        flex-direction: row;
+        height: 140px;
+    }
+ 
+    .unit__img {
+        width: 100px;
+        min-width: 100px;
+        height: 100%;
+    }
+    .unit__info{
+        text-align: center;
+        width: 100%;
+    }
+    .info-cards{
+        background-color: rgba(240, 255, 255, 0);
+        border: none;
+        box-shadow: none;
+        display: grid;
+        row-gap: 40px;
+    }
+    .unit__name {
+        font-size: 14px;
+    }
+ 
+    .unit__type {
+        font-size: 14px;
+    }
+ 
+    .unit__cost {
+        font-size: 13px;
+    }
+ 
+    .sec4__container {
+        padding: 30px 0;
+    }
+ 
+    .sec4__content {
+        padding: 0 12px;
+        gap: 24px;
+        max-width: 390px;
+        margin: 0 auto;
+    }
+ 
+    .sec4__left {
+        height: 250px;
+        width: 80%;
+        display: none;
+        justify-content: center;
+    }
+
+    .sec4__right {
+        justify-content: center;
+        display: flex;
+        gap: 16px;
+        width: 406px;
+        justify-content: center;
+        position: relative;
+    }
+ 
+    .sec4__title h2 {
+        font-size: 18px;
+    }
+ 
+    .deck-card {
+        padding: 14px 16px;
+        width: 365px;
+        text-align: center;
+    }
+ 
+    .deck-info p {
+        font-size: 14px;
+    }
+ 
+    .deck-info span {
+        font-size: 12px;
+    }
+ 
+    .deck-winrate {
+        font-size: 24px;
+    }
+ 
+    .footer__content {
+        padding: 30px 12px;
+        gap: 20px;
+        text-align: center;
+    }
+ 
+    .footer__bottom {
+        font-size: 13px;
+        padding: 16px 12px;
+    }
+}

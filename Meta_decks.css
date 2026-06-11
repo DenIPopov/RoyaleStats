@@ -1,0 +1,491 @@
+:root {
+    --mainCol: #1A2B5E;
+    --mainCol2: #404e68;
+    --AkcCol: #6b8ef8;
+    --goldCol: #F0B429;
+    --lightgold: #ffd676;
+    --cardBG: #d7d8a9;
+    --redAkc: #DC143C;
+    --akcGold:#ffb60b;
+    --green: #36DA82;
+    --lightGreen:#9eeac1;
+    --fon: #e1f2fd;
+    --cards: rgb(228, 214, 191);
+    --textCol: #2C2C2A;
+    --mainSize: 18px;
+    --hs: 32px;
+    --backText: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 1920px;
+  min-height: 1481px; 
+  display: flex;
+  flex-direction: column;
+  font-family: 'Barlow', sans-serif;
+  background: #1a1a2e;
+  overflow-x: auto;
+  margin: 0 auto;
+}
+
+.meta_yellow-bar {
+  height: 4px;
+  width: 100%;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #00F2FE, #4FACFE, #736EFE, #4FACFE, #00F2FE);
+  background-size: 400% auto; 
+  animation: meta_shimmer 3s linear infinite;
+}
+
+@keyframes meta_shimmer {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.meta_yellow-bar:hover {
+  animation-duration: 1s;
+  height: 5px; 
+  cursor: pointer;
+}
+
+.meta_main {
+  background: #1A2B5E;
+  display: flex;
+  padding: 0;
+  width: 100%;
+  max-width: 1920px;
+}
+
+.meta_image-block {
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.metaBGI{
+  background: url('https://images2.alphacoders.com/127/thumb-1920-1270367.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 30vw;
+  height: 100vh;        
+}
+.meta_arena-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.meta_content-block {
+  flex: 1;
+  padding: 40px 60px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+.meta_deck3-item {
+  display: block;
+}
+.meta_info-block {
+  width: 903px;
+  height: 216px;
+  background: rgba(#1A2B5E);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 40px;
+  margin-bottom: 8px;
+}
+
+.meta_deck-label{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  align-items: center;
+  text-transform: uppercase;
+  text-shadow: 0px 3px 8px var(--green);
+}
+.meta_info-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 55px;
+  letter-spacing: -0.02em;
+}
+
+.meta_info-subtitle {
+  font-size: 25px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.meta_arena-section {
+  margin-bottom: 8px;
+  display: grid;
+  justify-content: center;
+}
+
+.meta_arena-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  width: 250px;
+  height: 18px;
+  line-height: 18px;
+  margin-left: 140px;
+}
+
+.meta_arena-select {
+  margin-left: 40px;
+  width: 370px;
+  height: 61px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 16px;
+  color: #1a1a2e;
+  cursor: pointer;
+  font-family: 'Barlow', sans-serif;
+  transition: 0.3s;
+  box-shadow: 0 0 15px rgba(61, 32, 253, 1), 0 0 30px rgba(61, 32, 253, 1);
+  border: 2px solid #92D0FF;
+  border-radius: 16px;
+}
+
+.meta_arena-select:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.meta_decks-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.meta_deck-item {
+    flex: 1 1 300px;
+    max-width: 460px;
+}
+
+.meta_deck-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #92D0FF;
+  height: 24px;
+  line-height: 24px;
+}
+
+.meta_deck-card {
+  width: 460px;
+  height: auto;
+  background: #043172;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: 0 0 15px var(--AkcCol);
+  border: 2px solid var(--AkcCol);
+  overflow: hidden;
+}
+
+.deckImage {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.deckImage img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.meta_deck-card:hover {
+  transform: translateY(-5px);
+  background: var(--mainCol);
+}
+
+.meta_deck-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #93ccfe;
+  margin-bottom: 12px;
+}
+
+.meta_deck-item:first-child .meta_deck-card-title {
+  font-size: 32px;
+  height: 38px;
+  line-height: 38px;
+}
+
+.meta_deck-item:last-child .meta_deck-card-title {
+  font-size: 32px;
+  height: 38px;
+  line-height: 38px;
+}
+
+.meta_cards-icons {
+  font-size: 32px;
+  margin-bottom: 12px;
+  letter-spacing: 8px;
+}
+
+.meta_elixir {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.meta_deck3-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-top: 8px;
+}
+
+.meta_deck3-card {
+  width: 460px;
+  height: auto;
+}
+
+.meta_circle-btn {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFFFFF, #FFFFFF);
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 6px 14px rgba(61, 32, 253, 1), 0 0 8px #3D20FD;
+  border: 2px solid #92D0FF;
+}
+
+.meta_circle-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #FFFFFF, #FFFFFF);
+}
+
+.meta_btn-minus {
+  font-size: 64px;  
+  padding-bottom: 15px;
+  color: #1A2B5E;
+}
+
+.meta_btn-plus {
+  font-size: 56px;
+  padding-bottom: 15px;
+  color: #1A2B5E;
+}
+
+@media (max-width: 1920px) {
+  body {
+    width: 100%;
+  }
+  .meta_info-block {
+    width: 100%;
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    max-width: 903px;
+  }
+}
+@media (max-width: 1400px) {
+  .meta_image-block {
+    width: 400px;
+  }
+  .meta_deck-card {
+    width: 100%;
+    max-width: 460px;
+  }
+  .meta_decks-row {
+    flex-wrap: wrap;
+  }
+  .meta_deck3-wrapper {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* ===== Responsive Fixes ===== */
+
+body{
+  width:100%;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+.meta_main{
+  width:100%;
+  max-width:none;
+}
+
+.meta_image-block{
+  flex:0 0 35%;
+  max-width:579px;
+}
+
+.meta_info-block{
+  width:100%;
+  max-width:903px;
+  min-height:216px;
+  height:auto;
+}
+
+.meta_arena-label{
+  margin-left:0;
+  width:auto;
+}
+
+.meta_arena-select{
+  margin-left:0;
+  width:100%;
+  max-width:500px;
+}
+
+.meta_decks-row{
+  flex-wrap:wrap;
+  gap:30px;
+}
+
+.meta_deck-card{
+  width:100%;
+  max-width:460px;
+}
+
+@media (max-width:1024px){
+  .meta_main{
+    flex-direction:column;
+  }
+
+  .meta_image-block{
+    width:100%;
+    max-width:none;
+    flex:none;
+    height:300px;
+    overflow:hidden;
+  }
+
+  .metaBGI{
+    width:100%;
+    height:300px;
+  }
+
+  .meta_content-block{
+    padding:30px;
+  }
+
+  .meta_decks-row{
+    justify-content:center;
+    gap:20px;
+  }
+
+  .meta_deck3-wrapper{
+    gap:30px;
+  }
+}
+
+@media (max-width:768px){
+  .meta_content-block{
+    padding:20px 15px;
+  }
+  .meta_deck3-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+  }
+  .meta_info-title{
+    font-size:32px;
+    margin-bottom:20px;
+  }
+
+  .meta_info-subtitle{
+    font-size:18px;
+  }
+
+  .meta_arena-select{
+    height:55px;
+  }
+
+  .meta_decks-row{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .meta_deck-card{
+    max-width:100%;
+  }
+
+  .meta_deck3-wrapper{
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .meta_circle-btn{
+    width:60px;
+    height:60px;
+    font-size:36px;
+  }
+}
+
+@media (max-width:480px){
+  .meta_image-block{
+    height:200px;
+  }
+
+  .metaBGI{
+    height:200px;
+  }
+
+  .meta_info-title{
+    font-size:26px;
+  }
+
+  .meta_info-subtitle{
+    font-size:16px;
+  }
+
+  .meta_content-block{
+    padding:15px 10px;
+  }
+
+  .meta_deck-card{
+    padding:12px;
+  }
+
+  .meta_circle-btn{
+    width:50px;
+    height:50px;
+    font-size:28px;
+  }
+}
